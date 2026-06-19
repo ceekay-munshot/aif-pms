@@ -1,0 +1,56 @@
+name: test-apmi
+
+# Manual live test-harvest for the APMI PMS scraper (perf-scraper/scrape-apmi.mjs).
+# Validation only — runs the scraper against the real APMI site on a GitHub-hosted
+# runner (open egress) and uploads its output as artifacts for inspection.
+# It does NOT commit any data; the committed store comes from the full pipeline
+# in later prompts. APMI is public, so no secrets are needed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max approaches to scrape (0 = all)'
+        required: false
+        default: '30'
+      month:
+        description: 'Reporting month override (YYYY-MM); blank = latest available'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  test-apmi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install scraper deps (--no-save)
+        run: npm install playwright@1 cheerio@1 --no-save
+
+      - name: Install Playwright chromium (+ system deps)
+        run: npx playwright install --with-deps chromium
+
+      - name: Run APMI scraper (live)
+        env:
+          LIMIT: ${{ inputs.limit }}
+          MONTH: ${{ inputs.month }}
+          DEBUG: '1'
+        run: node perf-scraper/scrape-apmi.mjs
+
+      - name: Upload scraper output (apmi-pms.json + apmi-page.png)
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: apmi-output
+          path: perf-scraper/output/
+          if-no-files-found: warn

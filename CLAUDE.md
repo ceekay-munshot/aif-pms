@@ -133,7 +133,7 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
 ## 6. 12-step roadmap
 
 1. [x] Scaffold + design system + data contract
-2. [ ] APMI PMS scraper (public)
+2. [x] APMI PMS scraper (public) → `perf-scraper/scrape-apmi.mjs`
 3. [ ] PMS Bazaar AIF scraper (login)
 4. [ ] Normalize/unify + derive alpha
 5. [ ] Build store (idempotent merge)
@@ -154,3 +154,23 @@ npx wrangler dev      # serves ./public via the Worker's ASSETS binding
 The boot loader disappears, the KPI strip counts up from the (placeholder) data,
 all four tabs switch, and the "Updated &lt;month&gt;" badge reflects
 `as_of_month`.
+
+### Running the scrapers (sandbox / CI egress)
+
+Scrapers reach external hosts, so the runtime's **network egress allowlist** must
+include them. In Claude Code on the web (and CI), allow:
+
+- `www.apmiindia.org` — APMI (PMS), step 2
+- *(later)* PMS Bazaar host(s) — step 3
+
+Playwright's chromium is **preinstalled** at `PLAYWRIGHT_BROWSERS_PATH`; the
+browser-download CDN may be blocked, so install deps with the download skipped:
+
+```bash
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install playwright@1 cheerio@1 --no-save
+node perf-scraper/scrape-apmi.mjs        # → perf-scraper/output/apmi-pms.json (gitignored)
+```
+
+Without the host allowlisted, `scrape-apmi.mjs` **fails fast (no junk data)** and
+saves `perf-scraper/output/apmi-page.png` for inspection. Knobs: `LIMIT`,
+`MONTH=YYYY-MM`, `HEADFUL=1`, `DEBUG=1`.

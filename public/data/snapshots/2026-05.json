@@ -1,0 +1,23 @@
+{
+  "_placeholder": true,
+  "_comment": "PLACEHOLDER — overwritten by the snapshot trail in prompt 6.",
+  "month": "2026-05",
+  "generated_at": "2026-06-19T09:30:00+05:30",
+  "totals": { "funds": 8, "pms": 5, "aif": 3, "managers": 8, "categories": 4 },
+  "per_category": [
+    { "category": "Multi Cap", "fund_count": 2, "median_y1": 22.35, "median_y3": 20.1 },
+    { "category": "Small & Mid Cap", "fund_count": 2, "median_y1": 36.35, "median_y3": 28.6 },
+    { "category": "Thematic", "fund_count": 2, "median_y1": 14.6, "median_y3": 14.3 },
+    { "category": "Cat III Long Only", "fund_count": 2, "median_y1": 25.55, "median_y3": 21.8 }
+  ],
+  "ranking": [
+    { "id": "saffron-partners-small-cap-discovery", "manager": "Saffron Partners", "approach": "Small Cap Discovery", "vehicle": "PMS", "category": "Small & Mid Cap", "y1": 38.5, "y3": 29.4, "rank_y1": 1 },
+    { "id": "banyan-tree-advisors-emerging-giants", "manager": "Banyan Tree Advisors", "approach": "Emerging Giants", "vehicle": "PMS", "category": "Small & Mid Cap", "y1": 34.2, "y3": 27.8, "rank_y1": 2 },
+    { "id": "crestview-asset-managers-long-alpha-fund", "manager": "Crestview Asset Managers", "approach": "Long Alpha Fund", "vehicle": "AIF", "category": "Cat III Long Only", "y1": 28.4, "y3": 23.5, "rank_y1": 3 },
+    { "id": "lodestar-capital-multi-cap-advantage", "manager": "Lodestar Capital", "approach": "Multi Cap Advantage", "vehicle": "PMS", "category": "Multi Cap", "y1": 24.6, "y3": 21.3, "rank_y1": 4 },
+    { "id": "heritage-wealth-absolute-return-lo", "manager": "Heritage Wealth", "approach": "Absolute Return LO", "vehicle": "AIF", "category": "Cat III Long Only", "y1": 22.7, "y3": 20.1, "rank_y1": 5 },
+    { "id": "northwind-capital-blue-chip-focus", "manager": "Northwind Capital", "approach": "Blue Chip Focus", "vehicle": "PMS", "category": "Multi Cap", "y1": 20.1, "y3": 18.9, "rank_y1": 6 },
+    { "id": "meridian-investment-managers-india-consumption", "manager": "Meridian Investment Managers", "approach": "India Consumption", "vehicle": "PMS", "category": "Thematic", "y1": 16.9, "y3": 15.6, "rank_y1": 7 },
+    { "id": "indus-valley-capital-digital-india-fund", "manager": "Indus Valley Capital", "approach": "Digital India Fund", "vehicle": "AIF", "category": "Thematic", "y1": 12.3, "y3": 13.0, "rank_y1": 8 }
+  ]
+}

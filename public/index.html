@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fund Screener — MGA</title>
+    <meta
+      name="description"
+      content="Screen Indian PMS & AIF performance — filter, rank, and find the top-performing managers."
+    />
+
+    <!-- Tailwind Play CDN (no build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { fontFamily: {
+        display: ['"Space Grotesk"', "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+      } } } };
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries (deferred so they execute before the app module, after parse) -->
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+
+    <style>
+      html, body { background: #FBFAFF; }
+      body {
+        font-family: "Inter", system-ui, sans-serif; color: #1e293b; min-height: 100vh;
+        background-image:
+          radial-gradient(40rem 40rem at 8% -8%, rgba(139,92,246,0.16), transparent 60%),
+          radial-gradient(38rem 38rem at 105% 4%, rgba(236,72,153,0.12), transparent 58%),
+          radial-gradient(42rem 42rem at 60% 120%, rgba(59,130,246,0.12), transparent 60%);
+        background-attachment: fixed;
+      }
+      .font-display { font-family: "Space Grotesk", sans-serif; }
+      .font-mono { font-family: "JetBrains Mono", monospace; }
+      .brand-gradient { background-image: linear-gradient(100deg, #6366F1, #A855F7 45%, #EC4899 80%);
+        -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .card { background:#fff; border-radius:1.5rem; box-shadow:0 1px 2px rgba(16,24,40,.04), 0 12px 32px -16px rgba(16,24,40,.18); transition: transform .2s ease, box-shadow .2s ease; }
+      .card-hover:hover { transform: translateY(-3px); box-shadow:0 1px 2px rgba(16,24,40,.05), 0 20px 44px -18px rgba(16,24,40,.28); }
+      .tab-btn { transition: all .18s ease; }
+      .tab-btn[aria-selected="true"] { background-image: linear-gradient(100deg,#6366F1,#A855F7 55%,#EC4899); color:#fff; box-shadow:0 10px 26px -10px rgba(139,92,246,.65); }
+      .tab-btn[aria-selected="false"] { color:#475569; }
+      .tab-btn[aria-selected="false"]:hover { background:#fff; box-shadow:0 6px 18px -10px rgba(16,24,40,.25); transform:translateY(-1px); }
+      .fade-in { animation: fadeIn .28s ease both; }
+      @keyframes fadeIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:none;} }
+      .scroll-area::-webkit-scrollbar { width:8px; height:8px; }
+      .scroll-area::-webkit-scrollbar-thumb { background:rgba(100,116,139,.28); border-radius:8px; }
+      /* Chart heights via real CSS (NOT Tailwind JIT) so ECharts sizes correctly at init. */
+      .chart-box { width:100%; height:340px; }
+      .chart-tall { width:100%; height:560px; }
+      @media (max-width:640px){ .chart-tall { height:420px; } }
+      #drill-overlay, #drill-panel { transition: opacity .25s ease; }
+      #drill-card { transition: transform .26s cubic-bezier(.34,1.4,.5,1), opacity .22s ease; }
+    </style>
+  </head>
+
+  <body class="font-sans">
+    <!-- Boot loader -->
+    <div id="boot-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-[#FBFAFF]">
+      <div class="flex flex-col items-center gap-4">
+        <div class="h-10 w-10 animate-spin rounded-full border-[3px] border-slate-200 border-t-violet-500"></div>
+        <p class="font-display text-sm font-medium text-slate-500">Loading fund data…</p>
+      </div>
+    </div>
+
+    <main class="mx-auto max-w-6xl px-4 pb-24 pt-8">
+      <!-- Header -->
+      <header class="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 class="font-display text-3xl font-bold sm:text-4xl">
+            <span class="align-middle">📊</span>
+            <span class="brand-gradient align-middle">Fund Screener — MGA</span>
+          </h1>
+          <p class="mt-2 max-w-xl text-sm text-slate-500 sm:text-base">
+            Screen Indian PMS &amp; AIF performance — filter, rank, and find the top-performing managers.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            id="export-btn"
+            class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <i data-lucide="download" class="h-4 w-4"></i> Export
+          </button>
+          <span
+            id="updated-badge"
+            class="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-2 text-xs font-medium text-slate-500 ring-1 ring-slate-200"
+          >
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            </span>
+            <span id="updated-label">Updated —</span>
+          </span>
+        </div>
+      </header>
+
+      <!-- KPI strip -->
+      <section id="kpi-strip" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"></section>
+
+      <!-- Tab nav -->
+      <nav
+        class="sticky top-4 z-30 mx-auto mt-8 flex w-full max-w-xl items-center gap-1 rounded-2xl bg-white/80 p-1.5 shadow-sm ring-1 ring-slate-200/70 backdrop-blur"
+        role="tablist"
+        aria-label="Views"
+      >
+        <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="screener" aria-selected="true" aria-controls="tab-screener">
+          <i data-lucide="sliders-horizontal" class="h-4 w-4"></i><span class="hidden sm:inline">Screener</span>
+        </button>
+        <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="leaderboard" aria-selected="false" aria-controls="tab-leaderboard">
+          <i data-lucide="trophy" class="h-4 w-4"></i><span class="hidden sm:inline">Leaderboard</span>
+        </button>
+        <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="categories" aria-selected="false" aria-controls="tab-categories">
+          <i data-lucide="layers" class="h-4 w-4"></i><span class="hidden sm:inline">Categories</span>
+        </button>
+        <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="movers" aria-selected="false" aria-controls="tab-movers">
+          <i data-lucide="trending-up" class="h-4 w-4"></i><span class="hidden sm:inline">Movers</span>
+        </button>
+      </nav>
+
+      <!-- Tab panels -->
+      <div class="mt-6">
+        <section id="tab-screener" role="tabpanel" aria-labelledby="screener" class="fade-in"></section>
+        <section id="tab-leaderboard" role="tabpanel" class="fade-in" hidden></section>
+        <section id="tab-categories" role="tabpanel" class="fade-in" hidden></section>
+        <section id="tab-movers" role="tabpanel" class="fade-in" hidden></section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-16 border-t border-slate-200/70 pt-6 text-center text-xs text-slate-400">
+        Sources: APMI (PMS) · PMS Bazaar (AIF) · monthly
+      </footer>
+    </main>
+
+    <!-- Fund-drill modal (wired in prompt 11) -->
+    <div id="drill-overlay" class="fixed inset-0 z-40 hidden bg-slate-900/40 opacity-0 backdrop-blur-sm"></div>
+    <div id="drill-panel" class="fixed inset-0 z-50 hidden items-center justify-center p-4 opacity-0">
+      <div id="drill-card" class="card w-full max-w-2xl translate-y-4 opacity-0">
+        <div id="drill-content" class="scroll-area max-h-[85vh] overflow-y-auto p-6"></div>
+      </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  // Fund Screener — MGA · Cloudflare Worker + static assets.
+  // The Worker serves everything in ./public through the ASSETS binding.
+  "name": "fund-screener",
+  "compatibility_date": "2026-06-19",
+  "main": "worker/index.js",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+}

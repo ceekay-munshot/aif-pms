@@ -1,0 +1,9 @@
+{
+  "_placeholder": true,
+  "_comment": "PLACEHOLDER — overwritten by the snapshot trail in prompt 6.",
+  "updated_at": "2026-06-19T09:30:00+05:30",
+  "count": 1,
+  "snapshots": [
+    { "month": "2026-05", "fund_count": 8, "pms_count": 5, "aif_count": 3, "median_y1": 23.7 }
+  ]
+}

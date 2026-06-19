@@ -1,0 +1,5 @@
+node_modules/
+perf-scraper/output/
+.wrangler/
+.DS_Store
+*.log

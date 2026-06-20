@@ -437,6 +437,19 @@ async function selectReportingMonth(page) {
   return null;
 }
 
+/** Fallback: derive the reporting month from "as on <date>" text on the page. */
+async function scanAsOfMonth(page) {
+  const txt = await page
+    .evaluate(() => (document.body ? document.body.innerText : ''))
+    .catch(() => '');
+  if (!txt) return null;
+  for (const m of txt.matchAll(/as\s+(?:on|of|at)\s*:?\s*([^\n,;|]{4,28})/gi)) {
+    const ym = parseMonthFromText(m[1]);
+    if (ym) return ym;
+  }
+  return null;
+}
+
 /** Maximise rows-per-page on a DataTables-style listing (prefer "All"). */
 async function maximiseEntriesPerPage(page) {
   // Prefer the actual DataTables length menu; only then fall back to a heuristic
@@ -685,9 +698,13 @@ async function main() {
     await clickConsentIfPresent(page);
     await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {});
 
-    const asOfFromSelect = await selectReportingMonth(page);
+    let asOf = await selectReportingMonth(page);
     await page.waitForSelector('table', { timeout: 20_000 }).catch(() => {});
     await maximiseEntriesPerPage(page);
+    if (!asOf) {
+      asOf = await scanAsOfMonth(page); // text-based "as on <date>" fallback
+      if (asOf) log(`Reporting month (from page text): ${asOf}`);
+    }
     await saveShot();
 
     // Discovery logging.
@@ -744,9 +761,9 @@ async function main() {
       throw new Error(msg);
     }
 
-    const as_of_month = MONTH || asOfFromSelect || istPrevMonth();
-    if (!asOfFromSelect && !MONTH)
-      log(`! No date selector found; defaulting as_of_month to IST previous month: ${as_of_month}`);
+    const as_of_month = MONTH || asOf || istPrevMonth();
+    if (!asOf && !MONTH)
+      log(`! No reporting month found on page; defaulting as_of_month to IST previous month: ${as_of_month}`);
 
     if (LIMIT > 0 && approaches.length > LIMIT) {
       log(`Applying LIMIT=${LIMIT} (of ${approaches.length} discovered).`);

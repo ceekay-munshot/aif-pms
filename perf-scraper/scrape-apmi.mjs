@@ -65,6 +65,7 @@ const LIMIT = parseInt(env.LIMIT || '0', 10) || 0;
 const MONTH = (env.MONTH || '').trim();
 const HEADFUL = !!env.HEADFUL && env.HEADFUL !== '0';
 const DEBUG = !!env.DEBUG && env.DEBUG !== '0';
+const EXPLORE = /^(1|true|yes|on)$/i.test(env.EXPLORE || '');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const log = (...a) => console.log(...a);
@@ -644,6 +645,55 @@ function mergeApproaches(lists) {
   return out;
 }
 
+// ───────────────────────── toggle exploration (EXPLORE=1) ───────────────────
+
+/**
+ * One-shot reconnaissance for the period (`tableFilter-select`) and benchmark
+ * (`tableFilter-benchmark`) toggles: drive each option and dump how the table
+ * mutates (headers / first row / listing total) so the real multi-period +
+ * benchmark capture can be built from facts. Writes nothing. EXPLORE=1 only.
+ * Pair with the broad request/response logger attached in main when EXPLORE.
+ */
+async function exploreToggles(page) {
+  const dump = async (label) => {
+    const best = extractApproachesFromHtml(await page.content(), { debug: false });
+    const info = await readListingInfo(page);
+    log(`\n=== STATE: ${label} ===`);
+    log('  headers :', JSON.stringify(best ? best.combined : null));
+    log('  colMap  :', JSON.stringify(best ? best.colMap : null));
+    log('  listing :', JSON.stringify(info));
+    log('  parsed0 :', JSON.stringify(best && best.approaches[0] ? best.approaches[0] : null));
+    log('  rawRow0 :', best ? best.sampleRowHtml.slice(0, 600) : null);
+  };
+
+  await dump('baseline');
+
+  for (const id of ['tableFilter-select', 'tableFilter-benchmark']) {
+    const sel = page.locator(`#${id}, select[id*="${id}" i]`).first();
+    if (!(await sel.count().catch(() => 0))) {
+      log(`\n(no #${id} on page)`);
+      continue;
+    }
+    const opts = await sel
+      .evaluate((el) => Array.from(el.options).map((o) => ({ v: o.value, t: (o.textContent || '').trim() })))
+      .catch(() => []);
+    log(`\n#${id} options: ${JSON.stringify(opts)}`);
+    for (const o of opts) {
+      try {
+        await sel.selectOption(o.v);
+        await page.waitForLoadState('networkidle', { timeout: 6000 }).catch(() => {});
+        await sleep(1400);
+        await dump(`${id}=${o.t}`);
+      } catch (e) {
+        log(`  select ${id}=${o.t} failed: ${e.message}`);
+      }
+    }
+    // Reset to the first option before exploring the next toggle.
+    if (opts[0]) await sel.selectOption(opts[0].v).catch(() => {});
+    await sleep(800);
+  }
+}
+
 // ───────────────────────────── main ─────────────────────────────────────────
 
 function istPrevMonth() {
@@ -657,7 +707,7 @@ function istPrevMonth() {
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   log(`APMI PMS scraper · ${SOURCE_URL}`);
-  log(`Knobs: LIMIT=${LIMIT || 'all'} MONTH=${MONTH || 'latest'} HEADFUL=${HEADFUL} DEBUG=${DEBUG}`);
+  log(`Knobs: LIMIT=${LIMIT || 'all'} MONTH=${MONTH || 'latest'} HEADFUL=${HEADFUL} DEBUG=${DEBUG} EXPLORE=${EXPLORE}`);
 
   const browser = await chromium.launch({
     headless: !HEADFUL,
@@ -670,6 +720,29 @@ async function main() {
   });
   const page = await context.newPage();
   page.setDefaultTimeout(60_000);
+
+  // EXPLORE: broad request/response logger to reveal the data endpoint + how the
+  // period/benchmark toggles fire XHRs (which params change). Noisy → EXPLORE only.
+  if (EXPLORE) {
+    page.on('request', (req) => {
+      if (['xhr', 'fetch'].includes(req.resourceType())) {
+        const d = req.postData();
+        log(`[net→] ${req.method()} ${req.url()}${d ? ' DATA=' + d.slice(0, 250) : ''}`);
+      }
+    });
+    page.on('response', async (resp) => {
+      const req = resp.request();
+      if (!['xhr', 'fetch'].includes(req.resourceType())) return;
+      const ct = (resp.headers()['content-type'] || '').replace(/\s+/g, ' ');
+      let sample = '';
+      try {
+        sample = (await resp.text()).slice(0, 220).replace(/\s+/g, ' ');
+      } catch {
+        /* ignore */
+      }
+      log(`[net←] ${resp.status()} ${ct} ${resp.url()} :: ${sample}`);
+    });
+  }
 
   // Discovery: capture candidate JSON datasets + download links.
   const jsonEndpoints = [];
@@ -715,6 +788,14 @@ async function main() {
     await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
     await clickConsentIfPresent(page);
     await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {});
+
+    if (EXPLORE) {
+      await page.waitForSelector('table', { timeout: 20_000 }).catch(() => {});
+      await saveShot();
+      await exploreToggles(page);
+      log('\nEXPLORE complete — no output written (reconnaissance only).');
+      return;
+    }
 
     let asOf = await selectReportingMonth(page);
     await page.waitForSelector('table', { timeout: 20_000 }).catch(() => {});

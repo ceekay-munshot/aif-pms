@@ -17,6 +17,11 @@ on:
         description: 'Reporting month override (YYYY-MM); blank = latest available'
         required: false
         default: ''
+      explore:
+        description: 'Recon only: dump how the period/benchmark toggles mutate the table (writes no data)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -45,6 +50,7 @@ jobs:
           LIMIT: ${{ inputs.limit }}
           MONTH: ${{ inputs.month }}
           DEBUG: '1'
+          EXPLORE: ${{ inputs.explore }}
         run: node perf-scraper/scrape-apmi.mjs
 
       - name: Upload scraper output (apmi-pms.json + apmi-page.png)

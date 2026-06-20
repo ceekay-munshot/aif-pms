@@ -233,6 +233,24 @@ async function loginViaBrowser(page) {
 
 // ─────────────────────── JSON endpoint discovery + mapping ───────────────────
 
+/** Parse JSON, transparently handling ASP.NET double-encoding (a JSON string
+ *  whose content is itself JSON). Returns the decoded value, or null. */
+function parseMaybeDouble(text) {
+  try {
+    let v = JSON.parse(text);
+    if (typeof v === 'string') {
+      try {
+        v = JSON.parse(v);
+      } catch {
+        /* keep the string */
+      }
+    }
+    return v;
+  } catch {
+    return null;
+  }
+}
+
 /** Recursively find the largest array-of-objects inside a parsed JSON value. */
 function findLargestObjectArray(node, depth = 0) {
   if (depth > 6 || node == null) return null;
@@ -379,16 +397,17 @@ async function exploreSite(page, apiHits) {
 }
 
 function reportApiHits(apiHits) {
-  if (!apiHits.length) {
-    log('  (no JSON XHR endpoints captured)');
-    return;
-  }
-  log(`  captured ${apiHits.length} JSON endpoint(s):`);
-  for (const h of apiHits) {
+  const data = apiHits.filter((h) => /pmsbazaar\.com/i.test(h.url));
+  const other = apiHits.filter((h) => !/pmsbazaar\.com/i.test(h.url));
+  log(`  PMS Bazaar endpoints (${data.length}):`);
+  for (const h of data) {
     log(`   · ${h.method} ${h.url}`);
-    log(`       rows=${h.count} keys=${JSON.stringify(h.keys)}`);
-    if (DEBUG) log(`       sample=${h.sample}`);
+    log(`       postData=${h.postData ? h.postData.slice(0, 240) : '(none)'}`);
+    log(`       rows=${h.count} keys=${JSON.stringify(h.keys).slice(0, 600)}`);
+    if (h.first) log(`       first=${JSON.stringify(h.first).slice(0, 2600)}`);
+    else log(`       sample=${h.sample}`);
   }
+  if (other.length) log(`  (ignored ${other.length} third-party endpoints: linkedin/purechat/etc.)`);
 }
 
 // ───────────────────────────── main ─────────────────────────────────────────
@@ -420,19 +439,16 @@ async function main() {
       const ct = (resp.headers()['content-type'] || '').toLowerCase();
       if (!/json/.test(ct) && !/\.json(\?|$)/.test(url)) return;
       const text = await resp.text();
-      let json;
-      try {
-        json = JSON.parse(text);
-      } catch {
-        return;
-      }
+      const json = parseMaybeDouble(text);
+      if (json == null) return;
       const arr = findLargestObjectArray(json);
       apiHits.push({
         url,
         method: req.method(),
         postData: req.postData() || null,
         count: arr ? arr.length : 0,
-        keys: arr && arr[0] ? Object.keys(arr[0]).slice(0, 40) : [],
+        keys: arr && arr[0] ? Object.keys(arr[0]) : [],
+        first: arr && arr[0] ? arr[0] : null,
         sample: text.slice(0, 300).replace(/\s+/g, ' '),
         _arr: arr,
       });

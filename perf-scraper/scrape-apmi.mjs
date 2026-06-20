@@ -176,9 +176,10 @@ export function classifyColumn(header) {
 
   if (/aum|assets?\s*under|corpus|asset\s*under/.test(hl)) return { field: 'aum' };
   if (/incep/.test(hl)) return { field: 'inception' };
-  if (/invest(ment)?\s*approach|approach\s*name|name\s*of\s*(the\s*)?(invest(ment)?\s*)?approach|scheme\s*name|strategy\s*name/.test(hl))
+  // "IA" / "IA Name" is APMI's label for the investment approach.
+  if (/invest(ment)?\s*approach|approach\s*name|name\s*of\s*(the\s*)?(invest(ment)?\s*)?approach|scheme\s*name|strategy\s*name|\bia\s*name\b|\bia\b/.test(hl))
     return { field: 'approach' };
-  if (/portfolio\s*manager|fund\s*manager|name\s*of\s*(the\s*)?(portfolio\s*)?manager|manager\s*name|\bamc\b|\bpms\b/.test(hl))
+  if (/portfolio\s*manager|fund\s*manager|name\s*of\s*(the\s*)?(portfolio\s*)?manager|manager\s*name|provider\s*name|\bamc\b|\bpms\b/.test(hl))
     return { field: 'manager' };
   if (/category|asset\s*class|sub[-\s]*category|strategy/.test(hl))
     return { field: 'category' };
@@ -436,46 +437,89 @@ async function selectReportingMonth(page) {
   return null;
 }
 
-/** Try to maximise rows-per-page on a DataTables-style listing. */
+/** Maximise rows-per-page on a DataTables-style listing (prefer "All"). */
 async function maximiseEntriesPerPage(page) {
-  const selects = await page.locator('select').all();
-  for (const sel of selects) {
-    let info;
-    try {
-      info = await sel.evaluate((el) => ({
-        cls: el.className + ' ' + (el.name || '') + ' ' + (el.id || ''),
-        opts: Array.from(el.options).map((o) => o.value + '|' + o.textContent),
-      }));
-    } catch {
-      continue;
+  // Prefer the actual DataTables length menu; only then fall back to a heuristic
+  // select (the loose heuristic once grabbed an unrelated select with a "580"
+  // option, leaving the table on its default page size).
+  let target = null;
+  for (const sel of [
+    '.dataTables_length select',
+    'div[class*="length"] select',
+    'select[name$="_length"]',
+    'select[name*="length" i]',
+    'select[id*="length" i]',
+  ]) {
+    const loc = page.locator(sel).first();
+    if (await loc.count().catch(() => 0)) {
+      target = loc;
+      break;
     }
-    const looksLikeLength =
-      /length|per\s*page|entries|show/i.test(info.cls) ||
-      info.opts.some((o) => /\ball\b|100|250|500/i.test(o));
-    if (!looksLikeLength) continue;
-    // Prefer "All", else the largest numeric option.
-    const all = info.opts.find((o) => /\ball\b/i.test(o));
-    let chosen;
-    if (all) chosen = all.split('|')[0];
-    else {
-      const nums = info.opts
-        .map((o) => ({ v: o.split('|')[0], n: parseInt(o.split('|')[0], 10) }))
-        .filter((x) => Number.isFinite(x.n))
-        .sort((a, b) => b.n - a.n);
-      chosen = nums.length ? nums[0].v : null;
-    }
-    if (chosen != null) {
-      try {
-        await sel.selectOption(chosen);
-        dbg('set entries-per-page to', chosen);
-        await sleep(1200);
-        return true;
-      } catch {
-        /* ignore */
+  }
+  if (!target) {
+    const selects = await page.locator('select').all();
+    for (const sel of selects) {
+      const info = await sel
+        .evaluate((el) => ({
+          meta: (el.className + ' ' + (el.name || '') + ' ' + (el.id || '')).toLowerCase(),
+          opts: Array.from(el.options).map((o) => `${o.value}|${(o.textContent || '').trim()}`),
+        }))
+        .catch(() => null);
+      if (!info) continue;
+      const looks =
+        /length|per\s*page|page\s*size|entries|show/.test(info.meta) ||
+        info.opts.some((o) => /\ball\b|^-1\|/i.test(o));
+      if (looks) {
+        target = sel;
+        break;
       }
     }
   }
-  return false;
+  if (!target) {
+    dbg('no entries-per-page select found');
+    return false;
+  }
+
+  const opts = await target
+    .evaluate((el) => Array.from(el.options).map((o) => ({ v: o.value, t: (o.textContent || '').trim() })))
+    .catch(() => []);
+  dbg('length-menu options:', JSON.stringify(opts));
+  // DataTables "All" is the sentinel value "-1"; else text "All"; else largest numeric.
+  const chosen =
+    opts.find((o) => o.v === '-1') ||
+    opts.find((o) => /^all$/i.test(o.t)) ||
+    opts
+      .map((o) => ({ ...o, n: parseInt(o.v, 10) }))
+      .filter((o) => Number.isFinite(o.n))
+      .sort((a, b) => b.n - a.n)[0] ||
+    null;
+  if (!chosen) return false;
+  try {
+    await target.selectOption(chosen.v);
+    await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {});
+    await sleep(1200);
+    dbg('set entries-per-page to', JSON.stringify(chosen));
+    return true;
+  } catch (e) {
+    dbg('length select failed:', e.message);
+    return false;
+  }
+}
+
+/** Read the DataTables-style listing info text + tbody row count + total. */
+async function readListingInfo(page) {
+  return await page
+    .evaluate(() => {
+      const el = document.querySelector('.dataTables_info, [class*="_info"]');
+      const txt = el ? el.textContent.replace(/\s+/g, ' ').trim() : null;
+      let total = null;
+      if (txt) {
+        const m = txt.match(/of\s+([\d,]+)\s+(?:entries|records)/i);
+        if (m) total = parseInt(m[1].replace(/,/g, ''), 10);
+      }
+      return { txt, bodyRows: document.querySelectorAll('table tbody tr').length, total };
+    })
+    .catch(() => ({ txt: null, bodyRows: 0, total: null }));
 }
 
 /** Collect page HTML across pagination (Next button / numbered pages). */
@@ -483,15 +527,36 @@ async function collectPaginatedHtml(page) {
   const htmls = [];
   const seen = new Set();
   const MAX_PAGES = 800;
+
+  if (DEBUG) {
+    const cands = await page
+      .evaluate(() => {
+        const out = [];
+        document.querySelectorAll('a,button,li').forEach((el) => {
+          const t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+          const c = el.className || '';
+          if (/next|prev|paginate|page/i.test(c) || /^(next|previous|»|›|‹|«)$/i.test(t))
+            out.push(`<${el.tagName.toLowerCase()} class="${c}">${t.slice(0, 16)}`);
+        });
+        return out.slice(0, 15);
+      })
+      .catch(() => []);
+    dbg('pagination candidates:', JSON.stringify(cands));
+  }
+
   for (let i = 0; i < MAX_PAGES; i++) {
     const html = await page.content();
     htmls.push(html);
     // Find an enabled "next" control.
     const nextSel = [
       'a.paginate_button.next:not(.disabled)',
+      '.dataTables_paginate a.next:not(.disabled)',
+      '.dataTables_paginate .paginate_button.next:not(.disabled)',
+      '.paginate_button.next:not(.disabled)',
       'li.next:not(.disabled) a',
       'li.paginate_button.next:not(.disabled) a',
       'a[rel="next"]',
+      'a.next:not(.disabled)',
       'button[aria-label*="Next" i]:not([disabled])',
       'a:has-text("Next"):not(.disabled)',
     ];
@@ -637,6 +702,17 @@ async function main() {
         .evaluateAll((els) => els.map((a) => a.href || a.textContent).slice(0, 10))
         .catch(() => []);
       dbg('download/export candidates:', dl);
+      const sels = await page
+        .locator('select')
+        .evaluateAll((els) =>
+          els.map((el) => ({
+            id: el.name || el.id || el.className,
+            opts: Array.from(el.options).map((o) => (o.textContent || '').trim()).slice(0, 10),
+          }))
+        )
+        .catch(() => []);
+      dbg('selects on page:', JSON.stringify(sels));
+      dbg('listing info:', JSON.stringify(await readListingInfo(page)));
     }
 
     // Parse the rendered table(s), walking pagination.

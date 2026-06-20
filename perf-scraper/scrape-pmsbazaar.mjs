@@ -47,11 +47,10 @@ import {
 const SOURCE = 'PMS Bazaar';
 const SITE = 'https://pmsbazaar.com';
 const AIF_URL = 'https://pmsbazaar.com/Visitor/aif-investment';
-// Candidate login entry points (the real one is confirmed by the recon run).
+// Login entry points (confirmed by recon: ASP.NET MVC form at /Home/Login).
 const LOGIN_URLS = [
-  'https://pmsbazaar.com/login',
-  'https://pmsbazaar.com/Visitor/login',
-  'https://pmsbazaar.com/signin',
+  'https://pmsbazaar.com/Home/Login?ReturnUrl=%2FVisitor%2Faif-investment',
+  'https://pmsbazaar.com/Home/Login',
   AIF_URL,
 ];
 
@@ -83,6 +82,17 @@ const settle = async (page, ms = 1200) => {
   await sleep(ms);
 };
 
+/** First VISIBLE element matching a locator (PMS Bazaar duplicates the login
+ *  form — a hidden header dropdown + the main form — so `.first()` isn't safe). */
+async function firstVisible(loc) {
+  const n = await loc.count().catch(() => 0);
+  for (let i = 0; i < n; i++) {
+    const el = loc.nth(i);
+    if (await el.isVisible().catch(() => false)) return el;
+  }
+  return null;
+}
+
 // ───────────────────────────── login ────────────────────────────────────────
 
 /** Click a cookie/consent banner if present (best-effort). */
@@ -110,69 +120,56 @@ async function looksLikeChallenge(page) {
   return /verify you are human|checking your browser|cf-browser-verification/i.test(body);
 }
 
-/** Ensure a login form (password field) is visible, navigating / opening modals as needed. */
+/** Ensure a VISIBLE login form is present, navigating / opening modals as needed. */
 async function ensureLoginForm(page) {
-  const hasPw = () => page.locator('input[type="password"]').count();
-  if (await hasPw()) return true;
+  const visiblePw = async () => !!(await firstVisible(page.locator('input[type="password"]')));
   for (const url of LOGIN_URLS) {
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       await settle(page);
       await dismissConsent(page);
-      if (await hasPw()) {
-        dbg('login form found at', url);
+      if (await visiblePw()) {
+        dbg('visible login form at', url);
         return true;
       }
     } catch (e) {
       dbg('login url failed', url, e.message);
     }
   }
-  // Try a login trigger (button/link) on the site/AIF page.
-  for (const base of [AIF_URL, SITE]) {
+  // Try a login trigger (button/link) to reveal a hidden/modal form.
+  for (const t of ['Login', 'Log In', 'Sign In', 'Member Login', 'Login / Register']) {
     try {
-      await page.goto(base, { waitUntil: 'domcontentloaded' });
-      await settle(page);
-      await dismissConsent(page);
-    } catch {
-      /* ignore */
-    }
-    for (const t of ['Login', 'Log In', 'Sign In', 'Sign in', 'Member Login', 'Login / Register']) {
-      try {
-        const loc = page
-          .getByRole('link', { name: new RegExp(t, 'i') })
-          .or(page.getByRole('button', { name: new RegExp(t, 'i') }))
-          .first();
-        if (await loc.count()) {
-          await loc.click({ timeout: 3000 });
-          await settle(page, 800);
-          if (await hasPw()) {
-            dbg('login form opened via trigger:', t);
-            return true;
-          }
+      const trig = await firstVisible(
+        page.getByRole('link', { name: new RegExp(t, 'i') }).or(page.getByRole('button', { name: new RegExp(t, 'i') }))
+      );
+      if (trig) {
+        await trig.click({ timeout: 3000 });
+        await settle(page, 800);
+        if (await visiblePw()) {
+          dbg('login form opened via trigger:', t);
+          return true;
         }
-      } catch {
-        /* try next */
       }
+    } catch {
+      /* try next */
     }
   }
-  return (await hasPw()) > 0;
+  return await visiblePw();
 }
 
-/** Verify we are authenticated. Returns a short reason string, or null if not. */
+/** Verify we are authenticated. Returns a short reason string, or null if not.
+ *  Uses VISIBLE password absence (the hidden header login form persists after
+ *  login) + a logout link + leaving the login URL. */
 async function verifyLoggedIn(page) {
-  await sleep(1200);
-  const hasPw = await page.locator('input[type="password"]').count().catch(() => 0);
+  await sleep(1500);
+  const visPw = !!(await firstVisible(page.locator('input[type="password"]')));
   const logout = await page
     .locator('a:has-text("Logout"), a:has-text("Log Out"), a:has-text("Sign Out"), [href*="logout" i], [href*="signout" i]')
     .count()
     .catch(() => 0);
-  const account = await page
-    .locator('[href*="account" i], [href*="profile" i], [href*="dashboard" i], [class*="avatar" i]')
-    .count()
-    .catch(() => 0);
+  const onLoginUrl = /\/home\/login|\/login|signin/i.test(page.url());
   if (logout > 0) return 'logout link present';
-  if (hasPw === 0 && account > 0) return 'account/dashboard element present, no password field';
-  if (hasPw === 0 && !/login|signin/i.test(page.url())) return `no password field; url=${page.url()}`;
+  if (!visPw && !onLoginUrl) return `no visible password field; url=${page.url()}`;
   return null;
 }
 
@@ -183,25 +180,40 @@ async function loginViaBrowser(page) {
   const found = await ensureLoginForm(page);
   if (await looksLikeChallenge(page))
     log('! Anti-bot interstitial detected — login may be blocked on this runner.');
-  if (!found) throw new Error('Could not locate a login form (no password field). See screenshot.');
+  if (!found) throw new Error('Could not locate a VISIBLE login form. See screenshot.');
 
   const emailSel =
     'input[type="email"], input[name*="email" i], input[id*="email" i], ' +
     'input[name*="user" i], input[id*="user" i], input[name*="mobile" i], input[autocomplete="username"]';
-  const passSel = 'input[type="password"]';
 
-  const emailField = page.locator(emailSel).first();
-  if (await emailField.count()) await emailField.fill(EMAIL);
-  else dbg('! no email/username field matched');
-  await page.locator(passSel).first().fill(PASSWORD);
+  if (DEBUG) {
+    const fields = await page
+      .evaluate(() => {
+        const vis = (el) => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+        const map = (els) => els.map((e) => ({ id: e.id || e.name || e.type, vis: vis(e) }));
+        return {
+          user: map([...document.querySelectorAll('input[type=email],input[name*=user i],input[id*=user i],input[name*=email i]')]),
+          pass: map([...document.querySelectorAll('input[type=password]')]),
+        };
+      })
+      .catch(() => null);
+    dbg('login fields:', JSON.stringify(fields));
+  }
+
+  const emailField = await firstVisible(page.locator(emailSel));
+  const passField = await firstVisible(page.locator('input[type="password"]'));
+  if (!emailField || !passField)
+    throw new Error(`Login fields not visible (email=${!!emailField} pass=${!!passField}). See screenshot.`);
+  await emailField.fill(EMAIL, { timeout: 15_000 });
+  await passField.fill(PASSWORD, { timeout: 15_000 });
   dbg('filled credentials; submitting…');
 
-  const submit = page
-    .getByRole('button', { name: /log\s*in|sign\s*in|^login$|^submit$|continue/i })
-    .first();
-  if (await submit.count()) await submit.click({ timeout: 5000 }).catch(() => {});
-  else await page.locator(passSel).first().press('Enter');
-  await settle(page, 2000);
+  const submit = await firstVisible(
+    page.getByRole('button', { name: /log\s*in|sign\s*in|^login$|^submit$|continue/i })
+  );
+  if (submit) await submit.click({ timeout: 8000 }).catch(() => {});
+  else await passField.press('Enter');
+  await settle(page, 2500);
 
   const ok = await verifyLoggedIn(page);
   if (!ok) {

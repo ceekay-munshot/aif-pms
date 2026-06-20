@@ -71,6 +71,20 @@ perf-scraper/             (later) ESM .mjs scrapers + orchestrator
 - **PMS Bazaar** — **AIF** data. **Login-gated.** Credentials come from secrets
   **`PMSBAZAAR_EMAIL`** / **`PMSBAZAAR_PASSWORD`** and are driven with
   **Playwright** — the same login approach as the sister repo's Screener login.
+  - **Mechanics (confirmed live, May 2026):** login is an ASP.NET form at
+    `/Home/Login` — the page also renders a **hidden** header/register login form,
+    so target the **visible** field (`firstVisible`). After login, the AIF listing
+    loads everything from one call: `POST /Visitor/AIFDashboardData` →
+    **double-encoded JSON** (a quoted string containing the array) with **162 AIF
+    schemes**. Each carries metadata (`AMCName`, `SchemeName`, `ProductName`=Cat
+    type, `DisplayCategory`="CAT III - LONG ONLY", `AssetClass`=Long Only/Long-Short,
+    `Category`=cap orientation, `AUM_In_Crs`, `BenchmarkIndex`,
+    `Strategy_Inception_Date`) and a nested **`SchemeReturns[]`** with **both** the
+    fund value (`SchemeReturnValue`) **and** the benchmark value (`IndexReturnValue`)
+    per period → **PMS Bazaar exposes `benchmark_returns`** (`scrape-pmsbazaar.mjs`).
+  - **For step 4:** AIF **alpha is derivable directly** (benchmark returns present);
+    compose the unified `category` from `aif_category`(ProductName) + `strategy`
+    (AssetClass) — `DisplayCategory` already encodes that form.
 
 ## 4. Data contract
 
@@ -147,7 +161,7 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
 
 1. [x] Scaffold + design system + data contract
 2. [x] APMI PMS scraper (public) → `perf-scraper/scrape-apmi.mjs`
-3. [ ] PMS Bazaar AIF scraper (login)
+3. [x] PMS Bazaar AIF scraper (login) → `perf-scraper/scrape-pmsbazaar.mjs`
 4. [ ] Normalize/unify + derive alpha
 5. [ ] Build store (idempotent merge)
 6. [ ] Monthly snapshot trail
@@ -174,7 +188,7 @@ Scrapers reach external hosts, so the runtime's **network egress allowlist** mus
 include them. In Claude Code on the web (and CI), allow:
 
 - `www.apmiindia.org` — APMI (PMS), step 2
-- *(later)* PMS Bazaar host(s) — step 3
+- `pmsbazaar.com` — PMS Bazaar (AIF), step 3 (login; needs `PMSBAZAAR_EMAIL` / `PMSBAZAAR_PASSWORD`)
 
 Playwright's chromium is **preinstalled** at `PLAYWRIGHT_BROWSERS_PATH`; the
 browser-download CDN may be blocked, so install deps with the download skipped:

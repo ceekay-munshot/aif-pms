@@ -55,6 +55,19 @@ perf-scraper/             (later) ESM .mjs scrapers + orchestrator
 
 - **APMI** — **PMS** data. **Public, no login.**
   `https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu`
+  - **Mechanics (confirmed live, May 2026):** the grid is populated by
+    `POST …?action=loadIAReport` (returns an **HTML** `<table>`) with form params
+    `strategyname=Equity`, `SelectedBenchmark=<id>`, `asOnDate=YYYY-M-D` (month-end,
+    no zero-pad), `servicetype=D`. The **period dropdown is client-side** (each
+    response already carries the full ladder incl. 2Y/3Y/4Y); the **benchmark
+    dropdown is server-side** and partitions the universe — **BSE 500 TRI (810) +
+    MSEI SX 40 TRI (8) + Nifty 50 TRI (383) = 1,201 IAs across 354 managers**. The
+    scraper POSTs once per benchmark to get every period **and** each fund's
+    `benchmark` name (`scrape-apmi.mjs`).
+  - **Gaps handled in normalize (step 4):** APMI exposes **no benchmark return
+    values** here → `benchmark_returns` (and thus **alpha**) must be sourced for
+    just those 3 indices in step 4. `category` is **classified** in step 4;
+    `inception` is not shown (stays `null`). Returns >1Y are CAGR, ≤1Y absolute.
 - **PMS Bazaar** — **AIF** data. **Login-gated.** Credentials come from secrets
   **`PMSBAZAAR_EMAIL`** / **`PMSBAZAAR_PASSWORD`** and are driven with
   **Playwright** — the same login approach as the sister repo's Screener login.

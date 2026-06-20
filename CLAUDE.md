@@ -166,7 +166,7 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
 5. [ ] Build store (idempotent merge)
 6. [ ] Monthly snapshot trail
 7. [ ] Orchestrator (run-pipeline.mjs)
-8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual APMI live test-harvest `.github/workflows/test-apmi.yml`*
+8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live test-harvests `.github/workflows/test-apmi.yml` + `test-pmsbazaar.yml`*
 9. [ ] Dashboard shell + KPI strip (partially done in step 1)
 10. [ ] Screener tab (filters + sortable table + category-relative top-N)
 11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export

@@ -397,17 +397,25 @@ async function exploreSite(page, apiHits) {
 }
 
 function reportApiHits(apiHits) {
+  // Trim long text values so the full key set + return fields are readable.
+  const trim = (o) => {
+    if (!o) return o;
+    const out = {};
+    for (const [k, v] of Object.entries(o))
+      out[k] = typeof v === 'string' && v.length > 80 ? v.slice(0, 40) + '…' : v;
+    return out;
+  };
   const data = apiHits.filter((h) => /pmsbazaar\.com/i.test(h.url));
   const other = apiHits.filter((h) => !/pmsbazaar\.com/i.test(h.url));
   log(`  PMS Bazaar endpoints (${data.length}):`);
   for (const h of data) {
-    log(`   · ${h.method} ${h.url}`);
-    log(`       postData=${h.postData ? h.postData.slice(0, 240) : '(none)'}`);
-    log(`       rows=${h.count} keys=${JSON.stringify(h.keys).slice(0, 600)}`);
-    if (h.first) log(`       first=${JSON.stringify(h.first).slice(0, 2600)}`);
-    else log(`       sample=${h.sample}`);
+    log(`   · ${h.method} ${h.url}  rows=${h.count}`);
+    if (h.postData) log(`       postData=${h.postData.slice(0, 240)}`);
+    if (h.keys.length) log(`       keys(${h.keys.length})=${JSON.stringify(h.keys)}`);
+    if (h.first) log(`       first=${JSON.stringify(trim(h.first))}`);
+    else if (!h.count) log(`       sample=${h.sample}`);
   }
-  if (other.length) log(`  (ignored ${other.length} third-party endpoints: linkedin/purechat/etc.)`);
+  if (other.length) log(`  (ignored ${other.length} third-party endpoints)`);
 }
 
 // ───────────────────────────── main ─────────────────────────────────────────

@@ -43,6 +43,7 @@ public/
   js/ui.js                Shared design system (tokens, formatting, charts, loadData)
   js/data.js              Shared data/selectors layer (filter/sort/rank/topN, deltas, history)
   js/drill.js             Shared fund-drill modal + reusable ladder/sparkline/vehicle pill
+  js/screener.js          Screener tab: filter bar + sortable/paginated table + category-relative top-N + getScreenerView()
   js/app.js               Boot + shell behaviour (KPI strip, tabs)
   data/
     funds-performance.json   Core file: all funds for the latest month
@@ -210,8 +211,8 @@ its file identically (never duplicates).
 6. [x] Monthly snapshot trail → `perf-scraper/write-snapshot.mjs`
 7. [x] Orchestrator → `perf-scraper/run-pipeline.mjs`
 8. [x] GitHub Actions (monthly + manual full backfill) → `.github/workflows/monthly-refresh.yml` (commits real data; manual tests `test-apmi`/`test-pmsbazaar`/`test-pipeline` stay artifact-only)
-9. [x] Dashboard shell on real data → `js/data.js` + `js/drill.js` + KPI strip (Screener tab is a temporary Top-25 until step 10; visual check via `shoot-dashboard.yml`)
-10. [ ] Screener tab (filters + sortable table + category-relative top-N)
+9. [x] Dashboard shell on real data → `js/data.js` + `js/drill.js` + KPI strip (Screener tab was a temporary Top-25, replaced in step 10; visual check via `shoot-dashboard.yml`)
+10. [x] Screener tab (filters + sortable table + category-relative top-N) → `js/screener.js` (sticky filter bar: vehicle/category/search/min-AUM/period/Return-Alpha/min-threshold/category-relative top-N; sortable header ladder; frozen Fund column + nowrap numerics — fixes the α-clip; incremental pagination; removable chips; `getScreenerView()` for prompt 11 export)
 11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export
 12. [ ] Docs + polish + deploy notes
 

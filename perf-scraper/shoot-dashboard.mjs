@@ -84,10 +84,45 @@ async function main() {
     await page.waitForSelector("#tab-screener tr[data-id]", { timeout: 15_000 });
     await sleep(1400); // count-up + layout settle
 
-    log("Capturing tabs:");
-    await shoot(page, "01-screener.png");
+    // Drive the Screener filter bar and capture its key states (default,
+    // filtered+sorted, Alpha view, category-relative) — the prompt-10 deliverable.
+    const seg = async (id, val) => { await page.click(`#${id} button[data-val="${val}"]`); await sleep(350); };
+    log("Capturing Screener states:");
+    await shoot(page, "01-screener-default.png");
 
-    for (const [i, tab] of [["02", "leaderboard"], ["03", "categories"], ["04", "movers"]]) {
+    // Filtered + sorted: PMS · Small Cap · sorted 3Y desc (mirrors the acceptance check).
+    try {
+      await seg("scr-vehicle", "PMS");
+      await page.waitForFunction(
+        () => { const s = document.getElementById("scr-category"); return s && [...s.options].some((o) => o.value === "Small Cap"); },
+        { timeout: 5000 }
+      ).catch(() => {});
+      await page.selectOption("#scr-category", "Small Cap").catch(() => {});
+      await sleep(300);
+      await seg("scr-period", "y3");
+      await sleep(450);
+      await shoot(page, "02-screener-filtered.png");
+    } catch (e) { log("  (filtered shot skipped: " + (e && e.message) + ")"); }
+
+    // Alpha view: reset, then flip the metric toggle to Alpha.
+    try {
+      await page.click("#scr-reset"); await sleep(350);
+      await seg("scr-mode", "alpha");
+      await sleep(450);
+      await shoot(page, "03-screener-alpha.png");
+    } catch (e) { log("  (alpha shot skipped: " + (e && e.message) + ")"); }
+
+    // Category-relative: top 5 per category.
+    try {
+      await page.click("#scr-reset"); await sleep(350);
+      await seg("scr-catrel", "on");
+      await sleep(450);
+      await shoot(page, "04-screener-percat.png");
+      await page.click("#scr-reset"); await sleep(300);
+    } catch (e) { log("  (per-category shot skipped: " + (e && e.message) + ")"); }
+
+    log("Capturing tabs:");
+    for (const [i, tab] of [["05", "leaderboard"], ["06", "categories"], ["07", "movers"]]) {
       await page.click(`.tab-btn[data-tab="${tab}"]`);
       await page.waitForSelector(`#tab-${tab}:not([hidden])`, { timeout: 10_000 });
       await sleep(500);
@@ -102,8 +137,8 @@ async function main() {
     await page.waitForSelector("#drill-spark canvas", { timeout: 8000 }).catch(() => {});
     await sleep(1000);
     log("Capturing drill:");
-    await page.screenshot({ path: path.join(OUT, "05-drill.png"), fullPage: false });
-    log(`  · ${path.relative(process.cwd(), path.join(OUT, "05-drill.png"))}`);
+    await page.screenshot({ path: path.join(OUT, "08-drill.png"), fullPage: false });
+    log(`  · ${path.relative(process.cwd(), path.join(OUT, "08-drill.png"))}`);
 
     log("\n✔ screenshots written to perf-scraper/output/shots/");
   } catch (err) {

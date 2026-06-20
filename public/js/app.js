@@ -1,16 +1,14 @@
-// app.js — Fund Screener — MGA · boot + shell behaviour (step 9: real data).
+// app.js — Fund Screener — MGA · boot + shell behaviour (step 10).
 //
 // Loads the committed data via the shared data layer, renders the performance KPI
-// strip, and wires tabs. The Screener tab shows a TEMPORARY "Top 25 by 1Y" list
-// (every row opens the shared fund-drill) — prompt 10 replaces it with the full
-// filterable Screener. Leaderboard / Categories / Movers stay placeholders (11).
+// strip, and wires tabs. The Screener tab is the full filterable Screener
+// (js/screener.js). Leaderboard / Categories / Movers stay placeholders (11).
 
 import {
-  countUp, fmtPct, pctColor, fmtMonth, escapeHtml, initials, managerColor,
-  categoryPill, emptyState, refreshIcons, resizeCharts,
+  countUp, fmtPct, pctColor, fmtMonth, emptyState, refreshIcons, resizeCharts,
 } from "./ui.js";
 import * as data from "./data.js";
-import { openFundDrill, vehiclePill } from "./drill.js";
+import { renderScreener } from "./screener.js";
 
 const $ = (id) => document.getElementById(id);
 const TABS = ["screener", "leaderboard", "categories", "movers"];
@@ -58,64 +56,6 @@ function renderKpis(meta, s) {
   countUp($("kpi-beating"), Math.round(s.beatingPct));
 }
 
-// --- Screener (TEMPORARY Top-25 stopgap — replaced by prompt 10) -------------
-function fundRow(f, n) {
-  const color = managerColor(f.manager || f.id);
-  const num = (v) => `<td class="px-3 py-2.5 text-right font-mono text-sm ${pctColor(v)}">${fmtPct(v)}</td>`;
-  return `<tr class="cursor-pointer border-t border-slate-100 transition hover:bg-violet-50/40" data-id="${escapeHtml(f.id)}">
-    <td class="px-3 py-2.5 text-right font-mono text-xs text-slate-400">${n}</td>
-    <td class="px-3 py-2.5">
-      <div class="flex items-center gap-2.5">
-        <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-bold text-white" style="background:${color};">${escapeHtml(initials(f.manager))}</div>
-        <div class="min-w-0">
-          <p class="truncate text-sm font-semibold text-slate-700">${escapeHtml(f.approach || "—")}</p>
-          <p class="truncate text-xs text-slate-400">${escapeHtml(f.manager || "—")}</p>
-        </div>
-      </div>
-    </td>
-    <td class="px-3 py-2.5">${vehiclePill(f.vehicle)}</td>
-    <td class="hidden px-3 py-2.5 md:table-cell">${categoryPill(f.category)}</td>
-    ${num(f.returns?.y1)}
-    ${num(f.returns?.y3)}
-    ${num(f.alpha?.y1)}
-  </tr>`;
-}
-
-function renderScreener() {
-  const sec = $("tab-screener");
-  if (!sec) return;
-  const rows = data.topN("y1", 25);
-  sec.innerHTML = `
-    <div class="card p-4 sm:p-6">
-      <div class="mb-4 flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h2 class="font-display text-lg font-bold text-slate-800">Top 25 by 1-Year Return</h2>
-          <p class="text-sm text-slate-500">Temporary preview — the full filterable Screener arrives in prompt 10.</p>
-        </div>
-        <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">${data.funds().length.toLocaleString("en-IN")} funds</span>
-      </div>
-      <div class="overflow-x-auto scroll-area">
-        <table class="w-full">
-          <thead>
-            <tr class="text-[11px] uppercase tracking-wide text-slate-400">
-              <th class="px-3 py-2 text-right font-semibold">#</th>
-              <th class="px-3 py-2 text-left font-semibold">Fund</th>
-              <th class="px-3 py-2 text-left font-semibold">Vehicle</th>
-              <th class="hidden px-3 py-2 text-left font-semibold md:table-cell">Category</th>
-              <th class="px-3 py-2 text-right font-semibold">1Y</th>
-              <th class="px-3 py-2 text-right font-semibold">3Y</th>
-              <th class="px-3 py-2 text-right font-semibold">α 1Y</th>
-            </tr>
-          </thead>
-          <tbody>${rows.map((f, i) => fundRow(f, i + 1)).join("")}</tbody>
-        </table>
-      </div>
-    </div>`;
-  sec.querySelectorAll("tr[data-id]").forEach((tr) =>
-    tr.addEventListener("click", () => openFundDrill(tr.dataset.id))
-  );
-}
-
 // --- Placeholders (built in prompt 11) --------------------------------------
 function renderPlaceholder(tab) {
   const sec = $(`tab-${tab}`);
@@ -132,7 +72,7 @@ function showTab(name) {
     if (sec) sec.hidden = t !== name;
   });
   if (!_rendered.has(name)) {
-    if (name === "screener") renderScreener();
+    if (name === "screener") renderScreener($("tab-screener"));
     else renderPlaceholder(name);
     _rendered.add(name);
   }

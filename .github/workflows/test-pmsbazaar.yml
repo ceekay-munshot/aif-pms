@@ -1,0 +1,58 @@
+name: test-pmsbazaar
+
+# Manual live test-harvest for the PMS Bazaar AIF scraper
+# (perf-scraper/scrape-pmsbazaar.mjs). Logs in with the PMSBAZAAR_* repo secrets,
+# fetches real AIF scheme performance on a GitHub-hosted runner (open egress), and
+# uploads perf-scraper/output/ as artifacts. Validation only — commits no data.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max schemes to scrape (0 = all)'
+        required: false
+        default: '20'
+      explore:
+        description: 'Recon only: log login flow + AIF endpoints/structure (writes no data)'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  test-pmsbazaar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install scraper deps (--no-save)
+        run: npm install playwright@1 cheerio@1 --no-save
+
+      - name: Install Playwright chromium (+ system deps)
+        run: npx playwright install --with-deps chromium
+
+      - name: Run PMS Bazaar scraper (live login)
+        env:
+          LIMIT: ${{ inputs.limit }}
+          EXPLORE: ${{ inputs.explore }}
+          DEBUG: '1'
+          PMSBAZAAR_EMAIL: ${{ secrets.PMSBAZAAR_EMAIL }}
+          PMSBAZAAR_PASSWORD: ${{ secrets.PMSBAZAAR_PASSWORD }}
+        run: node perf-scraper/scrape-pmsbazaar.mjs
+
+      - name: Upload scraper output (pmsbazaar-aif.json + pmsbazaar-page.png)
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: pmsbazaar-output
+          path: perf-scraper/output/
+          if-no-files-found: warn

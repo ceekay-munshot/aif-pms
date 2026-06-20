@@ -1,0 +1,4 @@
+{
+  "_comment": "Manual category overrides, keyed by unified fund id (slug(manager)-slug(approach)). Value is one of the CATEGORY_BUCKETS in normalize.mjs. Use this to fix funds the keyword classifier gets wrong or leaves as a fallback. Applies to PMS and AIF.",
+  "overrides": {}
+}

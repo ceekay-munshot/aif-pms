@@ -100,16 +100,33 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
   "generated_at": "ISO-8601", "as_of_month": "YYYY-MM",
   "fund_count": 0, "manager_count": 0, "pms_count": 0, "aif_count": 0, "category_count": 0,
   "funds": [{
-    "id": "slug-of-manager-approach", "manager": "string", "approach": "string",
-    "vehicle": "PMS|AIF", "category": "normalized string", "aum_cr": "number|null",
-    "benchmark": "string|null", "inception": "YYYY-MM-DD|null", "as_of": "YYYY-MM-DD",
+    "id": "slug(manager)-slug(approach)", "manager": "string", "approach": "string",
+    "vehicle": "PMS|AIF", "category": "unified cap/style bucket",
+    "strategy": "Long Only|Long-Short|null", "aif_cat": "Cat I|II|III|null (AIF only)",
+    "aum_cr": "number|null", "benchmark": "string|null",
+    "inception": "YYYY-MM-DD|null", "as_of": "YYYY-MM-DD", "as_of_month": "YYYY-MM",
     "returns": { "m1":0,"m3":0,"m6":0,"y1":0,"y2":0,"y3":0,"y5":0,"si":0 },
     "benchmark_returns": { "m1":0,"m3":0,"m6":0,"y1":0,"y2":0,"y3":0,"y5":0,"si":0 },
     "alpha": { "m1":0,"m3":0,"m6":0,"y1":0,"y2":0,"y3":0,"y5":0,"si":0 },
-    "source": "APMI|PMS Bazaar", "source_url": "string|null"
+    "source": "APMI|PMS Bazaar", "source_url": "string|null",
+    "source_category": "raw source label|null", "category_fallback": "true|absent (PMS unclear→Multi/Flexi)"
   }]
 }
 ```
+
+**Normalize (step 4, `perf-scraper/normalize.mjs` → `output/funds-normalized.json`):**
+- **Unified category** = one cap/style taxonomy across both vehicles:
+  `Large Cap · Large & Mid · Multi/Flexi Cap · Mid Cap · Mid & Small · Small Cap ·
+  Thematic/Sectoral · Value/Contra · Debt · Hybrid/Multi-Asset · Unclassified`.
+  AIF from PMS Bazaar `Category` (cap orientation); PMS from a documented keyword
+  map on the approach name (unclear-but-equity → "Multi/Flexi Cap" + `category_fallback`).
+  Per-fund overrides live in **`perf-scraper/static/pms-category-overrides.json`** (id→bucket).
+- **alpha** = `returns − benchmark_returns` per period (null if either null). **AIF**:
+  direct from per-period `IndexReturnValue`. **PMS**: APMI gives only the benchmark
+  *name*, so index ladders are harvested (median `IndexReturnValue` per benchmark)
+  into **`perf-scraper/static/benchmark-returns.json`** (committed, hand-overridable;
+  e.g. add MSEI SX 40); matched by normalized name; **PMS `si` alpha is always null**.
+  Uncovered benchmark → null ladder → null alpha (never blocks).
 
 ### `public/data/metadata.json`
 
@@ -162,11 +179,11 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
 1. [x] Scaffold + design system + data contract
 2. [x] APMI PMS scraper (public) → `perf-scraper/scrape-apmi.mjs`
 3. [x] PMS Bazaar AIF scraper (login) → `perf-scraper/scrape-pmsbazaar.mjs`
-4. [ ] Normalize/unify + derive alpha
+4. [x] Normalize/unify + derive alpha → `perf-scraper/normalize.mjs`
 5. [ ] Build store (idempotent merge)
 6. [ ] Monthly snapshot trail
 7. [ ] Orchestrator (run-pipeline.mjs)
-8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live test-harvests `.github/workflows/test-apmi.yml` + `test-pmsbazaar.yml`*
+8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-normalize.yml`*
 9. [ ] Dashboard shell + KPI strip (partially done in step 1)
 10. [ ] Screener tab (filters + sortable table + category-relative top-N)
 11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export

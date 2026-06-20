@@ -1,0 +1,4 @@
+{
+  "_comment": "Canonical benchmark return ladders for deriving PMS alpha. Keyed by a normalized benchmark key (UPPER, no S&P/TRI/INDEX, alphanumerics). Each entry: { label, months: { 'YYYY-MM': { m1..y5 } } }. Auto-harvested from the AIF dataset (median IndexReturnValue per period) by normalize.mjs; hand-edit to add/override uncovered indices (e.g. MSEI SX 40 TRI). Committed values win over harvested. si is excluded (per-fund inception).",
+  "benchmarks": {}
+}

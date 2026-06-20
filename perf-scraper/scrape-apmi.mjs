@@ -31,8 +31,17 @@
  * Env knobs:
  *   LIMIT=<n>     cap number of approaches (quick tests); 0 = all (default 0)
  *   MONTH=YYYY-MM override the reporting month (default: latest available)
+ *   STRATEGY=...  loadIAReport strategyname (default "Equity")
  *   HEADFUL=1     launch a visible browser to watch
- *   DEBUG=1       log discovered table headers + pagination candidates + endpoints
+ *   DEBUG=1       log selects, listing totals, per-benchmark headers
+ *   EXPLORE=1     recon only: dump how the period/benchmark toggles mutate the table
+ *
+ * Fetch strategy: APMI's table is populated by a POST to action=loadIAReport that
+ * returns an HTML <table> with the FULL period ladder (the period dropdown only
+ * shows/hides columns client-side). The benchmark dropdown filters the universe,
+ * so we POST once per benchmark to get every period AND each fund's benchmark
+ * name. (Benchmark RETURN values are not in this table, so alpha is left to the
+ * normalize step.) Falls back to paginating the rendered table if absent.
  *
  * Environment note (Claude Code on the web sandbox): outbound egress is
  * allowlisted. To run against the live site, `www.apmiindia.org` must be added
@@ -49,6 +58,11 @@ import path from 'node:path';
 const SOURCE = 'APMI';
 const SOURCE_URL =
   'https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu';
+// The page populates its table from this POST (returns an HTML <table>). The
+// period toggle is client-side, so each response carries the FULL period ladder;
+// the SelectedBenchmark param filters/labels the universe by benchmark.
+const LOAD_IA_URL =
+  'https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=loadIAReport';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(__dirname, 'output');
@@ -66,6 +80,7 @@ const MONTH = (env.MONTH || '').trim();
 const HEADFUL = !!env.HEADFUL && env.HEADFUL !== '0';
 const DEBUG = !!env.DEBUG && env.DEBUG !== '0';
 const EXPLORE = /^(1|true|yes|on)$/i.test(env.EXPLORE || '');
+const STRATEGY = (env.STRATEGY || 'Equity').trim(); // APMI loadIAReport strategyname
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const log = (...a) => console.log(...a);
@@ -645,6 +660,69 @@ function mergeApproaches(lists) {
   return out;
 }
 
+// ───────────────────────── loadIAReport (primary fetch) ─────────────────────
+
+/** Month-end date in APMI's loadIAReport format, e.g. "2026-05" → "2026-5-31". */
+export function asOnDateFor(ym) {
+  const [y, m] = ym.split('-').map(Number);
+  const lastDay = new Date(y, m, 0).getDate(); // day 0 of next month = last day of m
+  return `${y}-${m}-${lastDay}`;
+}
+
+/** Read the benchmark dropdown options (value + label). */
+async function readBenchmarkOptions(page) {
+  const sel = page.locator('#tableFilter-benchmark, select[id*="tableFilter-benchmark" i]').first();
+  if (!(await sel.count().catch(() => 0))) return [];
+  return await sel
+    .evaluate((el) =>
+      Array.from(el.options)
+        .map((o) => ({ value: o.value, label: (o.textContent || '').trim() }))
+        .filter((o) => o.value && o.label)
+    )
+    .catch(() => []);
+}
+
+/**
+ * Fetch the full PMS universe by POSTing loadIAReport once per benchmark (reusing
+ * the browser context's cookies). Each response's HTML carries every period
+ * column; we tag each row with its benchmark name and merge. Returns approaches[].
+ */
+async function scrapeViaLoadIAReport(context, { asOnDate, benchmarks, strategy }) {
+  const byKey = new Map();
+  for (const b of benchmarks) {
+    let html = '';
+    try {
+      const resp = await context.request.post(LOAD_IA_URL, {
+        form: {
+          SelectedBenchmark: b.value,
+          strategyname: strategy,
+          pmsProvideName: '',
+          pmsInvAprochName: '',
+          benchmark: 'null',
+          servicetype: 'D',
+          asOnDate,
+        },
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        timeout: 45_000,
+      });
+      html = await resp.text();
+    } catch (e) {
+      log(`! loadIAReport failed for "${b.label}": ${e.message}`);
+      continue;
+    }
+    const best = extractApproachesFromHtml(html, { debug: DEBUG });
+    const rows = best ? best.approaches : [];
+    log(`  · ${b.label} (id ${b.value}): ${rows.length} approaches`);
+    if (DEBUG && best) dbg(`    headers[${b.label}]:`, JSON.stringify(best.combined));
+    for (const r of rows) {
+      r.benchmark = b.label; // tag each fund's benchmark name
+      const key = `${(r.manager || '').toLowerCase()}||${(r.approach || '').toLowerCase()}`;
+      if (!byKey.has(key)) byKey.set(key, r);
+    }
+  }
+  return [...byKey.values()];
+}
+
 // ───────────────────────── toggle exploration (EXPLORE=1) ───────────────────
 
 /**
@@ -799,25 +877,17 @@ async function main() {
 
     let asOf = await selectReportingMonth(page);
     await page.waitForSelector('table', { timeout: 20_000 }).catch(() => {});
-    await maximiseEntriesPerPage(page);
     if (!asOf) {
       asOf = await scanAsOfMonth(page); // text-based "as on <date>" fallback
       if (asOf) log(`Reporting month (from page text): ${asOf}`);
     }
     await saveShot();
 
-    // Discovery logging.
-    if (jsonEndpoints.length) {
-      log(`Discovered ${jsonEndpoints.length} JSON endpoint(s):`);
-      for (const e of jsonEndpoints) log(`  · ${e.url} (${e.length}b)`);
-      if (DEBUG) for (const e of jsonEndpoints) dbg('  sample:', e.sample);
-    }
+    const as_of_month = MONTH || asOf || istPrevMonth();
+    if (!asOf && !MONTH)
+      log(`! No reporting month found on page; defaulting as_of_month to IST previous month: ${as_of_month}`);
+
     if (DEBUG) {
-      const dl = await page
-        .locator('a[href$=".xlsx"], a[href$=".xls"], a[href$=".csv"], a:has-text("Download"), a:has-text("Export")')
-        .evaluateAll((els) => els.map((a) => a.href || a.textContent).slice(0, 10))
-        .catch(() => []);
-      dbg('download/export candidates:', dl);
       const sels = await page
         .locator('select')
         .evaluateAll((els) =>
@@ -831,38 +901,46 @@ async function main() {
       dbg('listing info:', JSON.stringify(await readListingInfo(page)));
     }
 
-    // Parse the rendered table(s), walking pagination.
-    const htmls = await collectPaginatedHtml(page);
-    const perPage = htmls.map((h) => extractApproachesFromHtml(h, { debug: DEBUG }));
-    const best = perPage.find(Boolean);
-
-    if (DEBUG && best) {
-      log('[debug] chosen table headers:', JSON.stringify(best.combined));
-      log('[debug] column map:', JSON.stringify(best.colMap));
+    // Primary path: replicate APMI's loadIAReport POST once per benchmark. The
+    // period toggle is client-side, so each benchmark's raw HTML carries the FULL
+    // period ladder (1M..SI incl. 2Y/3Y), and the benchmark subsets both tag each
+    // fund's benchmark name and together cover the whole universe.
+    const benchmarks = await readBenchmarkOptions(page);
+    let approaches = [];
+    if (benchmarks.length) {
+      const baselineTotal = (await readListingInfo(page)).total;
+      log(
+        `Fetching via loadIAReport · asOnDate=${asOnDateFor(as_of_month)} · strategy=${STRATEGY} · ` +
+          `benchmarks: ${benchmarks.map((b) => b.label).join(', ')}`
+      );
+      approaches = await scrapeViaLoadIAReport(context, {
+        asOnDate: asOnDateFor(as_of_month),
+        benchmarks,
+        strategy: STRATEGY,
+      });
+      log(`Combined ${approaches.length} approaches (UI baseline total: ${baselineTotal ?? 'n/a'}).`);
+      if (baselineTotal && approaches.length < baselineTotal)
+        log(`! NOTE: combined (${approaches.length}) < baseline (${baselineTotal}); some IAs may lack a benchmark assignment.`);
+    } else {
+      // Fallback: paginate the rendered table (default columns only).
+      dbg('no benchmark dropdown found; paginating rendered table');
+      await maximiseEntriesPerPage(page);
+      const htmls = await collectPaginatedHtml(page);
+      const perPage = htmls.map((h) => extractApproachesFromHtml(h, { debug: DEBUG }));
+      const best = perPage.find(Boolean);
+      if (DEBUG && best) dbg('chosen headers:', JSON.stringify(best.combined));
+      approaches = mergeApproaches(perPage.filter(Boolean).map((p) => p.approaches));
     }
-    if (best && best.sampleRowHtml) {
-      log('First data-row markup sample:');
-      log('  ' + best.sampleRowHtml);
-    }
-
-    let approaches = mergeApproaches(perPage.filter(Boolean).map((p) => p.approaches));
 
     if (!approaches.length) {
       const msg =
-        'FAILED to locate the APMI performance table / dataset.\n' +
+        'FAILED to scrape the APMI performance dataset.\n' +
         `  · Inspect the screenshot: ${path.relative(process.cwd(), OUT_PNG)}\n` +
         `  · Navigation status was ${resp && resp.status()} for ${SOURCE_URL}\n` +
-        (jsonEndpoints.length
-          ? `  · ${jsonEndpoints.length} JSON endpoint(s) were seen — re-run with DEBUG=1 to inspect samples and wire up the JSON path.\n`
-          : '  · No JSON endpoints were observed.\n') +
         '  · If running in a sandbox, ensure `www.apmiindia.org` is in the network egress allowlist.\n' +
-        '  · Re-run with DEBUG=1 to dump discovered table headers + pagination candidates.';
+        '  · Re-run with DEBUG=1 to dump selects, listing info, and per-benchmark headers.';
       throw new Error(msg);
     }
-
-    const as_of_month = MONTH || asOf || istPrevMonth();
-    if (!asOf && !MONTH)
-      log(`! No reporting month found on page; defaulting as_of_month to IST previous month: ${as_of_month}`);
 
     if (LIMIT > 0 && approaches.length > LIMIT) {
       log(`Applying LIMIT=${LIMIT} (of ${approaches.length} discovered).`);

@@ -188,7 +188,11 @@ its file identically (never duplicates).
 - **Dating**: use **IST (`Asia/Kolkata`)** for "today" / month boundaries.
 - **GitHub Actions** commits refreshed data to **`main`** with a
   **rebase-retry push** loop (fetch + rebase + retry on the non-fast-forward
-  race when two runs collide).
+  race when two runs collide). The production **`monthly-refresh.yml`** (cron
+  `23 14 20 * *` + manual `month`/`limit` inputs) runs `run-pipeline.mjs` and
+  commits `public/data/`. GitHub disables scheduled workflows after ~60 days of
+  repo inactivity, but the monthly data commit keeps the repo active — so the
+  schedule is **self-sustaining** once it has run.
 - **Design tokens live in `ui.js`** (+ the `<style>` block in `index.html`).
   Treat them as the brand contract shared with Fund Tracker — MGA; do not let
   them drift.
@@ -203,7 +207,7 @@ its file identically (never duplicates).
 5. [x] Build store (idempotent merge) → `perf-scraper/build-store.mjs`
 6. [x] Monthly snapshot trail → `perf-scraper/write-snapshot.mjs`
 7. [x] Orchestrator → `perf-scraper/run-pipeline.mjs`
-8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-pipeline.yml` (orchestrator end-to-end)*
+8. [x] GitHub Actions (monthly + manual full backfill) → `.github/workflows/monthly-refresh.yml` (commits real data; manual tests `test-apmi`/`test-pmsbazaar`/`test-pipeline` stay artifact-only)
 9. [ ] Dashboard shell + KPI strip (partially done in step 1)
 10. [ ] Screener tab (filters + sortable table + category-relative top-N)
 11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export

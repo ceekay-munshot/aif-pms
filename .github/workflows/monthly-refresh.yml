@@ -1,0 +1,100 @@
+name: monthly-refresh
+
+# Production pipeline: run the orchestrator live and COMMIT the refreshed
+# public/data/ to main. This is the workflow that keeps the dashboard's data
+# current (and replaces the placeholder on its first run).
+#
+# Schedule rationale: APMI + PMS Bazaar finalize the prior month's figures with a
+# lag, so we run mid/late month. The scrapers default to the latest *available*
+# month, so an early/extra run just re-commits the latest — an idempotent no-op
+# when nothing changed (the commit step skips when there's no diff).
+
+on:
+  schedule:
+    - cron: '23 14 20 * *' # 14:23 UTC on the 20th, monthly
+  workflow_dispatch:
+    inputs:
+      month:
+        description: 'Reporting month YYYY-MM (backfill/override); blank = latest available'
+        required: false
+        default: ''
+      limit:
+        description: 'Per-source cap (0 = all)'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+# Don't let a manual run and the schedule clobber each other.
+concurrency:
+  group: monthly-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # full history so the rebase-retry push works
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install scraper deps (--no-save)
+        run: npm install playwright@1 cheerio@1 --no-save
+
+      - name: Install Playwright chromium (+ system deps)
+        run: npx playwright install --with-deps chromium
+
+      - name: Run pipeline (orchestrator)
+        env:
+          PMSBAZAAR_EMAIL: ${{ secrets.PMSBAZAAR_EMAIL }}
+          PMSBAZAAR_PASSWORD: ${{ secrets.PMSBAZAAR_PASSWORD }}
+          MONTH: ${{ inputs.month }}
+          LIMIT: ${{ inputs.limit || '0' }}
+        run: node perf-scraper/run-pipeline.mjs
+
+      - name: Upload data artifact
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: public-data
+          path: public/data/
+          if-no-files-found: warn
+
+      - name: Commit & push refreshed data (rebase-retry)
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add public/data/
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to commit (idempotent no-op)."
+            exit 0
+          fi
+
+          MONTH="$(node -e "process.stdout.write(require('./public/data/metadata.json').as_of_month||'')")"
+          git commit -m "Monthly fund-performance refresh (${MONTH})"
+
+          # Rebase-retry push: handle the non-fast-forward race if two runs collide.
+          pushed=0
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:main; then
+              echo "pushed on attempt ${attempt}"; pushed=1; break
+            fi
+            echo "push rejected (attempt ${attempt}) — fetch + rebase + backoff"
+            git fetch origin main
+            git rebase origin/main || git rebase --abort
+            sleep "$((2 ** attempt))"
+          done
+          if [ "${pushed}" -ne 1 ]; then
+            echo "::error::push failed after 4 attempts"; exit 1
+          fi

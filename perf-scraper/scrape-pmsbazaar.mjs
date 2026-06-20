@@ -40,7 +40,6 @@ import {
   parseNum,
   parseDate,
   parseMonthFromText,
-  matchPeriod,
   extractApproachesFromHtml,
 } from './scrape-apmi.mjs';
 
@@ -275,47 +274,43 @@ function findLargestObjectArray(node, depth = 0) {
   return best;
 }
 
-/** Map a JSON key to a return-ladder period (handles numeric + word forms). */
-function periodFromKey(key) {
-  const k = String(key).toLowerCase();
-  const p = matchPeriod(k.replace(/[_\-]/g, ' '));
-  if (p) return p;
-  if (/\bsi\b|inception|incep/.test(k)) return 'si';
-  const words = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
-  const wm = k.match(/(one|two|three|four|five|six)\s*(month|mon|mth|year|yr)/);
-  if (wm) {
-    const n = words[wm[1]];
-    return /mon|mth/.test(wm[2]) ? `m${n}` : `y${n}`;
-  }
-  return null;
-}
+// SchemeReturns[].SchemeReturnText → our period key (Return_10_Yr has no contract slot).
+const RETURN_TEXT_TO_PERIOD = {
+  return_1_month: 'm1',
+  return_3_months: 'm3',
+  return_6_months: 'm6',
+  return_1_yr: 'y1',
+  return_2_yr: 'y2',
+  return_3_yr: 'y3',
+  return_5_yr: 'y5',
+  return_inception: 'si',
+};
 
-const findKey = (obj, re) => Object.keys(obj).find((k) => re.test(k));
-
-/** Best-effort generic mapping of a JSON scheme row → AIF record (refined post-recon). */
-function mapJsonRow(row) {
+/** Map a PMS Bazaar AIFDashboardData row → AIF scheme record (RAW; step 4 unifies). */
+export function mapJsonRow(row) {
   const rec = blankScheme();
-  const mgrK = findKey(row, /amc|manager|house|sponsor|company|fundmanager/i);
-  const nameK = findKey(row, /scheme|fundname|productname|approach|strateg(y| name)|^name$|aifname|^fund$/i);
-  const catK = findKey(row, /category|catg|^cat$|aifcategory/i);
-  const stratK = findKey(row, /strategy|style|substrateg/i);
-  const aumK = findKey(row, /aum|asset/i);
-  const benchK = findKey(row, /benchmark|indexname|bmname/i);
-  const incK = findKey(row, /inception|launch|startdate|sinceinception(date)?/i);
-  if (mgrK) rec.manager = clean(row[mgrK]) || null;
-  if (nameK) rec.approach = clean(row[nameK]) || null;
-  if (catK) rec.aif_category = clean(row[catK]) || null;
-  if (stratK && stratK !== catK) rec.strategy = clean(row[stratK]) || null;
-  if (aumK) rec.aum_cr = parseNum(row[aumK]);
-  if (benchK) rec.benchmark = clean(row[benchK]) || null;
-  if (incK) rec.inception = parseDate(row[incK]);
-  for (const [k, v] of Object.entries(row)) {
-    const isBench = /bench|bm|index/i.test(k);
-    const p = periodFromKey(k);
+  rec.manager = clean(row.AMCName) || clean(row.AMCRouteName) || null;
+  rec.approach = clean(row.SchemeName) || clean(row.RouteName) || null;
+  rec.aif_category = clean(row.ProductName) || null; // "AIF CAT III"
+  rec.strategy = clean(row.AssetClass) || null; // "Long Only" / "Long-Short"
+  rec.display_category = clean(row.DisplayCategory) || null; // "CAT III - LONG ONLY"
+  rec.market_cap = clean(row.Category) || null; // "Multi Cap & Flexi Cap"
+  rec.aum_cr = parseNum(row.AUM_In_Crs);
+  rec.benchmark = clean(row.BenchmarkIndex) || null;
+  rec.inception =
+    parseDate(String(row.Strategy_Inception_Date || '').split('T')[0]) || parseDate(row.Inception_Date);
+
+  let anyBench = false;
+  const sr = Array.isArray(row.SchemeReturns) ? row.SchemeReturns : [];
+  for (const r of sr) {
+    const p = RETURN_TEXT_TO_PERIOD[String(r.SchemeReturnText || '').trim().toLowerCase()];
     if (!p) continue;
-    if (isBench) rec.benchmark_returns[p] = parseNum(v);
-    else if (rec.returns[p] == null) rec.returns[p] = parseNum(v);
+    rec.returns[p] = parseNum(r.SchemeReturnValue);
+    const bv = parseNum(r.IndexReturnValue);
+    rec.benchmark_returns[p] = bv;
+    if (bv != null) anyBench = true;
   }
+  if (!anyBench) rec.benchmark_returns = null; // none exposed for this scheme
   return rec;
 }
 
@@ -326,6 +321,8 @@ function blankScheme() {
     vehicle: 'AIF',
     aif_category: null,
     strategy: null,
+    display_category: null,
+    market_cap: null,
     aum_cr: null,
     benchmark: null,
     inception: null,
@@ -350,7 +347,8 @@ function approachToScheme(a) {
 }
 
 const hasAnyReturn = (rec) =>
-  PERIODS.some((p) => rec.returns[p] != null) || PERIODS.some((p) => rec.benchmark_returns[p] != null);
+  PERIODS.some((p) => rec.returns[p] != null) ||
+  (rec.benchmark_returns && PERIODS.some((p) => rec.benchmark_returns[p] != null));
 
 // ───────────────────────────── recon (EXPLORE) ──────────────────────────────
 
@@ -486,18 +484,21 @@ async function main() {
       return;
     }
 
-    // Navigate to the AIF listing and let it fetch its data.
+    // Navigate to the AIF listing and let it fetch its data (AIFDashboardData).
     await page.goto(AIF_URL, { waitUntil: 'domcontentloaded' }).catch(() => {});
     await settle(page, 2500);
+    // The data POST can land a beat after load — wait for a scheme-like array.
+    for (let i = 0; i < 20 && !apiHits.some((h) => /pmsbazaar\.com/i.test(h.url) && h.count >= 3); i++)
+      await sleep(500);
     await saveShot();
 
     const as_of_month = scanAsOf(await page.content());
 
-    // Prefer a JSON endpoint (largest scheme-like array); fall back to table parse.
+    // Prefer the PMS Bazaar JSON endpoint (largest scheme-like array); fall back to table parse.
     let schemes = [];
-    const apiCandidate = apiHits
-      .filter((h) => h.count >= 3)
-      .sort((a, b) => b.count - a.count)[0];
+    const apiCandidate =
+      apiHits.filter((h) => h.count >= 3 && /pmsbazaar\.com/i.test(h.url)).sort((a, b) => b.count - a.count)[0] ||
+      apiHits.filter((h) => h.count >= 3).sort((a, b) => b.count - a.count)[0];
     if (apiCandidate && apiCandidate._arr) {
       log(`Using JSON endpoint: ${apiCandidate.url} (${apiCandidate.count} rows)`);
       schemes = apiCandidate._arr.map(mapJsonRow).filter((r) => r.manager || r.approach);
@@ -540,10 +541,12 @@ async function main() {
 
     // Summary.
     const houses = new Set(schemes.map((s) => s.manager).filter(Boolean));
-    const cats = new Set(schemes.map((s) => s.aif_category).filter(Boolean));
+    const cats = new Set(schemes.map((s) => s.display_category || s.aif_category).filter(Boolean));
     const withY1 = schemes.filter((s) => s.returns.y1 != null).length;
     const withY3 = schemes.filter((s) => s.returns.y3 != null).length;
-    const withBench = schemes.filter((s) => PERIODS.some((p) => s.benchmark_returns[p] != null)).length;
+    const withBench = schemes.filter(
+      (s) => s.benchmark_returns && PERIODS.some((p) => s.benchmark_returns[p] != null)
+    ).length;
     log('\n──────── PMS Bazaar AIF scrape summary ────────');
     log(`  as_of_month     : ${out.as_of_month}`);
     log(`  schemes         : ${schemes.length}`);

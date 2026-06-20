@@ -1,0 +1,41 @@
+name: shoot-dashboard
+
+# Manual visual check for the dashboard UI: serve public/ and screenshot each tab
+# (+ an open fund-drill) on a runner where the CDNs load. Artifacts only — no data
+# scraping, no commits. This is how UI steps (9–11) are reviewed.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shoot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install Playwright (--no-save)
+        run: npm install playwright@1 --no-save
+
+      - name: Install Playwright chromium (+ system deps)
+        run: npx playwright install --with-deps chromium
+
+      - name: Screenshot the dashboard
+        run: node perf-scraper/shoot-dashboard.mjs
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: dashboard-shots
+          path: perf-scraper/output/shots/
+          if-no-files-found: warn

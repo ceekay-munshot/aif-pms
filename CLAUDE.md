@@ -202,8 +202,8 @@ its file identically (never duplicates).
 4. [x] Normalize/unify + derive alpha → `perf-scraper/normalize.mjs`
 5. [x] Build store (idempotent merge) → `perf-scraper/build-store.mjs`
 6. [x] Monthly snapshot trail → `perf-scraper/write-snapshot.mjs`
-7. [ ] Orchestrator (run-pipeline.mjs)
-8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-normalize.yml`*
+7. [x] Orchestrator → `perf-scraper/run-pipeline.mjs`
+8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-pipeline.yml` (orchestrator end-to-end)*
 9. [ ] Dashboard shell + KPI strip (partially done in step 1)
 10. [ ] Screener tab (filters + sortable table + category-relative top-N)
 11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export
@@ -238,3 +238,15 @@ node perf-scraper/scrape-apmi.mjs        # → perf-scraper/output/apmi-pms.json
 Without the host allowlisted, `scrape-apmi.mjs` **fails fast (no junk data)** and
 saves `perf-scraper/output/apmi-page.png` for inspection. Knobs: `LIMIT`,
 `MONTH=YYYY-MM`, `HEADFUL=1`, `DEBUG=1`.
+
+### Full pipeline (one command — step 7)
+
+```bash
+node perf-scraper/run-pipeline.mjs   # scrape-apmi → scrape-pmsbazaar → normalize → build-store → write-snapshot
+```
+
+Runs each step as a child process (env forwarded). Steps 1–4 are **required**
+(abort + report which step on non-zero exit); `write-snapshot` is **non-fatal**.
+Extra knobs: `SKIP_APMI=1` / `SKIP_PMSBAZAAR=1` (testing). Prints a consolidated
+summary (counts, alpha coverage, new-funds-vs-prior-month, elapsed). This is what
+step 8's scheduled Action invokes; the manual `test-pipeline.yml` runs it in CI.

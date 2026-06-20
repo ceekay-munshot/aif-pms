@@ -1,8 +1,9 @@
-name: test-normalize
+name: test-pipeline
 
-# Manual end-to-end test of the normalize step: scrape both sources live on a
-# runner, then unify + derive alpha, and upload the combined output. Validation
-# only — commits no data.
+# Manual end-to-end test of the monthly orchestrator: run-pipeline.mjs drives
+# scrape-apmi → scrape-pmsbazaar → normalize → build-store → write-snapshot, then
+# uploads public/data/ (store + snapshots) for inspection. Validation only —
+# commits no data (the first real commit is step 8's scheduled workflow).
 
 on:
   workflow_dispatch:
@@ -16,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  test-normalize:
+  test-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -34,35 +35,19 @@ jobs:
       - name: Install Playwright chromium (+ system deps)
         run: npx playwright install --with-deps chromium
 
-      - name: Scrape APMI (PMS)
-        env:
-          LIMIT: ${{ inputs.limit }}
-        run: node perf-scraper/scrape-apmi.mjs
-
-      - name: Scrape PMS Bazaar (AIF)
+      - name: Run pipeline (orchestrator)
         env:
           LIMIT: ${{ inputs.limit }}
           PMSBAZAAR_EMAIL: ${{ secrets.PMSBAZAAR_EMAIL }}
           PMSBAZAAR_PASSWORD: ${{ secrets.PMSBAZAAR_PASSWORD }}
-        run: node perf-scraper/scrape-pmsbazaar.mjs
+        run: node perf-scraper/run-pipeline.mjs
 
-      - name: Normalize & unify (+ derive alpha)
-        run: node perf-scraper/normalize.mjs
-
-      - name: Build rolling store (placeholder → real, ephemeral in CI)
-        run: node perf-scraper/build-store.mjs
-
-      - name: Write monthly snapshot + index
-        run: node perf-scraper/write-snapshot.mjs
-
-      - name: Upload output (raw + funds-normalized + store + snapshots)
+      - name: Upload output (store + snapshots + raw/normalized)
         if: always()
         uses: actions/upload-artifact@v5
         with:
           name: pipeline-output
           path: |
+            public/data/
             perf-scraper/output/
-            public/data/funds-performance.json
-            public/data/metadata.json
-            public/data/snapshots/
           if-no-files-found: warn

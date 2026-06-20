@@ -128,6 +128,18 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
   e.g. add MSEI SX 40); matched by normalized name; **PMS `si` alpha is always null**.
   Uncovered benchmark → null ladder → null alpha (never blocks).
 
+**Store (step 5, `perf-scraper/build-store.mjs` → `public/data/`):** folds
+`funds-normalized.json` into **`funds-performance.json`** (the **latest-month**
+full detail the Screener/Leaderboard/Categories read — stays small/fast) +
+**`metadata.json`** (the "Updated" badge + counts). Month-over-month **history**
+lives in **`snapshots/`** (step 6) and is never overwritten. **Dedup key =
+`id + as_of_month`.** Merge: placeholder prior → dropped; **same month → overlay
+by `id`** with **monotonic enrichment** (new non-null wins, else keep prior
+non-null — never downgrade benchmark/alpha/inception/category to null; partial/
+LIMIT runs keep prior funds); **new month → roll over** (prior month already in
+its snapshot). Funds sorted by manager→approach. **Idempotent**: same input +
+same prior ⇒ byte-identical output (`generated_at` preserved when unchanged).
+
 ### `public/data/metadata.json`
 
 ```json
@@ -180,7 +192,7 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
 2. [x] APMI PMS scraper (public) → `perf-scraper/scrape-apmi.mjs`
 3. [x] PMS Bazaar AIF scraper (login) → `perf-scraper/scrape-pmsbazaar.mjs`
 4. [x] Normalize/unify + derive alpha → `perf-scraper/normalize.mjs`
-5. [ ] Build store (idempotent merge)
+5. [x] Build store (idempotent merge) → `perf-scraper/build-store.mjs`
 6. [ ] Monthly snapshot trail
 7. [ ] Orchestrator (run-pipeline.mjs)
 8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-normalize.yml`*

@@ -49,10 +49,16 @@ jobs:
       - name: Normalize & unify (+ derive alpha)
         run: node perf-scraper/normalize.mjs
 
-      - name: Upload output (raw + funds-normalized.json)
+      - name: Build rolling store (placeholder → real, ephemeral in CI)
+        run: node perf-scraper/build-store.mjs
+
+      - name: Upload output (raw + funds-normalized + store)
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: normalize-output
-          path: perf-scraper/output/
+          name: pipeline-output
+          path: |
+            perf-scraper/output/
+            public/data/funds-performance.json
+            public/data/metadata.json
           if-no-files-found: warn

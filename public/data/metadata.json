@@ -1,12 +1,13 @@
 {
-  "_placeholder": true,
-  "_comment": "PLACEHOLDER — overwritten by the pipeline in prompts 2–6.",
-  "generated_at": "2026-06-19T09:30:00+05:30",
+  "generated_at": "2026-06-20T17:19:00+05:30",
   "as_of_month": "2026-05",
-  "sources": ["APMI (PMS)", "PMS Bazaar (AIF)"],
-  "fund_count": 8,
-  "pms_count": 5,
-  "aif_count": 3,
-  "manager_count": 8,
-  "category_count": 4
+  "sources": [
+    "APMI (PMS)",
+    "PMS Bazaar (AIF)"
+  ],
+  "fund_count": 1363,
+  "pms_count": 1201,
+  "aif_count": 162,
+  "manager_count": 454,
+  "category_count": 11
 }

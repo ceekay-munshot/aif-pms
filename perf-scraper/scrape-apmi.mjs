@@ -479,9 +479,15 @@ async function maximiseEntriesPerPage(page) {
         }))
         .catch(() => null);
       if (!info) continue;
+      // A length menu is SHORT with numeric page-size values; this guard rejects
+      // big filter dropdowns (e.g. APMI's 1,201-option IA-name select, whose
+      // values are numeric IDs and whose labels include words like "All Weather").
+      const numericVals = info.opts.filter((o) => /^-?\d+\|/.test(o)).length;
       const looks =
-        /length|per\s*page|page\s*size|entries|show/.test(info.meta) ||
-        info.opts.some((o) => /\ball\b|^-1\|/i.test(o));
+        info.opts.length <= 12 &&
+        numericVals >= Math.max(2, info.opts.length - 1) &&
+        (/length|per\s*page|page\s*size|entries|show/.test(info.meta) ||
+          info.opts.some((o) => /\ball\b|^-1\|/i.test(o)));
       if (looks) {
         target = sel;
         break;
@@ -535,10 +541,9 @@ async function readListingInfo(page) {
     .catch(() => ({ txt: null, bodyRows: 0, total: null }));
 }
 
-/** Collect page HTML across pagination (Next button / numbered pages). */
+/** Collect page HTML across pagination (server-side DataTables Next / numbered pages). */
 async function collectPaginatedHtml(page) {
   const htmls = [];
-  const seen = new Set();
   const MAX_PAGES = 800;
 
   if (DEBUG) {
@@ -557,58 +562,71 @@ async function collectPaginatedHtml(page) {
     dbg('pagination candidates:', JSON.stringify(cands));
   }
 
+  const parseShown = (txt) => {
+    const m = txt && txt.match(/showing\s+[\d,]+\s+to\s+([\d,]+)\s+of\s+([\d,]+)/i);
+    return m ? { to: +m[1].replace(/,/g, ''), of: +m[2].replace(/,/g, '') } : null;
+  };
+
   for (let i = 0; i < MAX_PAGES; i++) {
-    const html = await page.content();
-    htmls.push(html);
-    // Find an enabled "next" control.
-    const nextSel = [
-      'a.paginate_button.next:not(.disabled)',
-      '.dataTables_paginate a.next:not(.disabled)',
-      '.dataTables_paginate .paginate_button.next:not(.disabled)',
-      '.paginate_button.next:not(.disabled)',
-      'li.next:not(.disabled) a',
-      'li.paginate_button.next:not(.disabled) a',
-      'a[rel="next"]',
-      'a.next:not(.disabled)',
-      'button[aria-label*="Next" i]:not([disabled])',
-      'a:has-text("Next"):not(.disabled)',
-    ];
-    let clicked = false;
-    for (const sel of nextSel) {
-      try {
-        const loc = page.locator(sel).first();
-        if ((await loc.count()) && (await loc.isEnabled().catch(() => false))) {
-          // Guard against dead "next" that doesn't advance: fingerprint first row.
-          const fp = await firstRowFingerprint(page);
-          if (seen.has('end')) break;
-          await loc.click({ timeout: 4000 });
-          await sleep(700);
-          const fp2 = await firstRowFingerprint(page);
-          if (fp2 && fp2 === fp) {
-            seen.add('end');
-            clicked = false; // no advance → stop
-          } else clicked = true;
-          break;
-        }
-      } catch {
-        /* try next selector */
-      }
+    await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+    const info = await readListingInfo(page);
+    htmls.push(await page.content());
+    const shown = parseShown(info.txt);
+    // Early-stop a capped test once enough rows have been seen.
+    if (LIMIT > 0 && shown && shown.to >= LIMIT) break;
+    // Stop on the last page.
+    if (shown && shown.to >= shown.of) break;
+
+    const next = await findEnabledNext(page);
+    if (!next) break;
+    const prevTxt = info.txt;
+    try {
+      await next.click({ timeout: 5000 });
+    } catch {
+      break;
     }
-    if (!clicked) break;
+    // Server-side pagination is an AJAX round-trip: wait for the "Showing X to Y
+    // of Z" text to actually change before capturing the next page (a fixed
+    // 700ms sleep was too short and made it false-stop after page 1).
+    if (prevTxt) {
+      await page
+        .waitForFunction(
+          (prev) => {
+            const el = document.querySelector('.dataTables_info, [class*="_info"]');
+            return el && el.textContent.replace(/\s+/g, ' ').trim() !== prev;
+          },
+          prevTxt,
+          { timeout: 12_000 }
+        )
+        .catch(() => {});
+    } else {
+      await sleep(1500);
+    }
   }
   dbg('collected pages:', htmls.length);
   return htmls;
 }
 
-async function firstRowFingerprint(page) {
-  try {
-    return await page.evaluate(() => {
-      const tr = document.querySelector('table tbody tr, table tr');
-      return tr ? tr.textContent.replace(/\s+/g, ' ').trim().slice(0, 120) : null;
-    });
-  } catch {
-    return null;
+/** Return a locator for an enabled "Next" pagination control, or null. */
+async function findEnabledNext(page) {
+  for (const sel of [
+    'a.paginate_button.next:not(.disabled)',
+    '.dataTables_paginate a.next:not(.disabled)',
+    '.dataTables_paginate .paginate_button.next:not(.disabled)',
+    '.paginate_button.next:not(.disabled)',
+    'li.next:not(.disabled) a',
+    'li.paginate_button.next:not(.disabled) a',
+    'a[rel="next"]',
+    'a.next:not(.disabled)',
+    'button[aria-label*="Next" i]:not([disabled])',
+  ]) {
+    const loc = page.locator(sel).first();
+    if (await loc.count().catch(() => 0)) {
+      const cls = (await loc.getAttribute('class').catch(() => '')) || '';
+      if (!/\bdisabled\b/.test(cls)) return loc;
+    }
   }
+  return null;
 }
 
 /** Merge approaches across pages, dedup on manager+approach. */

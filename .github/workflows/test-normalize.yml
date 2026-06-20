@@ -52,7 +52,10 @@ jobs:
       - name: Build rolling store (placeholder → real, ephemeral in CI)
         run: node perf-scraper/build-store.mjs
 
-      - name: Upload output (raw + funds-normalized + store)
+      - name: Write monthly snapshot + index
+        run: node perf-scraper/write-snapshot.mjs
+
+      - name: Upload output (raw + funds-normalized + store + snapshots)
         if: always()
         uses: actions/upload-artifact@v5
         with:
@@ -61,4 +64,5 @@ jobs:
             perf-scraper/output/
             public/data/funds-performance.json
             public/data/metadata.json
+            public/data/snapshots/
           if-no-files-found: warn

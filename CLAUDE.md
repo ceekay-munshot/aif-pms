@@ -155,15 +155,23 @@ same prior ⇒ byte-identical output (`generated_at` preserved when unchanged).
   "snapshots": [{ "month": "YYYY-MM", "fund_count": 0, "pms_count": 0, "aif_count": 0, "median_y1": 0 }] }
 ```
 
-### `public/data/snapshots/<YYYY-MM>.json` (powers Movers)
+### `public/data/snapshots/<YYYY-MM>.json` (powers Movers; step 6, `write-snapshot.mjs`)
 
 ```json
 { "month": "YYYY-MM", "generated_at": "...",
   "totals": { "funds": 0, "pms": 0, "aif": 0, "managers": 0, "categories": 0 },
-  "per_category": [{ "category": "...", "fund_count": 0, "median_y1": 0, "median_y3": 0 }],
-  "ranking": [{ "id": "...", "manager": "...", "approach": "...", "vehicle": "PMS|AIF",
-               "category": "...", "y1": 0, "y3": 0, "rank_y1": 0 }] }
+  "per_category": [{ "category": "...", "fund_count": 0, "median_y1": 0, "median_y3": 0, "median_alpha_y1": 0 }],
+  "ranking": [{ "id": "...", "manager": "...", "approach": "...", "vehicle": "PMS|AIF", "category": "...",
+               "aum_cr": null, "y1": null, "y3": null, "alpha_y1": null,
+               "rank_overall": null, "rank_in_category": null }] }
 ```
+
+`ranking` holds **ALL funds** (compact) — the per-fund record Movers diffs by `id`
+across months. `rank_overall`/`rank_in_category` = rank by `y1` desc overall / within
+category (competition ranking; null `y1` → null rank). `index.json` is **rebuilt
+from the snapshot files on disk**. Idempotent: same store ⇒ byte-identical snapshot
+(`generated_at`/`updated_at` preserved when unchanged); re-running a month overwrites
+its file identically (never duplicates).
 
 > The data currently in `public/data/` is **placeholder** (flagged
 > `"_placeholder": true`, fictional managers) and is **overwritten by the
@@ -193,7 +201,7 @@ same prior ⇒ byte-identical output (`generated_at` preserved when unchanged).
 3. [x] PMS Bazaar AIF scraper (login) → `perf-scraper/scrape-pmsbazaar.mjs`
 4. [x] Normalize/unify + derive alpha → `perf-scraper/normalize.mjs`
 5. [x] Build store (idempotent merge) → `perf-scraper/build-store.mjs`
-6. [ ] Monthly snapshot trail
+6. [x] Monthly snapshot trail → `perf-scraper/write-snapshot.mjs`
 7. [ ] Orchestrator (run-pipeline.mjs)
 8. [ ] GitHub Actions (monthly + manual full backfill) — *partial: manual live tests `test-apmi.yml` + `test-pmsbazaar.yml` + `test-normalize.yml`*
 9. [ ] Dashboard shell + KPI strip (partially done in step 1)

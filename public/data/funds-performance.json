@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T17:19:00+05:30",
+  "generated_at": "2026-06-21T09:04:58+05:30",
   "as_of_month": "2026-05",
   "fund_count": 1363,
   "manager_count": 454,
@@ -1237,8 +1237,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-all-cap-shariah-approach",
@@ -1285,8 +1284,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-all-cap-approach",
@@ -1333,8 +1331,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-all-cap-approach-2",
@@ -1381,8 +1378,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-curated-personalized-portfolio-strategy",
@@ -1484,7 +1480,7 @@
       "manager": "Abakkus Asset Manager Private Limited",
       "approach": "Abakkus Emerging Opportunities (Shariah) Approach",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 15.16,
@@ -1524,15 +1520,14 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-approach",
       "manager": "Abakkus Asset Manager Private Limited",
       "approach": "Abakkus Emerging Opportunities Approach",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 5663.42,
@@ -1572,8 +1567,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-approach-2",
@@ -1860,8 +1854,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "abakkus-asset-manager-private-limited-diversified-alpha-fund",
@@ -7824,7 +7817,7 @@
       "manager": "Anand Rathi Advisors Limited",
       "approach": "MNC Portfolio",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 127.5,
@@ -7864,15 +7857,14 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "anand-rathi-advisors-limited-mnc-portfolio-nri",
       "manager": "Anand Rathi Advisors Limited",
       "approach": "MNC Portfolio - NRI",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 12.69,
@@ -7912,8 +7904,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "anand-rathi-advisors-limited-the-alpha-i-strategy",
@@ -21745,7 +21736,7 @@
       "manager": "Emkay Investment Managers Limited",
       "approach": "EIML SMID",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 114.02,
@@ -21785,8 +21776,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "emkay-investment-managers-limited-emkay-gems",
@@ -26367,8 +26357,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "goldstandard-wealth-private-limited-goldstandard-focused-alpha-portfolio",
@@ -26804,7 +26793,7 @@
       "manager": "Green Portfolio Private Limited",
       "approach": "GREEN PORTFOLIO MNC ADVANTAGE FUND",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 9.38,
@@ -26844,8 +26833,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "green-portfolio-private-limited-green-portfolio-special-fund",
@@ -27893,8 +27881,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "hdfc-asset-management-company-limited-bespoke-accounts",
@@ -36289,7 +36276,7 @@
       "manager": "Marcellus Investment Managers Private Limited",
       "approach": "Consistent Compounders",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Large Cap",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 1695.15,
@@ -36329,8 +36316,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "marcellus-investment-managers-private-limited-core-domestic-equity",
@@ -39476,8 +39462,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-business-opportunities-portfolio-strategy",
@@ -40236,8 +40221,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-midcap-multifactor-strategy",
@@ -40433,7 +40417,7 @@
       "manager": "Motilal Oswal Asset Management Company Limited - Portfolio Managers",
       "approach": "Next Trillion Dollar Opportunity Strategy",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid Cap",
       "strategy": "Long Only",
       "aif_cat": null,
       "aum_cr": 4421.02,
@@ -40473,8 +40457,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-plus-strategy",
@@ -44891,8 +44874,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "omniscience-capital-advisors-private-limited-omni-amrit-kaal",
@@ -57192,8 +57174,7 @@
       },
       "source": "APMI",
       "source_url": "https://www.apmiindia.org/apmi/welcomeiaperformance.htm?action=PMSmenu",
-      "source_category": null,
-      "category_fallback": true
+      "source_category": null
     },
     {
       "id": "tcg-advisory-services-private-limited-tcg-india-investment-opportunities-portfolio",

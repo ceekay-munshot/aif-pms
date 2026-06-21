@@ -1,4 +1,10 @@
 {
-  "_comment": "Manual category overrides, keyed by unified fund id (slug(manager)-slug(approach)). Value is one of the CATEGORY_BUCKETS in normalize.mjs. Use this to fix funds the keyword classifier gets wrong or leaves as a fallback. Applies to PMS and AIF.",
-  "overrides": {}
+  "_comment": "Manual category overrides, keyed by unified fund id (slug(manager)-slug(approach)). Value is one of the CATEGORY_BUCKETS in normalize.mjs. This is the human tuning knob applied BEFORE the keyword classifier (normalizePmsRecord/normalizeAifRecord) — use it for funds the name-based rules can't safely resolve: idiosyncratic names the regex would miss, or large marquee funds whose published mandate is unambiguous to a buy-side client. Add an entry only when confident; leave genuinely ambiguous brand-only names as the Multi/Flexi fallback. Curate by AUM (biggest funds matter most). PMS + AIF.",
+  "overrides": {
+    "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-mid-to-mega-strategy": "Multi/Flexi Cap",
+    "motilal-oswal-asset-management-company-limited-portfolio-managers-next-trillion-dollar-opportunity-strategy": "Mid Cap",
+    "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-approach": "Mid & Small",
+    "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-shariah-approach": "Mid & Small",
+    "marcellus-investment-managers-private-limited-consistent-compounders": "Large Cap"
+  }
 }

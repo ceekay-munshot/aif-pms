@@ -122,8 +122,20 @@ Convention: **returns are numbers in percent** (e.g. `18.4` = 18.4%); use
   `Large Cap · Large & Mid · Multi/Flexi Cap · Mid Cap · Mid & Small · Small Cap ·
   Thematic/Sectoral · Value/Contra · Debt · Hybrid/Multi-Asset · Unclassified`.
   AIF from PMS Bazaar `Category` (cap orientation); PMS from a documented keyword
-  map on the approach name (unclear-but-equity → "Multi/Flexi Cap" + `category_fallback`).
-  Per-fund overrides live in **`perf-scraper/static/pms-category-overrides.json`** (id→bucket).
+  map (`CATEGORY_RULES`) on the approach name (unclear-but-equity → "Multi/Flexi Cap"
+  + `category_fallback`). The map is **name-based & high-precision** — a clear
+  cap/style/sector word must be present (incl. `\ball cap`/`smid`/`mnc`/`technolog`/
+  `turnaround`; `\ball cap` keeps its leading `\b` so it never matches "sm-**all cap**").
+  **"emerging" is deliberately not a rule** (ambiguous: markets vs. small/mid co's) →
+  stays Multi/Flexi unless overridden. APMI benchmarks are only the 3 partition indices
+  (BSE 500 / Nifty 50 / MSEI SX 40) so the benchmark is **not** a usable cap signal.
+  Per-fund overrides live in **`perf-scraper/static/pms-category-overrides.json`**
+  (id→bucket, applied before the classifier) — the human tuning knob, curated by AUM
+  for marquee funds whose mandate is unambiguous (e.g. Marcellus CCP → Large Cap,
+  Motilal NTDOP → Mid Cap, Abakkus Emerging → Mid & Small). A still-substantial
+  Multi/Flexi bucket (~1,080) is expected: most PMS names genuinely encode no cap.
+  Reclassifying a fund out of the fallback bucket **clears** its `category_fallback`
+  flag (build-store's monotonic merge keeps the flag travelling with `category`).
 - **alpha** = `returns − benchmark_returns` per period (null if either null). **AIF**:
   direct from per-period `IndexReturnValue`. **PMS**: APMI gives only the benchmark
   *name*, so index ladders are harvested (median `IndexReturnValue` per benchmark)

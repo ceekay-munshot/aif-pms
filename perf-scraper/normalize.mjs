@@ -100,19 +100,25 @@ export function median(arr) {
 // Unified STYLE/CAP taxonomy (drives category-relative ranking later). Ordered:
 // compound caps first, then single caps, then style/asset-class buckets. Documented
 // & overridable — tune the regexes or use static/pms-category-overrides.json.
+// High-precision, name-based only: a clear cap/style/sector word must be present,
+// else PMS falls back to Multi/Flexi (flagged). NOTE the ordering + word boundaries:
+// `\ball[\s-]*cap` must keep its leading \b or it would match "sm-ALL CAP"; the
+// all/mid/large compound rules sit ABOVE the single-cap rules on purpose. "Emerging"
+// is deliberately NOT a rule — it's ambiguous (markets vs. small/mid co's) → stays
+// Multi/Flexi unless an id override says otherwise.
 export const CATEGORY_BUCKETS = [
   'Large Cap', 'Large & Mid', 'Multi/Flexi Cap', 'Mid Cap', 'Mid & Small',
   'Small Cap', 'Thematic/Sectoral', 'Value/Contra', 'Debt', 'Hybrid/Multi-Asset', 'Unclassified',
 ];
 const CATEGORY_RULES = [
   ['Large & Mid', /large\s*(?:&|and|\+|-|,|\/)?\s*mid/i],
-  ['Mid & Small', /mid\s*(?:&|and|\+|-|,|\/)?\s*small|small\s*(?:&|and)\s*mid/i],
-  ['Multi/Flexi Cap', /multi[\s-]*cap|flexi[\s-]*cap|multicap|flexicap|diversified/i],
+  ['Mid & Small', /mid\s*(?:&|and|\+|-|,|\/)?\s*small|small\s*(?:&|and)\s*mid|\bsmid\b/i],
+  ['Multi/Flexi Cap', /multi[\s-]*cap|flexi[\s-]*cap|multicap|flexicap|diversified|\ball[\s-]*cap|go[\s-]*anywhere|cap[\s-]*agnostic/i],
   ['Large Cap', /large[\s-]*cap|blue[\s-]*chip|bluechip|top\s*100/i],
   ['Mid Cap', /mid[\s-]*cap|midcap/i],
   ['Small Cap', /small[\s-]*cap|smallcap|micro[\s-]*cap|nano[\s-]*cap/i],
-  ['Value/Contra', /\bvalue\b|\bcontra\b|special\s*situation|deep\s*value/i],
-  ['Thematic/Sectoral', /thematic|theme|sector|pharma|health|tech\b|digital|bank|financ|\bbfsi\b|infra|consum|manufactur|\bit\b|\bpsu\b|defen[cs]e|energy|\bauto\b|realty|metal|chemical|export|fmcg|telecom|logistic/i],
+  ['Value/Contra', /\bvalue\b|\bcontra\b|special\s*situation|deep\s*value|turnaround/i],
+  ['Thematic/Sectoral', /thematic|theme|sector|pharma|health|technolog|fintech|\btech\b|digital|bank|financ|\bbfsi\b|infra|consum|manufactur|\bit\b|\bpsu\b|defen[cs]e|energy|\bauto\b|realty|real\s*estat|metal|chemical|export|fmcg|telecom|logistic|\bmnc\b|agri|commodit/i],
   ['Debt', /\bdebt\b|credit|fixed\s*income|\bbond\b|\bgilt\b|duration|liquid|money\s*market|\byield\b/i],
   ['Hybrid/Multi-Asset', /hybrid|multi[\s-]*asset|balanced|asset\s*alloc|arbitrage|long\s*[-/ ]?\s*short|absolute\s*return|multi[\s-]*strateg|equity\s*savings/i],
 ];

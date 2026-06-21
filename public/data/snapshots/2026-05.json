@@ -1,6 +1,6 @@
 {
   "month": "2026-05",
-  "generated_at": "2026-06-20T17:19:00+05:30",
+  "generated_at": "2026-06-21T09:04:58+05:30",
   "totals": {
     "funds": 1363,
     "pms": 1201,
@@ -11,10 +11,10 @@
   "per_category": [
     {
       "category": "Multi/Flexi Cap",
-      "fund_count": 1090,
-      "median_y1": 1.14,
-      "median_y3": 13.62,
-      "median_alpha_y1": 2.59
+      "fund_count": 1082,
+      "median_y1": 1.23,
+      "median_y3": 13.64,
+      "median_alpha_y1": 2.65
     },
     {
       "category": "Value/Contra",
@@ -24,11 +24,18 @@
       "median_alpha_y1": 0.3
     },
     {
+      "category": "Thematic/Sectoral",
+      "fund_count": 40,
+      "median_y1": 1.18,
+      "median_y3": 11.75,
+      "median_alpha_y1": 2.65
+    },
+    {
       "category": "Large Cap",
-      "fund_count": 38,
-      "median_y1": 0.05,
-      "median_y3": 11.92,
-      "median_alpha_y1": 2.97
+      "fund_count": 39,
+      "median_y1": 0.03,
+      "median_y3": 11.54,
+      "median_alpha_y1": 2.55
     },
     {
       "category": "Hybrid/Multi-Asset",
@@ -36,13 +43,6 @@
       "median_y1": 4.33,
       "median_y3": 12.17,
       "median_alpha_y1": 3.54
-    },
-    {
-      "category": "Thematic/Sectoral",
-      "fund_count": 37,
-      "median_y1": 1.19,
-      "median_y3": 11.77,
-      "median_alpha_y1": 3.43
     },
     {
       "category": "Small Cap",
@@ -53,17 +53,17 @@
     },
     {
       "category": "Mid & Small",
-      "fund_count": 20,
-      "median_y1": 6.62,
-      "median_y3": 16.65,
-      "median_alpha_y1": 9.36
+      "fund_count": 23,
+      "median_y1": 6.16,
+      "median_y3": 17.4,
+      "median_alpha_y1": 6.37
     },
     {
       "category": "Mid Cap",
-      "fund_count": 17,
-      "median_y1": -0.48,
-      "median_y3": 14.66,
-      "median_alpha_y1": 0.25
+      "fund_count": 18,
+      "median_y1": -0.47,
+      "median_y3": 14.49,
+      "median_alpha_y1": 0.16
     },
     {
       "category": "Debt",
@@ -6359,13 +6359,13 @@
       "manager": "Anand Rathi Advisors Limited",
       "approach": "MNC Portfolio - NRI",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "aum_cr": 12.69,
       "y1": 2.61,
       "y3": 9.96,
       "alpha_y1": 2.68,
       "rank_overall": 483,
-      "rank_in_category": 375
+      "rank_in_category": 12
     },
     {
       "id": "ask-wealth-advisors-private-limited-ask-wealth-core-equity",
@@ -6378,7 +6378,7 @@
       "y3": null,
       "alpha_y1": 6.44,
       "rank_overall": 484,
-      "rank_in_category": 376
+      "rank_in_category": 375
     },
     {
       "id": "anand-rathi-advisors-limited-flexicap-strategy",
@@ -6391,7 +6391,7 @@
       "y3": null,
       "alpha_y1": 2.65,
       "rank_overall": 485,
-      "rank_in_category": 377
+      "rank_in_category": 376
     },
     {
       "id": "julius-baer-wealth-advisors-india-private-limited-julius-baer-premier-focused-portfolio",
@@ -6404,7 +6404,7 @@
       "y3": 13.91,
       "alpha_y1": 2.65,
       "rank_overall": 485,
-      "rank_in_category": 377
+      "rank_in_category": 376
     },
     {
       "id": "emkay-investment-managers-limited-eiml-capital",
@@ -6417,7 +6417,7 @@
       "y3": 15.89,
       "alpha_y1": 2.64,
       "rank_overall": 487,
-      "rank_in_category": 379
+      "rank_in_category": 378
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-structured-product-series-i",
@@ -6430,7 +6430,7 @@
       "y3": 2.82,
       "alpha_y1": 6.37,
       "rank_overall": 488,
-      "rank_in_category": 380
+      "rank_in_category": 379
     },
     {
       "id": "narnolia-velox-advisory-limited-narnolia-india-opportunity-fund",
@@ -6443,7 +6443,7 @@
       "y3": 21.71,
       "alpha_y1": null,
       "rank_overall": 488,
-      "rank_in_category": 380
+      "rank_in_category": 379
     },
     {
       "id": "quest-investment-managers-pvt-ltd-questpms-focus-portfolio",
@@ -6456,7 +6456,7 @@
       "y3": 16.76,
       "alpha_y1": 2.59,
       "rank_overall": 490,
-      "rank_in_category": 382
+      "rank_in_category": 381
     },
     {
       "id": "shree-rama-managers-llp-shree-vriddhi",
@@ -6469,7 +6469,7 @@
       "y3": 9.9,
       "alpha_y1": 2.59,
       "rank_overall": 490,
-      "rank_in_category": 382
+      "rank_in_category": 381
     },
     {
       "id": "credent-asset-management-services-private-limited-credent-asset-management-services-pvt-ltd",
@@ -6482,7 +6482,7 @@
       "y3": 13.15,
       "alpha_y1": 2.58,
       "rank_overall": 492,
-      "rank_in_category": 384
+      "rank_in_category": 383
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-enterprising-india-strategy",
@@ -6495,7 +6495,7 @@
       "y3": 11.49,
       "alpha_y1": 6.34,
       "rank_overall": 493,
-      "rank_in_category": 385
+      "rank_in_category": 384
     },
     {
       "id": "prudent-investment-managers-llp-prudent-multicap-pms",
@@ -6508,7 +6508,7 @@
       "y3": 16.09,
       "alpha_y1": 6.34,
       "rank_overall": 493,
-      "rank_in_category": 385
+      "rank_in_category": 384
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-multifactor-equity-strategy",
@@ -6521,7 +6521,7 @@
       "y3": 18.97,
       "alpha_y1": 2.55,
       "rank_overall": 495,
-      "rank_in_category": 387
+      "rank_in_category": 386
     },
     {
       "id": "right-horizons-portfolio-management-pvt-ltd-rh-alphabots-india-midcap-29",
@@ -6547,7 +6547,7 @@
       "y3": 15.05,
       "alpha_y1": 2.54,
       "rank_overall": 497,
-      "rank_in_category": 388
+      "rank_in_category": 387
     },
     {
       "id": "nj-asset-management-private-limited-multicap-portfolio",
@@ -6560,7 +6560,7 @@
       "y3": 19.82,
       "alpha_y1": 6.31,
       "rank_overall": 497,
-      "rank_in_category": 388
+      "rank_in_category": 387
     },
     {
       "id": "buglerock-capital-private-limited-special-situations-portfolio",
@@ -6586,7 +6586,7 @@
       "y3": null,
       "alpha_y1": 6.27,
       "rank_overall": 500,
-      "rank_in_category": 12
+      "rank_in_category": 13
     },
     {
       "id": "samvitti-capital-private-limited-ndpms",
@@ -6599,7 +6599,7 @@
       "y3": 14.46,
       "alpha_y1": 2.49,
       "rank_overall": 501,
-      "rank_in_category": 390
+      "rank_in_category": 389
     },
     {
       "id": "nuvama-asset-management-limited-enhanced-dynamic-growth-equity-edge-fund",
@@ -6625,7 +6625,7 @@
       "y3": null,
       "alpha_y1": 2.45,
       "rank_overall": 503,
-      "rank_in_category": 391
+      "rank_in_category": 390
     },
     {
       "id": "nippon-life-india-asset-management-ltd-absolute-freedom-portfolio-1",
@@ -6638,7 +6638,7 @@
       "y3": 14.39,
       "alpha_y1": 2.45,
       "rank_overall": 503,
-      "rank_in_category": 391
+      "rank_in_category": 390
     },
     {
       "id": "capitalmind-financial-services-private-limited-india-indices",
@@ -6651,7 +6651,7 @@
       "y3": 16.23,
       "alpha_y1": 6.21,
       "rank_overall": 505,
-      "rank_in_category": 393
+      "rank_in_category": 392
     },
     {
       "id": "capstocks-and-securities-india-private-limited-capstocks-pms",
@@ -6664,7 +6664,7 @@
       "y3": 18.42,
       "alpha_y1": 2.44,
       "rank_overall": 505,
-      "rank_in_category": 393
+      "rank_in_category": 392
     },
     {
       "id": "icici-securities-limited-sterling-portfolio-growth-portfolio",
@@ -6677,7 +6677,7 @@
       "y3": 14.58,
       "alpha_y1": 6.21,
       "rank_overall": 505,
-      "rank_in_category": 393
+      "rank_in_category": 392
     },
     {
       "id": "hsbc-asset-management-india-private-limited-hsbc-aspire-portfolio",
@@ -6690,7 +6690,7 @@
       "y3": null,
       "alpha_y1": 2.41,
       "rank_overall": 508,
-      "rank_in_category": 396
+      "rank_in_category": 395
     },
     {
       "id": "pgim-india-asset-management-private-limited-pgim-india-core-equity-portfolio",
@@ -6703,7 +6703,7 @@
       "y3": 8.69,
       "alpha_y1": 6.18,
       "rank_overall": 508,
-      "rank_in_category": 396
+      "rank_in_category": 395
     },
     {
       "id": "eureka-portfolio-management-services-pvt-ltd-multicap",
@@ -6716,7 +6716,7 @@
       "y3": 4.02,
       "alpha_y1": 2.4,
       "rank_overall": 510,
-      "rank_in_category": 398
+      "rank_in_category": 397
     },
     {
       "id": "chona-financial-services-limited-pms-1-q8",
@@ -6729,7 +6729,7 @@
       "y3": 12.42,
       "alpha_y1": 6.15,
       "rank_overall": 511,
-      "rank_in_category": 399
+      "rank_in_category": 398
     },
     {
       "id": "allegro-securities-pvt-ltd-diversified",
@@ -6742,7 +6742,7 @@
       "y3": 31.97,
       "alpha_y1": 6.14,
       "rank_overall": 512,
-      "rank_in_category": 400
+      "rank_in_category": 399
     },
     {
       "id": "motilal-oswal-asset-management-company-ltd-hedged-equity-multi-factor-strategy",
@@ -6755,7 +6755,7 @@
       "y3": 17.11,
       "alpha_y1": 2,
       "rank_overall": 513,
-      "rank_in_category": 401
+      "rank_in_category": 400
     },
     {
       "id": "envision-capital-services-private-limited-envision-india-opportunities-portfolio",
@@ -6768,7 +6768,7 @@
       "y3": 15.46,
       "alpha_y1": 2.33,
       "rank_overall": 514,
-      "rank_in_category": 402
+      "rank_in_category": 401
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-jewel-flexi-cap-quality-growth",
@@ -6781,7 +6781,7 @@
       "y3": null,
       "alpha_y1": 6.07,
       "rank_overall": 515,
-      "rank_in_category": 403
+      "rank_in_category": 402
     },
     {
       "id": "bonanza-portfolio-limited-bonanza-edge",
@@ -6794,7 +6794,7 @@
       "y3": 21.07,
       "alpha_y1": 6.05,
       "rank_overall": 516,
-      "rank_in_category": 404
+      "rank_in_category": 403
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-absl-next-100-portfolio",
@@ -6807,7 +6807,7 @@
       "y3": 13.23,
       "alpha_y1": 6.04,
       "rank_overall": 517,
-      "rank_in_category": 405
+      "rank_in_category": 404
     },
     {
       "id": "360-one-asset-management-limited-customised-discretionary-portfolio-equity",
@@ -6820,7 +6820,7 @@
       "y3": 15.81,
       "alpha_y1": 2.26,
       "rank_overall": 518,
-      "rank_in_category": 406
+      "rank_in_category": 405
     },
     {
       "id": "right-horizons-portfolio-management-pvt-ltd-rh-minerva-india-under-served",
@@ -6833,7 +6833,7 @@
       "y3": 12.02,
       "alpha_y1": 2.26,
       "rank_overall": 518,
-      "rank_in_category": 406
+      "rank_in_category": 405
     },
     {
       "id": "aequitas-investment-consultancy-pvt-ltd-equity-scheme-i",
@@ -6872,7 +6872,7 @@
       "y3": 13.14,
       "alpha_y1": 2.24,
       "rank_overall": 522,
-      "rank_in_category": 408
+      "rank_in_category": 407
     },
     {
       "id": "care-portfolio-managers-private-limited-care-pms-growth-plus-value",
@@ -6898,7 +6898,7 @@
       "y3": null,
       "alpha_y1": 2.19,
       "rank_overall": 523,
-      "rank_in_category": 409
+      "rank_in_category": 408
     },
     {
       "id": "marathontrends-advisory-pvt-ltd-mega-trends-multicap-growth",
@@ -6911,7 +6911,7 @@
       "y3": 11.75,
       "alpha_y1": 2.19,
       "rank_overall": 523,
-      "rank_in_category": 409
+      "rank_in_category": 408
     },
     {
       "id": "alfaccurate-advisors-pvt-ltd-aaa-shariah-portfolio",
@@ -6924,7 +6924,7 @@
       "y3": 12.18,
       "alpha_y1": 2.17,
       "rank_overall": 526,
-      "rank_in_category": 411
+      "rank_in_category": 410
     },
     {
       "id": "j-m-financial-ltd-growth-and-value",
@@ -6950,7 +6950,7 @@
       "y3": 12.76,
       "alpha_y1": 2.16,
       "rank_overall": 527,
-      "rank_in_category": 412
+      "rank_in_category": 411
     },
     {
       "id": "guardian-asset-management-private-limited-guardian-asset-management-pvt-ltd-multi-assets",
@@ -6976,7 +6976,7 @@
       "y3": 11.72,
       "alpha_y1": 2.41,
       "rank_overall": 530,
-      "rank_in_category": 13
+      "rank_in_category": 14
     },
     {
       "id": "prp-edge-wealth-pvt-ltd-alphaa-mpt-plus-fund",
@@ -6989,7 +6989,7 @@
       "y3": null,
       "alpha_y1": 5.88,
       "rank_overall": 531,
-      "rank_in_category": 413
+      "rank_in_category": 412
     },
     {
       "id": "waterfield-financial-and-investment-advisors-private-limited-nucleus-equity-multi-cap-allocator",
@@ -7002,7 +7002,7 @@
       "y3": 0,
       "alpha_y1": 5.88,
       "rank_overall": 531,
-      "rank_in_category": 413
+      "rank_in_category": 412
     },
     {
       "id": "stalwart-investment-advisors-llp-wealth-guardian-fund",
@@ -7015,7 +7015,7 @@
       "y3": 15.43,
       "alpha_y1": 2.06,
       "rank_overall": 533,
-      "rank_in_category": 415
+      "rank_in_category": 414
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-growth-leaders-shariah-strategy",
@@ -7028,7 +7028,7 @@
       "y3": 17.47,
       "alpha_y1": 2.05,
       "rank_overall": 534,
-      "rank_in_category": 416
+      "rank_in_category": 415
     },
     {
       "id": "kotak-mahindra-asset-management-company-ltd-kotak-india-focus-portfolio-investment-approach-customised",
@@ -7041,7 +7041,7 @@
       "y3": 8.81,
       "alpha_y1": 5.8,
       "rank_overall": 535,
-      "rank_in_category": 417
+      "rank_in_category": 416
     },
     {
       "id": "unifi-capital-p-ltd-individually-managed-accounts",
@@ -7054,7 +7054,7 @@
       "y3": null,
       "alpha_y1": 2,
       "rank_overall": 536,
-      "rank_in_category": 418
+      "rank_in_category": 417
     },
     {
       "id": "first-water-capital-advisors-llp-first-water-capital-fund-2",
@@ -7067,7 +7067,7 @@
       "y3": null,
       "alpha_y1": -0.52,
       "rank_overall": 537,
-      "rank_in_category": 419
+      "rank_in_category": 418
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-ace-strategy",
@@ -7080,7 +7080,7 @@
       "y3": 19.75,
       "alpha_y1": 1.96,
       "rank_overall": 537,
-      "rank_in_category": 419
+      "rank_in_category": 418
     },
     {
       "id": "sowilo-investment-managers-llp-sowilo-target-agressive-scheme",
@@ -7093,7 +7093,7 @@
       "y3": null,
       "alpha_y1": 1.96,
       "rank_overall": 537,
-      "rank_in_category": 419
+      "rank_in_category": 418
     },
     {
       "id": "arth-portfolio-management-private-limited-arth-long-term-owner-s-approach",
@@ -7106,7 +7106,7 @@
       "y3": null,
       "alpha_y1": 1.95,
       "rank_overall": 540,
-      "rank_in_category": 422
+      "rank_in_category": 421
     },
     {
       "id": "ladderup-asset-managers-private-limited-1up-multimanager-fof",
@@ -7119,7 +7119,7 @@
       "y3": null,
       "alpha_y1": 1.95,
       "rank_overall": 540,
-      "rank_in_category": 422
+      "rank_in_category": 421
     },
     {
       "id": "seers-fund-management-pvt-ltd-seers-enduring-portfolio",
@@ -7132,7 +7132,7 @@
       "y3": 26.49,
       "alpha_y1": 5.72,
       "rank_overall": 540,
-      "rank_in_category": 422
+      "rank_in_category": 421
     },
     {
       "id": "credent-asset-management-services-private-limited-credent-aim-multi-cap-strategy",
@@ -7145,7 +7145,7 @@
       "y3": 16.95,
       "alpha_y1": 1.94,
       "rank_overall": 543,
-      "rank_in_category": 425
+      "rank_in_category": 424
     },
     {
       "id": "sameeksha-capital-pvt-ltd-india-equity-fund",
@@ -7158,7 +7158,7 @@
       "y3": 24.44,
       "alpha_y1": 1.92,
       "rank_overall": 544,
-      "rank_in_category": 426
+      "rank_in_category": 425
     },
     {
       "id": "reliance-wealth-management-limited-alpha-growth",
@@ -7171,7 +7171,7 @@
       "y3": 19.4,
       "alpha_y1": 1.89,
       "rank_overall": 545,
-      "rank_in_category": 427
+      "rank_in_category": 426
     },
     {
       "id": "credent-asset-management-services-private-limited-mehta-credent-focused-multicap",
@@ -7184,7 +7184,7 @@
       "y3": null,
       "alpha_y1": 1.88,
       "rank_overall": 546,
-      "rank_in_category": 428
+      "rank_in_category": 427
     },
     {
       "id": "hsbc-asset-management-india-private-limited-hsbc-india-next-portfolio",
@@ -7197,7 +7197,7 @@
       "y3": 12.53,
       "alpha_y1": 1.87,
       "rank_overall": 547,
-      "rank_in_category": 429
+      "rank_in_category": 428
     },
     {
       "id": "kotak-mahindra-asset-management-company-ltd-kotak-equity-portfolio-investment-approach",
@@ -7210,7 +7210,7 @@
       "y3": 14.41,
       "alpha_y1": 5.64,
       "rank_overall": 547,
-      "rank_in_category": 429
+      "rank_in_category": 428
     },
     {
       "id": "nj-asset-management-private-limited-freedom-etf-portfolio",
@@ -7223,7 +7223,7 @@
       "y3": 13.45,
       "alpha_y1": 5.63,
       "rank_overall": 549,
-      "rank_in_category": 431
+      "rank_in_category": 430
     },
     {
       "id": "360-one-asset-management-limited-360-one-phoenix-portfolio",
@@ -7236,7 +7236,7 @@
       "y3": 16.59,
       "alpha_y1": 1.84,
       "rank_overall": 550,
-      "rank_in_category": 432
+      "rank_in_category": 431
     },
     {
       "id": "right-horizons-portfolio-management-pvt-ltd-rh-alphabots-india-100",
@@ -7249,7 +7249,7 @@
       "y3": 16.29,
       "alpha_y1": 5.55,
       "rank_overall": 551,
-      "rank_in_category": 433
+      "rank_in_category": 432
     },
     {
       "id": "motilal-oswal-wealth-limited-delphi-4c-advantage-portfolio",
@@ -7262,7 +7262,7 @@
       "y3": 15.43,
       "alpha_y1": 5.54,
       "rank_overall": 552,
-      "rank_in_category": 434
+      "rank_in_category": 433
     },
     {
       "id": "purnartha-investment-advisers-private-limited-purnartha-vision",
@@ -7275,7 +7275,7 @@
       "y3": 15.03,
       "alpha_y1": 1.77,
       "rank_overall": 552,
-      "rank_in_category": 434
+      "rank_in_category": 433
     },
     {
       "id": "nippon-life-india-asset-management-ltd-high-conviction-equity-portfolio-1",
@@ -7288,7 +7288,7 @@
       "y3": 14.97,
       "alpha_y1": 1.76,
       "rank_overall": 554,
-      "rank_in_category": 436
+      "rank_in_category": 435
     },
     {
       "id": "alchemy-capital-management-pvt-ltd-alchemy-ascent",
@@ -7301,7 +7301,7 @@
       "y3": 11.88,
       "alpha_y1": 1.74,
       "rank_overall": 555,
-      "rank_in_category": 437
+      "rank_in_category": 436
     },
     {
       "id": "prosperity-wealth-management-private-limited-prosperity-fund-of-funds",
@@ -7314,7 +7314,7 @@
       "y3": null,
       "alpha_y1": 1.74,
       "rank_overall": 555,
-      "rank_in_category": 437
+      "rank_in_category": 436
     },
     {
       "id": "moneylife-advisory-services-pvt-ltd-mas-growth",
@@ -7327,7 +7327,7 @@
       "y3": 19.1,
       "alpha_y1": 5.48,
       "rank_overall": 557,
-      "rank_in_category": 439
+      "rank_in_category": 438
     },
     {
       "id": "deutsche-investments-india-private-limited-db-india-multicap-equities-long-term-capital-growth",
@@ -7340,7 +7340,7 @@
       "y3": 12.92,
       "alpha_y1": 5.44,
       "rank_overall": 558,
-      "rank_in_category": 440
+      "rank_in_category": 439
     },
     {
       "id": "accelt-asset-management-llp-accelt-long-term-equity-fund",
@@ -7353,7 +7353,7 @@
       "y3": null,
       "alpha_y1": 1.65,
       "rank_overall": 559,
-      "rank_in_category": 441
+      "rank_in_category": 440
     },
     {
       "id": "nippon-life-india-asset-management-ltd-maap",
@@ -7366,7 +7366,7 @@
       "y3": 14.58,
       "alpha_y1": 1.65,
       "rank_overall": 559,
-      "rank_in_category": 441
+      "rank_in_category": 440
     },
     {
       "id": "envision-capital-services-private-limited-envision-india-value-portdolio",
@@ -7392,7 +7392,7 @@
       "y3": null,
       "alpha_y1": 5.41,
       "rank_overall": 561,
-      "rank_in_category": 443
+      "rank_in_category": 442
     },
     {
       "id": "nippon-life-india-asset-management-ltd-high-conviction-equity-portfolio-systematic-rebalancing-option",
@@ -7405,7 +7405,7 @@
       "y3": 14.97,
       "alpha_y1": 1.64,
       "rank_overall": 561,
-      "rank_in_category": 443
+      "rank_in_category": 442
     },
     {
       "id": "nippon-life-india-asset-management-ltd-pearl-portfolio",
@@ -7418,7 +7418,7 @@
       "y3": 11.06,
       "alpha_y1": 1.64,
       "rank_overall": 561,
-      "rank_in_category": 443
+      "rank_in_category": 442
     },
     {
       "id": "axis-securities-ltd-axis-securities-growan",
@@ -7431,7 +7431,7 @@
       "y3": 14.3,
       "alpha_y1": 1.63,
       "rank_overall": 565,
-      "rank_in_category": 446
+      "rank_in_category": 445
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-imperial-india-focused-equity",
@@ -7444,7 +7444,7 @@
       "y3": 22.31,
       "alpha_y1": 1.63,
       "rank_overall": 565,
-      "rank_in_category": 446
+      "rank_in_category": 445
     },
     {
       "id": "icici-securities-limited-isec-momentum-quality-dynamic-advantage-portfolio",
@@ -7457,7 +7457,7 @@
       "y3": 16.93,
       "alpha_y1": 5.39,
       "rank_overall": 567,
-      "rank_in_category": 448
+      "rank_in_category": 447
     },
     {
       "id": "janak-merchant-securities-pvt-ltd-dynamic-investment-approach",
@@ -7470,7 +7470,7 @@
       "y3": 20.99,
       "alpha_y1": 1.62,
       "rank_overall": 567,
-      "rank_in_category": 448
+      "rank_in_category": 447
     },
     {
       "id": "allegro-securities-pvt-ltd-health-care",
@@ -7483,7 +7483,7 @@
       "y3": 11.88,
       "alpha_y1": 5.38,
       "rank_overall": 569,
-      "rank_in_category": 14
+      "rank_in_category": 15
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-select-opportunities-strategy-2",
@@ -7496,7 +7496,7 @@
       "y3": null,
       "alpha_y1": 1.58,
       "rank_overall": 570,
-      "rank_in_category": 450
+      "rank_in_category": 449
     },
     {
       "id": "money-grow-asset-pvt-ltd-moneygrow-alpha-fund-1",
@@ -7509,7 +7509,7 @@
       "y3": null,
       "alpha_y1": -3.23,
       "rank_overall": 571,
-      "rank_in_category": 451
+      "rank_in_category": 450
     },
     {
       "id": "360-one-asset-management-equity-opportunity-fund",
@@ -7522,7 +7522,7 @@
       "y3": 11.65,
       "alpha_y1": 1.54,
       "rank_overall": 572,
-      "rank_in_category": 452
+      "rank_in_category": 451
     },
     {
       "id": "quest-investment-managers-pvt-ltd-questpms-multi-portfolio",
@@ -7535,7 +7535,7 @@
       "y3": 18.68,
       "alpha_y1": 1.54,
       "rank_overall": 572,
-      "rank_in_category": 452
+      "rank_in_category": 451
     },
     {
       "id": "anand-rathi-advisors-limited-impress-portfolio-nri",
@@ -7548,7 +7548,7 @@
       "y3": 18.8,
       "alpha_y1": 1.53,
       "rank_overall": 574,
-      "rank_in_category": 454
+      "rank_in_category": 453
     },
     {
       "id": "allegro-securities-pvt-ltd-bluechip-equity-fof",
@@ -7574,7 +7574,7 @@
       "y3": null,
       "alpha_y1": 5.27,
       "rank_overall": 576,
-      "rank_in_category": 455
+      "rank_in_category": 454
     },
     {
       "id": "nj-asset-management-private-limited-freedom-portfolio",
@@ -7587,7 +7587,7 @@
       "y3": 15.54,
       "alpha_y1": 5.25,
       "rank_overall": 577,
-      "rank_in_category": 456
+      "rank_in_category": 455
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-open-enhancer-series-blended-equity-enhancer",
@@ -7600,7 +7600,7 @@
       "y3": null,
       "alpha_y1": 5.24,
       "rank_overall": 578,
-      "rank_in_category": 457
+      "rank_in_category": 456
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-discovery",
@@ -7613,7 +7613,7 @@
       "y3": 20.97,
       "alpha_y1": 1.47,
       "rank_overall": 578,
-      "rank_in_category": 457
+      "rank_in_category": 456
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-unique",
@@ -7626,7 +7626,7 @@
       "y3": 20.97,
       "alpha_y1": 1.47,
       "rank_overall": 578,
-      "rank_in_category": 457
+      "rank_in_category": 456
     },
     {
       "id": "dmz-partners-investment-management-llp-dmz-partners-inheritors-strategy",
@@ -7639,7 +7639,7 @@
       "y3": 15.77,
       "alpha_y1": 5.22,
       "rank_overall": 581,
-      "rank_in_category": 460
+      "rank_in_category": 459
     },
     {
       "id": "unicorn-investment-managers-llp-unicorn-mf-alpha-portfolio",
@@ -7652,7 +7652,7 @@
       "y3": null,
       "alpha_y1": 5.22,
       "rank_overall": 581,
-      "rank_in_category": 460
+      "rank_in_category": 459
     },
     {
       "id": "unicorn-investment-managers-llp-unicorn-star-portfolio",
@@ -7665,7 +7665,7 @@
       "y3": null,
       "alpha_y1": 5.22,
       "rank_overall": 581,
-      "rank_in_category": 460
+      "rank_in_category": 459
     },
     {
       "id": "sykes-and-ray-equities-india-limited-sre-pe-shield",
@@ -7678,7 +7678,7 @@
       "y3": 9.88,
       "alpha_y1": 1.44,
       "rank_overall": 584,
-      "rank_in_category": 463
+      "rank_in_category": 462
     },
     {
       "id": "zen-wealth-management-services-ltd-multicap-strategy",
@@ -7691,7 +7691,7 @@
       "y3": 14.33,
       "alpha_y1": 1.41,
       "rank_overall": 585,
-      "rank_in_category": 464
+      "rank_in_category": 463
     },
     {
       "id": "tailwind-financial-services-private-limited-tailwind-alpha-edge-pms",
@@ -7704,7 +7704,7 @@
       "y3": null,
       "alpha_y1": 5.16,
       "rank_overall": 586,
-      "rank_in_category": 465
+      "rank_in_category": 464
     },
     {
       "id": "unicorn-investment-managers-llp-unicorn-etf-alpha-portfolio",
@@ -7717,7 +7717,7 @@
       "y3": null,
       "alpha_y1": 5.08,
       "rank_overall": 587,
-      "rank_in_category": 466
+      "rank_in_category": 465
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-diamond-diversified-mutual-funds-retirement-planning",
@@ -7730,7 +7730,7 @@
       "y3": null,
       "alpha_y1": 5.07,
       "rank_overall": 588,
-      "rank_in_category": 467
+      "rank_in_category": 466
     },
     {
       "id": "pelican-holdings-private-limited-pelican-pe-fund",
@@ -7743,7 +7743,7 @@
       "y3": 9.97,
       "alpha_y1": 5.07,
       "rank_overall": 588,
-      "rank_in_category": 467
+      "rank_in_category": 466
     },
     {
       "id": "laburnum-capital-advisors-private-limited-relative-value-approach",
@@ -7769,7 +7769,7 @@
       "y3": null,
       "alpha_y1": 5.06,
       "rank_overall": 590,
-      "rank_in_category": 469
+      "rank_in_category": 468
     },
     {
       "id": "complete-circle-wealth-solutions-llp-complete-circle-digital-compounders",
@@ -7782,20 +7782,20 @@
       "y3": 15.11,
       "alpha_y1": 1.26,
       "rank_overall": 592,
-      "rank_in_category": 15
+      "rank_in_category": 16
     },
     {
       "id": "anand-rathi-advisors-limited-mnc-portfolio",
       "manager": "Anand Rathi Advisors Limited",
       "approach": "MNC Portfolio",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "aum_cr": 127.5,
       "y1": 1.17,
       "y3": 9.8,
       "alpha_y1": 1.24,
       "rank_overall": 593,
-      "rank_in_category": 470
+      "rank_in_category": 17
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-raw-pearl",
@@ -7808,7 +7808,7 @@
       "y3": 21.3,
       "alpha_y1": 1.21,
       "rank_overall": 594,
-      "rank_in_category": 471
+      "rank_in_category": 469
     },
     {
       "id": "axis-asset-management-company-ltd-newgen-india-fund-i",
@@ -7821,7 +7821,7 @@
       "y3": 17.89,
       "alpha_y1": 2.91,
       "rank_overall": 595,
-      "rank_in_category": 472
+      "rank_in_category": 470
     },
     {
       "id": "unifi-capital-p-ltd-others-equity",
@@ -7834,7 +7834,7 @@
       "y3": 5.68,
       "alpha_y1": 1.2,
       "rank_overall": 595,
-      "rank_in_category": 472
+      "rank_in_category": 470
     },
     {
       "id": "reliance-wealth-management-limited-alpha-large-cap",
@@ -7860,7 +7860,7 @@
       "y3": 20.31,
       "alpha_y1": 1.17,
       "rank_overall": 598,
-      "rank_in_category": 474
+      "rank_in_category": 472
     },
     {
       "id": "icici-securities-limited-ace-equity-portfolio",
@@ -7873,7 +7873,7 @@
       "y3": 16.56,
       "alpha_y1": 4.86,
       "rank_overall": 599,
-      "rank_in_category": 475
+      "rank_in_category": 473
     },
     {
       "id": "swyom-advisors-limited-concentrated-portfolio-approach",
@@ -7886,7 +7886,7 @@
       "y3": null,
       "alpha_y1": 4.86,
       "rank_overall": 599,
-      "rank_in_category": 475
+      "rank_in_category": 473
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-growth-leaders-strategy",
@@ -7899,7 +7899,7 @@
       "y3": 16.69,
       "alpha_y1": 1.08,
       "rank_overall": 601,
-      "rank_in_category": 477
+      "rank_in_category": 475
     },
     {
       "id": "helios-capital-asset-mgnt-india-pvt-ltd-india-rising-fund-ii",
@@ -7912,7 +7912,7 @@
       "y3": 14.1,
       "alpha_y1": 0.72,
       "rank_overall": 602,
-      "rank_in_category": 478
+      "rank_in_category": 476
     },
     {
       "id": "master-portfolio-services-limited-master-trust-india-growth-strategy",
@@ -7925,7 +7925,7 @@
       "y3": 15.09,
       "alpha_y1": 1.05,
       "rank_overall": 603,
-      "rank_in_category": 479
+      "rank_in_category": 477
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-open-enhancer-series-passive-equity-enhancer",
@@ -7938,7 +7938,7 @@
       "y3": null,
       "alpha_y1": 4.81,
       "rank_overall": 604,
-      "rank_in_category": 480
+      "rank_in_category": 478
     },
     {
       "id": "sbi-funds-management-limited-sbi-esg-portfolio-formerly-known-as-sbi-growth-with-values-portfolio",
@@ -7951,7 +7951,7 @@
       "y3": 12.76,
       "alpha_y1": 4.79,
       "rank_overall": 605,
-      "rank_in_category": 481
+      "rank_in_category": 479
     },
     {
       "id": "jain-investment-advisors-pvt-ltd-strategic-equity",
@@ -7964,7 +7964,7 @@
       "y3": 18.46,
       "alpha_y1": 0.99,
       "rank_overall": 606,
-      "rank_in_category": 482
+      "rank_in_category": 480
     },
     {
       "id": "composite-investments-private-limited-composite-india-emerging-stars",
@@ -7977,7 +7977,7 @@
       "y3": 16.95,
       "alpha_y1": 0.92,
       "rank_overall": 607,
-      "rank_in_category": 483
+      "rank_in_category": 481
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-good-and-clean-multi-cap-portfolio",
@@ -7990,7 +7990,7 @@
       "y3": 8.18,
       "alpha_y1": 0.91,
       "rank_overall": 608,
-      "rank_in_category": 484
+      "rank_in_category": 482
     },
     {
       "id": "qed-capital-advisors-llp-core-equity",
@@ -8003,7 +8003,7 @@
       "y3": 11.05,
       "alpha_y1": 0.91,
       "rank_overall": 608,
-      "rank_in_category": 484
+      "rank_in_category": 482
     },
     {
       "id": "markets-mojo-asset-management-private-limited-mojo-power",
@@ -8016,7 +8016,7 @@
       "y3": null,
       "alpha_y1": 0.88,
       "rank_overall": 610,
-      "rank_in_category": 486
+      "rank_in_category": 484
     },
     {
       "id": "sageone-investment-managers-llp-sageone-largecap",
@@ -8042,7 +8042,7 @@
       "y3": 11.87,
       "alpha_y1": 4.61,
       "rank_overall": 612,
-      "rank_in_category": 487
+      "rank_in_category": 485
     },
     {
       "id": "trivantage-capital-management-india-private-limited-trivantage-capital-resurgent-financials-equity-portfolio",
@@ -8055,7 +8055,7 @@
       "y3": 8.64,
       "alpha_y1": 4.61,
       "rank_overall": 612,
-      "rank_in_category": 16
+      "rank_in_category": 18
     },
     {
       "id": "bonanza-portfolio-limited-bonanza-multicap",
@@ -8068,7 +8068,7 @@
       "y3": 22.08,
       "alpha_y1": 4.59,
       "rank_overall": 614,
-      "rank_in_category": 488
+      "rank_in_category": 486
     },
     {
       "id": "enigma-investment-partners-enigma-small-opportunities-fund",
@@ -8094,7 +8094,7 @@
       "y3": 11.87,
       "alpha_y1": 0.79,
       "rank_overall": 615,
-      "rank_in_category": 489
+      "rank_in_category": 487
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-all-cap-shariah-approach",
@@ -8107,7 +8107,7 @@
       "y3": 15.38,
       "alpha_y1": 0.75,
       "rank_overall": 617,
-      "rank_in_category": 490
+      "rank_in_category": 488
     },
     {
       "id": "phillipcapital-india-pvt-ltd-phillip-emerging-india-portfolio",
@@ -8120,7 +8120,7 @@
       "y3": 11.29,
       "alpha_y1": 0.75,
       "rank_overall": 617,
-      "rank_in_category": 490
+      "rank_in_category": 488
     },
     {
       "id": "anand-rathi-advisors-limited-the-alpha-i-strategy",
@@ -8133,7 +8133,7 @@
       "y3": 15.65,
       "alpha_y1": 0.74,
       "rank_overall": 619,
-      "rank_in_category": 492
+      "rank_in_category": 490
     },
     {
       "id": "anand-rathi-advisors-limited-impress-portfolio",
@@ -8146,7 +8146,7 @@
       "y3": 18.69,
       "alpha_y1": 0.73,
       "rank_overall": 620,
-      "rank_in_category": 493
+      "rank_in_category": 491
     },
     {
       "id": "wallfort-fund-management-llp-wallfort-ameya-fund",
@@ -8159,7 +8159,7 @@
       "y3": 25.72,
       "alpha_y1": 0.66,
       "rank_overall": 621,
-      "rank_in_category": 494
+      "rank_in_category": 492
     },
     {
       "id": "deutsche-investments-india-private-limited-diipl-db-india-alpha-factor-equities",
@@ -8172,7 +8172,7 @@
       "y3": null,
       "alpha_y1": 4.42,
       "rank_overall": 622,
-      "rank_in_category": 495
+      "rank_in_category": 493
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-active",
@@ -8185,7 +8185,7 @@
       "y3": 20.66,
       "alpha_y1": 0.65,
       "rank_overall": 622,
-      "rank_in_category": 495
+      "rank_in_category": 493
     },
     {
       "id": "wave-asset-private-limited-bloom",
@@ -8198,7 +8198,7 @@
       "y3": null,
       "alpha_y1": 0.65,
       "rank_overall": 622,
-      "rank_in_category": 495
+      "rank_in_category": 493
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-structered-product-series-viii",
@@ -8211,7 +8211,7 @@
       "y3": 0.82,
       "alpha_y1": 4.39,
       "rank_overall": 625,
-      "rank_in_category": 498
+      "rank_in_category": 496
     },
     {
       "id": "dezerv-investments-private-limited-dezerv-momentum-strategy",
@@ -8224,7 +8224,7 @@
       "y3": null,
       "alpha_y1": 0.62,
       "rank_overall": 625,
-      "rank_in_category": 498
+      "rank_in_category": 496
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-mandate-equity",
@@ -8237,7 +8237,7 @@
       "y3": 13.01,
       "alpha_y1": 4.38,
       "rank_overall": 627,
-      "rank_in_category": 500
+      "rank_in_category": 498
     },
     {
       "id": "karma-capital-advisors-pvt-ltd-karma-capital-magnolia",
@@ -8250,7 +8250,7 @@
       "y3": 12.93,
       "alpha_y1": 4.37,
       "rank_overall": 628,
-      "rank_in_category": 501
+      "rank_in_category": 499
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-open-managed-solutions-all-equity",
@@ -8263,7 +8263,7 @@
       "y3": 13.57,
       "alpha_y1": 4.35,
       "rank_overall": 629,
-      "rank_in_category": 502
+      "rank_in_category": 500
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-absl-india-200-quant-equity-portfolio",
@@ -8276,7 +8276,7 @@
       "y3": 16.13,
       "alpha_y1": 0.58,
       "rank_overall": 629,
-      "rank_in_category": 502
+      "rank_in_category": 500
     },
     {
       "id": "complete-circle-wealth-solutions-llp-digital-compounders-pms",
@@ -8289,7 +8289,7 @@
       "y3": null,
       "alpha_y1": 0.57,
       "rank_overall": 631,
-      "rank_in_category": 17
+      "rank_in_category": 19
     },
     {
       "id": "paterson-securities-private-limited-paterson-leadership",
@@ -8302,7 +8302,7 @@
       "y3": null,
       "alpha_y1": 4.32,
       "rank_overall": 632,
-      "rank_in_category": 504
+      "rank_in_category": 502
     },
     {
       "id": "rational-equity-trust-rational-equity-flagship-fund-i",
@@ -8315,7 +8315,7 @@
       "y3": null,
       "alpha_y1": 0.2,
       "rank_overall": 632,
-      "rank_in_category": 504
+      "rank_in_category": 502
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-open-enhancer-series-dynamic-passive-equity",
@@ -8328,7 +8328,7 @@
       "y3": null,
       "alpha_y1": 4.31,
       "rank_overall": 634,
-      "rank_in_category": 506
+      "rank_in_category": 504
     },
     {
       "id": "lgt-wealth-india-private-limited-edge",
@@ -8341,7 +8341,7 @@
       "y3": null,
       "alpha_y1": 4.3,
       "rank_overall": 635,
-      "rank_in_category": 507
+      "rank_in_category": 505
     },
     {
       "id": "alphagrep-investment-management-private-limited-alphagrep-multi-factor-quant-portfolio",
@@ -8354,7 +8354,7 @@
       "y3": 17.02,
       "alpha_y1": 0.51,
       "rank_overall": 636,
-      "rank_in_category": 508
+      "rank_in_category": 506
     },
     {
       "id": "unifi-capital-pvt-ltd-umbrella-blend-fund-2",
@@ -8367,7 +8367,7 @@
       "y3": 9.62,
       "alpha_y1": 0.49,
       "rank_overall": 637,
-      "rank_in_category": 509
+      "rank_in_category": 507
     },
     {
       "id": "kotak-mahindra-asset-management-company-ltd-kotak-evolv-equity-investment-approach",
@@ -8380,7 +8380,7 @@
       "y3": null,
       "alpha_y1": 4.19,
       "rank_overall": 638,
-      "rank_in_category": 510
+      "rank_in_category": 508
     },
     {
       "id": "sanctum-wealth-private-limited-sanctum-indian-olympians",
@@ -8393,7 +8393,7 @@
       "y3": 9.17,
       "alpha_y1": 4.19,
       "rank_overall": 638,
-      "rank_in_category": 510
+      "rank_in_category": 508
     },
     {
       "id": "dezerv-investments-private-limited-dezerv-alpha-beta-equity-strategy",
@@ -8406,7 +8406,7 @@
       "y3": 14.52,
       "alpha_y1": 0.41,
       "rank_overall": 640,
-      "rank_in_category": 512
+      "rank_in_category": 510
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-wellness-strategy",
@@ -8419,7 +8419,7 @@
       "y3": 18.43,
       "alpha_y1": 0.39,
       "rank_overall": 641,
-      "rank_in_category": 513
+      "rank_in_category": 511
     },
     {
       "id": "hdfc-asset-management-company-limited-hdfc-amc-mf-select-portfolio-equity-formerly-portfolio-of-mf-schemes-etfs",
@@ -8432,7 +8432,7 @@
       "y3": 17.88,
       "alpha_y1": 4.14,
       "rank_overall": 642,
-      "rank_in_category": 514
+      "rank_in_category": 512
     },
     {
       "id": "right-horizons-portfolio-management-pvt-ltd-rh-alphabots-india-large-cap-50",
@@ -8458,7 +8458,7 @@
       "y3": null,
       "alpha_y1": 0.35,
       "rank_overall": 644,
-      "rank_in_category": 515
+      "rank_in_category": 513
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-open-enhancer-series-active-equity-enhancer",
@@ -8471,7 +8471,7 @@
       "y3": null,
       "alpha_y1": 4.1,
       "rank_overall": 645,
-      "rank_in_category": 516
+      "rank_in_category": 514
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-multi-manager-core-equity-strategy",
@@ -8484,7 +8484,7 @@
       "y3": 13.36,
       "alpha_y1": 4.1,
       "rank_overall": 645,
-      "rank_in_category": 516
+      "rank_in_category": 514
     },
     {
       "id": "reliance-wealth-management-limited-mint",
@@ -8497,7 +8497,7 @@
       "y3": 14.92,
       "alpha_y1": 0.32,
       "rank_overall": 647,
-      "rank_in_category": 518
+      "rank_in_category": 516
     },
     {
       "id": "buglerock-capital-private-limited-growth-opportunities-portfolio",
@@ -8510,7 +8510,7 @@
       "y3": 8.02,
       "alpha_y1": 0.3,
       "rank_overall": 648,
-      "rank_in_category": 519
+      "rank_in_category": 517
     },
     {
       "id": "reliance-wealth-management-limited-value",
@@ -8536,7 +8536,7 @@
       "y3": 15.46,
       "alpha_y1": 0.28,
       "rank_overall": 650,
-      "rank_in_category": 520
+      "rank_in_category": 518
     },
     {
       "id": "360-one-asset-management-turnaround-opportunities-fund",
@@ -8549,7 +8549,7 @@
       "y3": 14.69,
       "alpha_y1": 0.27,
       "rank_overall": 651,
-      "rank_in_category": 521
+      "rank_in_category": 519
     },
     {
       "id": "tamohara-investment-managers-pvt-ltd-tamohara-nxt-multicap-strategy",
@@ -8562,7 +8562,7 @@
       "y3": 7.05,
       "alpha_y1": 4.04,
       "rank_overall": 651,
-      "rank_in_category": 521
+      "rank_in_category": 519
     },
     {
       "id": "tamohara-investment-managers-pvt-ltd-tamohara-india-opportunities-strategy",
@@ -8575,7 +8575,7 @@
       "y3": 6.65,
       "alpha_y1": 4.03,
       "rank_overall": 653,
-      "rank_in_category": 523
+      "rank_in_category": 521
     },
     {
       "id": "jain-investment-advisors-pvt-ltd-innovative-business",
@@ -8588,7 +8588,7 @@
       "y3": 17.6,
       "alpha_y1": 0.22,
       "rank_overall": 654,
-      "rank_in_category": 524
+      "rank_in_category": 522
     },
     {
       "id": "qode-advisors-llp-qode-future-horizons",
@@ -8601,7 +8601,7 @@
       "y3": null,
       "alpha_y1": 0.22,
       "rank_overall": 654,
-      "rank_in_category": 524
+      "rank_in_category": 522
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-bay-capital-india-first-portfolio",
@@ -8614,7 +8614,7 @@
       "y3": 16.15,
       "alpha_y1": 3.94,
       "rank_overall": 656,
-      "rank_in_category": 526
+      "rank_in_category": 524
     },
     {
       "id": "dalal-and-broacha-stock-brocking-pvt-ltd-d-and-b-india-opportunities-multi-cap-fund",
@@ -8627,7 +8627,7 @@
       "y3": 17.5,
       "alpha_y1": 4.96,
       "rank_overall": 656,
-      "rank_in_category": 526
+      "rank_in_category": 524
     },
     {
       "id": "estee-advisors-private-limited-lomg-alpha",
@@ -8640,7 +8640,7 @@
       "y3": 19.29,
       "alpha_y1": 0.15,
       "rank_overall": 658,
-      "rank_in_category": 528
+      "rank_in_category": 526
     },
     {
       "id": "spark-asia-impact-managers-private-limited-spark-india-75-flexicap-strategy",
@@ -8653,7 +8653,7 @@
       "y3": 16.14,
       "alpha_y1": 3.91,
       "rank_overall": 659,
-      "rank_in_category": 529
+      "rank_in_category": 527
     },
     {
       "id": "spark-asia-impact-managers-private-limited-spark-india-75-active-alpha-strategy",
@@ -8666,7 +8666,7 @@
       "y3": null,
       "alpha_y1": 3.9,
       "rank_overall": 660,
-      "rank_in_category": 530
+      "rank_in_category": 528
     },
     {
       "id": "360-one-asset-management-high-conviction-fund-series-1",
@@ -8679,7 +8679,7 @@
       "y3": 16.06,
       "alpha_y1": 0.76,
       "rank_overall": 661,
-      "rank_in_category": 531
+      "rank_in_category": 529
     },
     {
       "id": "ayan-analytics-pvt-ltd-top-100-equity",
@@ -8705,7 +8705,7 @@
       "y3": 11.18,
       "alpha_y1": 3.89,
       "rank_overall": 661,
-      "rank_in_category": 531
+      "rank_in_category": 529
     },
     {
       "id": "nippon-life-india-asset-management-ltd-nippon-india-royal-portfolio",
@@ -8718,7 +8718,7 @@
       "y3": 14.03,
       "alpha_y1": 0.09,
       "rank_overall": 664,
-      "rank_in_category": 533
+      "rank_in_category": 531
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-all-cap-approach-2",
@@ -8731,7 +8731,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-approach-2",
@@ -8744,7 +8744,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "abakkus-asset-manager-private-limited-all-cap-esg-approach",
@@ -8757,7 +8757,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "aditya-birla-money-limited-aditya-birla-money-ltd-r-b-p-rule-based-portfolio",
@@ -8770,7 +8770,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-absl-next-100-portfolio-nr",
@@ -8783,7 +8783,7 @@
       "y3": 1.9,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-all-star-multi-cap-shariah-portfolio",
@@ -8796,7 +8796,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-core-portfolio",
@@ -8809,7 +8809,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-emerging-stars-portfolio",
@@ -8822,7 +8822,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-leaders-portfolio",
@@ -8835,7 +8835,7 @@
       "y3": null,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-multicap-portfolio",
@@ -8848,7 +8848,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "arthya-wealth-and-investments-private-limited-arthya-opportunities-portfolio",
@@ -8861,7 +8861,7 @@
       "y3": 0,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "axis-securities-ltd-axis-securities-mf-maximizer-equity",
@@ -8874,7 +8874,7 @@
       "y3": -51.29,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "bonanza-portfolio-limited-bonanza-prima-fund-moderate",
@@ -8887,7 +8887,7 @@
       "y3": null,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "capitalmind-financial-services-private-limited-custom-portfolio-7",
@@ -8900,7 +8900,7 @@
       "y3": 0,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "carpediem-advisors-private-limited-yugadi-capital-india",
@@ -8939,7 +8939,7 @@
       "y3": 13.7,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "invicta-capserv-private-limited-invicta-continuum-fund-ii",
@@ -8965,7 +8965,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "kriis-portfolio-private-limited-kriis-compounders-portfolio-strategy",
@@ -8978,7 +8978,7 @@
       "y3": 28,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "marathontrends-advisory-pvt-ltd-trend-following-large-cap",
@@ -9004,7 +9004,7 @@
       "y3": 0,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "microsec-wealth-management-limited-microsec-wealth-management-ltd",
@@ -9017,7 +9017,7 @@
       "y3": 13.64,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "moat-financial-services-private-limited-aggressive-leaders",
@@ -9030,7 +9030,7 @@
       "y3": 0,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "moat-financial-services-private-limited-conservative-growth",
@@ -9043,7 +9043,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "moneybee-securities-pvt-ltd-moneycomb",
@@ -9056,7 +9056,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-deep-value-strategy",
@@ -9108,7 +9108,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-india-invest-opportunity-portfolio-strategy-v2",
@@ -9121,7 +9121,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-india-opportunity-portfolio-strategy",
@@ -9134,7 +9134,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-india-opportunity-portfolio-strategy-v2",
@@ -9147,7 +9147,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-large-cap-growth-strategy",
@@ -9173,7 +9173,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-all-cap-growth-strategy",
@@ -9186,7 +9186,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-business-opportunities-portfolio-strategy",
@@ -9199,7 +9199,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-emerging-business-strategy",
@@ -9212,7 +9212,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-emerging-stars-portfolio",
@@ -9225,7 +9225,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-hockey-stick-micro-cap-portfolio",
@@ -9264,7 +9264,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-hockey-stick-small-cap-portfolio",
@@ -9303,7 +9303,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-plus-strategy",
@@ -9316,7 +9316,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "nafa-asset-managers-private-limited-nafa-pharma-portfolio",
@@ -9329,7 +9329,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 18
+      "rank_in_category": 20
     },
     {
       "id": "neo-asset-management-private-limited-neo-club-equity-advantage-product",
@@ -9342,7 +9342,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "neo-asset-management-private-limited-neo-club-multi-asset-investment-product",
@@ -9381,7 +9381,7 @@
       "y3": null,
       "alpha_y1": 3.84,
       "rank_overall": 665,
-      "rank_in_category": 18
+      "rank_in_category": 20
     },
     {
       "id": "phillipcapital-india-pvt-ltd-phillip-multi-asset-portfolio",
@@ -9407,7 +9407,7 @@
       "y3": 5.15,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "reliance-wealth-management-limited-emerging-business-opportunity-portfolio-1",
@@ -9420,7 +9420,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "sanctum-wealth-private-limited-sanctum-finedge",
@@ -9433,7 +9433,7 @@
       "y3": 2.7,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "silverarch-investment-advisers-private-limited-silverarch-india-mid-and-small-cap-equity-portfolio",
@@ -9459,7 +9459,7 @@
       "y3": 0,
       "alpha_y1": 0,
       "rank_overall": 665,
-      "rank_in_category": 18
+      "rank_in_category": 20
     },
     {
       "id": "valcreate-investment-managers-llp-ime-bespoke-wealth",
@@ -9472,7 +9472,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "valcreate-investment-managers-llp-ime-concentrated-microtrends",
@@ -9485,7 +9485,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "valcreate-investment-managers-llp-ime-digital-disruption",
@@ -9498,7 +9498,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 18
+      "rank_in_category": 20
     },
     {
       "id": "valcreate-investment-managers-llp-ime-equity-bespoke",
@@ -9511,7 +9511,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "ventura-securities-limited-ventura-micro-cap-thematic-portfolio-management-scheme",
@@ -9537,7 +9537,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "whiteoak-capital-asset-management-limited-whiteoak-capital-emerging-leaders-portfolio-approach",
@@ -9550,7 +9550,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "whiteoak-capital-asset-management-limited-whiteoak-capital-family-owned-family-managed-portfolio-fofm-approach",
@@ -9563,7 +9563,7 @@
       "y3": 0,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "whiteoak-capital-asset-management-limited-whiteoak-capital-select-stocks-portfolio-approach",
@@ -9576,7 +9576,7 @@
       "y3": null,
       "alpha_y1": 0.07,
       "rank_overall": 665,
-      "rank_in_category": 534
+      "rank_in_category": 532
     },
     {
       "id": "ithought-financial-consulting-llp-alpha",
@@ -9589,7 +9589,7 @@
       "y3": 18.03,
       "alpha_y1": 0.02,
       "rank_overall": 731,
-      "rank_in_category": 579
+      "rank_in_category": 577
     },
     {
       "id": "whitespace-alpha-whitespace-fund-i-equity-plus",
@@ -9628,7 +9628,7 @@
       "y3": 17.83,
       "alpha_y1": -0.04,
       "rank_overall": 734,
-      "rank_in_category": 580
+      "rank_in_category": 578
     },
     {
       "id": "angel-one-investment-managers-and-advisors-private-limited-ionic-pipe-strategy",
@@ -9641,7 +9641,7 @@
       "y3": null,
       "alpha_y1": -0.12,
       "rank_overall": 735,
-      "rank_in_category": 581
+      "rank_in_category": 579
     },
     {
       "id": "nippon-life-india-asset-management-ltd-high-conviction-equity-portfolio",
@@ -9654,7 +9654,7 @@
       "y3": 14.47,
       "alpha_y1": -0.12,
       "rank_overall": 735,
-      "rank_in_category": 581
+      "rank_in_category": 579
     },
     {
       "id": "phillipcapital-india-pvt-ltd-phillip-signature-india-portfolio",
@@ -9667,7 +9667,7 @@
       "y3": 8.77,
       "alpha_y1": -0.18,
       "rank_overall": 737,
-      "rank_in_category": 583
+      "rank_in_category": 581
     },
     {
       "id": "quest-investment-managers-pvt-ltd-quest-pms-times",
@@ -9680,7 +9680,7 @@
       "y3": null,
       "alpha_y1": -0.18,
       "rank_overall": 737,
-      "rank_in_category": 583
+      "rank_in_category": 581
     },
     {
       "id": "capitalmind-financial-services-private-limited-adaptive-momentum",
@@ -9693,7 +9693,7 @@
       "y3": 12.98,
       "alpha_y1": 3.57,
       "rank_overall": 739,
-      "rank_in_category": 585
+      "rank_in_category": 583
     },
     {
       "id": "helios-capital-asset-mgnt-india-pvt-ltd-india-long-short-fund",
@@ -9719,7 +9719,7 @@
       "y3": 11.96,
       "alpha_y1": -0.25,
       "rank_overall": 741,
-      "rank_in_category": 586
+      "rank_in_category": 584
     },
     {
       "id": "axis-securities-ltd-axis-securities-select-nifty-50",
@@ -9732,7 +9732,7 @@
       "y3": 10.99,
       "alpha_y1": 3.51,
       "rank_overall": 742,
-      "rank_in_category": 587
+      "rank_in_category": 585
     },
     {
       "id": "complete-circle-wealth-solutions-llp-complete-circle-india-rising",
@@ -9745,7 +9745,7 @@
       "y3": null,
       "alpha_y1": -0.27,
       "rank_overall": 743,
-      "rank_in_category": 588
+      "rank_in_category": 586
     },
     {
       "id": "revelation-portfolio-management-pvt-ltd-revelation-india-opportunities-portfolio-ii",
@@ -9758,7 +9758,7 @@
       "y3": 13.33,
       "alpha_y1": -0.27,
       "rank_overall": 743,
-      "rank_in_category": 588
+      "rank_in_category": 586
     },
     {
       "id": "icici-securities-limited-i-sec-multifactor-portfolio",
@@ -9771,7 +9771,7 @@
       "y3": 12.81,
       "alpha_y1": 3.49,
       "rank_overall": 745,
-      "rank_in_category": 590
+      "rank_in_category": 588
     },
     {
       "id": "negen-capital-services-private-lmited-negen-special-situations-and-dynamic-allocation-strategy",
@@ -9797,7 +9797,7 @@
       "y3": 10.48,
       "alpha_y1": -0.28,
       "rank_overall": 745,
-      "rank_in_category": 590
+      "rank_in_category": 588
     },
     {
       "id": "hem-securities-limited-dynamic-research-and-emerging-asset-management-strategy-dream",
@@ -9810,7 +9810,7 @@
       "y3": 18.25,
       "alpha_y1": -0.29,
       "rank_overall": 748,
-      "rank_in_category": 592
+      "rank_in_category": 590
     },
     {
       "id": "abakkus-asset-manager-private-limited-emerging-opportunities-fund-1",
@@ -9836,7 +9836,7 @@
       "y3": null,
       "alpha_y1": 3.44,
       "rank_overall": 750,
-      "rank_in_category": 593
+      "rank_in_category": 591
     },
     {
       "id": "hpmg-shares-and-securities-pvt-ltd-hpmg-multicap-fund",
@@ -9849,7 +9849,7 @@
       "y3": 14.87,
       "alpha_y1": -0.33,
       "rank_overall": 750,
-      "rank_in_category": 593
+      "rank_in_category": 591
     },
     {
       "id": "ksema-wealth-pvt-ltd-ksema-wealth-multicap-india-opportunities-fund",
@@ -9862,7 +9862,7 @@
       "y3": 15.27,
       "alpha_y1": 3.42,
       "rank_overall": 752,
-      "rank_in_category": 595
+      "rank_in_category": 593
     },
     {
       "id": "ametra-investment-managers-private-limited-ametra-factoralpha-smallcap-pms",
@@ -9888,7 +9888,7 @@
       "y3": 16.04,
       "alpha_y1": 3.4,
       "rank_overall": 753,
-      "rank_in_category": 596
+      "rank_in_category": 594
     },
     {
       "id": "agreya-capital-advisors-llp-agreya-momentum",
@@ -9901,7 +9901,7 @@
       "y3": 11.48,
       "alpha_y1": 3.37,
       "rank_overall": 755,
-      "rank_in_category": 597
+      "rank_in_category": 595
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-microcap-portfolio",
@@ -9921,13 +9921,13 @@
       "manager": "Motilal Oswal Asset Management Company Limited - Portfolio Managers",
       "approach": "Next Trillion Dollar Opportunity Strategy",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid Cap",
       "aum_cr": 4421.02,
       "y1": -0.47,
       "y3": 13.46,
       "alpha_y1": -0.4,
       "rank_overall": 755,
-      "rank_in_category": 597
+      "rank_in_category": 8
     },
     {
       "id": "smc-global-securities-limited-smc-moderate",
@@ -9940,7 +9940,7 @@
       "y3": 10.89,
       "alpha_y1": 3.31,
       "rank_overall": 758,
-      "rank_in_category": 599
+      "rank_in_category": 596
     },
     {
       "id": "aditya-birla-money-limited-core-and-satellite-equity-portfolio1",
@@ -9953,7 +9953,7 @@
       "y3": 15.02,
       "alpha_y1": 3.29,
       "rank_overall": 759,
-      "rank_in_category": 600
+      "rank_in_category": 597
     },
     {
       "id": "nine-rivers-capital-holdings-private-limited-aurum-growth-opportunities",
@@ -9966,7 +9966,7 @@
       "y3": 11.12,
       "alpha_y1": -0.51,
       "rank_overall": 760,
-      "rank_in_category": 601
+      "rank_in_category": 598
     },
     {
       "id": "narnolia-financial-services-limited-narnolia-multi-cap-strategy",
@@ -9979,7 +9979,7 @@
       "y3": 8.36,
       "alpha_y1": 3.24,
       "rank_overall": 761,
-      "rank_in_category": 602
+      "rank_in_category": 599
     },
     {
       "id": "motilal-oswal-asset-management-company-ltd-motilal-oswal-founders-fund-series-1",
@@ -9992,7 +9992,7 @@
       "y3": 22.09,
       "alpha_y1": 0.47,
       "rank_overall": 762,
-      "rank_in_category": 603
+      "rank_in_category": 600
     },
     {
       "id": "sageone-investment-managers-llp-sageone-small-cap",
@@ -10018,7 +10018,7 @@
       "y3": null,
       "alpha_y1": 3.12,
       "rank_overall": 763,
-      "rank_in_category": 604
+      "rank_in_category": 601
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-emerald-e-diversified-mutual-funds-equity",
@@ -10031,7 +10031,7 @@
       "y3": null,
       "alpha_y1": 3.11,
       "rank_overall": 765,
-      "rank_in_category": 605
+      "rank_in_category": 602
     },
     {
       "id": "dsp-asset-managers-private-limited-dsp-india-enhanced-equity-satcore-fund",
@@ -10044,7 +10044,7 @@
       "y3": 10.86,
       "alpha_y1": -0.04,
       "rank_overall": 766,
-      "rank_in_category": 606
+      "rank_in_category": 603
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-tenx-portfolio",
@@ -10057,7 +10057,7 @@
       "y3": 5.49,
       "alpha_y1": -0.71,
       "rank_overall": 767,
-      "rank_in_category": 607
+      "rank_in_category": 604
     },
     {
       "id": "aditya-birla-money-limited-core-and-satellite-equity-portfolio",
@@ -10070,7 +10070,7 @@
       "y3": 15.8,
       "alpha_y1": 3.05,
       "rank_overall": 768,
-      "rank_in_category": 608
+      "rank_in_category": 605
     },
     {
       "id": "ajanta-advisors-llp-ajanta-india-fund-i",
@@ -10083,7 +10083,7 @@
       "y3": null,
       "alpha_y1": 0.3,
       "rank_overall": 769,
-      "rank_in_category": 609
+      "rank_in_category": 606
     },
     {
       "id": "revelation-portfolio-management-pvt-ltd-revelation-india-opportunities-portfolio-i",
@@ -10096,7 +10096,7 @@
       "y3": 12.85,
       "alpha_y1": -0.74,
       "rank_overall": 769,
-      "rank_in_category": 609
+      "rank_in_category": 606
     },
     {
       "id": "unifi-capital-pvt-ltd-bcad",
@@ -10109,7 +10109,7 @@
       "y3": 10.85,
       "alpha_y1": -0.79,
       "rank_overall": 771,
-      "rank_in_category": 611
+      "rank_in_category": 608
     },
     {
       "id": "harmoney-finserv-india-private-limited-india-story-consistent-compounder",
@@ -10122,7 +10122,7 @@
       "y3": 9.5,
       "alpha_y1": 2.95,
       "rank_overall": 772,
-      "rank_in_category": 612
+      "rank_in_category": 609
     },
     {
       "id": "aditya-birla-money-limited-core-and-satellite-portfolio-scheme-1",
@@ -10135,7 +10135,7 @@
       "y3": 15.47,
       "alpha_y1": 2.92,
       "rank_overall": 773,
-      "rank_in_category": 613
+      "rank_in_category": 610
     },
     {
       "id": "equentis-wealth-advisory-services-limited-equentis-multi-cap-portfolio",
@@ -10148,7 +10148,7 @@
       "y3": null,
       "alpha_y1": 2.89,
       "rank_overall": 774,
-      "rank_in_category": 614
+      "rank_in_category": 611
     },
     {
       "id": "hdfc-asset-management-company-limited-diversified-portfolio-equity",
@@ -10161,7 +10161,7 @@
       "y3": 18.85,
       "alpha_y1": -0.88,
       "rank_overall": 774,
-      "rank_in_category": 614
+      "rank_in_category": 611
     },
     {
       "id": "citrus-advisors-private-limited-citrus-midcap-marvels",
@@ -10174,7 +10174,7 @@
       "y3": null,
       "alpha_y1": -0.89,
       "rank_overall": 776,
-      "rank_in_category": 8
+      "rank_in_category": 9
     },
     {
       "id": "whiteoak-capital-asset-management-limited-research-picks-ii-portfolio-approach",
@@ -10187,7 +10187,7 @@
       "y3": 11.45,
       "alpha_y1": -0.89,
       "rank_overall": 776,
-      "rank_in_category": 616
+      "rank_in_category": 613
     },
     {
       "id": "emkay-investment-managers-limited-emkaygolden",
@@ -10200,7 +10200,7 @@
       "y3": null,
       "alpha_y1": -0.9,
       "rank_overall": 778,
-      "rank_in_category": 617
+      "rank_in_category": 614
     },
     {
       "id": "moneygrow-asset-private-limited-moneygrow-blend",
@@ -10213,7 +10213,7 @@
       "y3": null,
       "alpha_y1": 2.84,
       "rank_overall": 779,
-      "rank_in_category": 618
+      "rank_in_category": 615
     },
     {
       "id": "fyers-asset-management-private-limited-fyers-genesis-fund",
@@ -10226,7 +10226,7 @@
       "y3": null,
       "alpha_y1": -0.94,
       "rank_overall": 780,
-      "rank_in_category": 619
+      "rank_in_category": 616
     },
     {
       "id": "lgt-wealth-india-private-limited-maxima",
@@ -10239,7 +10239,7 @@
       "y3": 8.89,
       "alpha_y1": 2.83,
       "rank_overall": 780,
-      "rank_in_category": 619
+      "rank_in_category": 616
     },
     {
       "id": "ayan-analytics-pvt-ltd-pricebridge-total-market-india-pms",
@@ -10252,7 +10252,7 @@
       "y3": null,
       "alpha_y1": -0.97,
       "rank_overall": 782,
-      "rank_in_category": 621
+      "rank_in_category": 618
     },
     {
       "id": "guardian-capital-partners-opportunities-scheme",
@@ -10265,7 +10265,7 @@
       "y3": 15.05,
       "alpha_y1": 7.15,
       "rank_overall": 782,
-      "rank_in_category": 621
+      "rank_in_category": 618
     },
     {
       "id": "pioneer-wealth-management-services-limited-pinc-aggressive-fund",
@@ -10278,7 +10278,7 @@
       "y3": null,
       "alpha_y1": -0.99,
       "rank_overall": 784,
-      "rank_in_category": 623
+      "rank_in_category": 620
     },
     {
       "id": "sameeksha-capital-private-limited-sameeksha-india-equity-fund",
@@ -10291,7 +10291,7 @@
       "y3": 20.62,
       "alpha_y1": -0.99,
       "rank_overall": 784,
-      "rank_in_category": 623
+      "rank_in_category": 620
     },
     {
       "id": "neo-asset-management-private-limited-neo-club-equity-dedicated-product",
@@ -10304,7 +10304,7 @@
       "y3": 14.17,
       "alpha_y1": 2.73,
       "rank_overall": 786,
-      "rank_in_category": 625
+      "rank_in_category": 622
     },
     {
       "id": "lgt-wealth-india-private-limited-optima",
@@ -10317,7 +10317,7 @@
       "y3": 4.4,
       "alpha_y1": 2.72,
       "rank_overall": 787,
-      "rank_in_category": 626
+      "rank_in_category": 623
     },
     {
       "id": "willow-advisors-llp-willow-long-term-value-strategy",
@@ -10343,7 +10343,7 @@
       "y3": 18,
       "alpha_y1": 2.71,
       "rank_overall": 789,
-      "rank_in_category": 627
+      "rank_in_category": 624
     },
     {
       "id": "markets-mojo-asset-management-private-limited-mojo-soul",
@@ -10356,7 +10356,7 @@
       "y3": null,
       "alpha_y1": -1.06,
       "rank_overall": 789,
-      "rank_in_category": 627
+      "rank_in_category": 624
     },
     {
       "id": "r-wadiwala-securities-private-limited-ns-multicap-advised-model-portfolio-pms-shreyas-pms",
@@ -10369,7 +10369,7 @@
       "y3": 9.74,
       "alpha_y1": -1.06,
       "rank_overall": 789,
-      "rank_in_category": 627
+      "rank_in_category": 624
     },
     {
       "id": "wallfort-fund-management-llp-wallfort-india-contra-equity-fund",
@@ -10395,7 +10395,7 @@
       "y3": 13.58,
       "alpha_y1": -1.08,
       "rank_overall": 793,
-      "rank_in_category": 630
+      "rank_in_category": 627
     },
     {
       "id": "sanctum-wealth-private-limited-tailored-discretionary-portfolio-aggressive",
@@ -10408,7 +10408,7 @@
       "y3": 10.56,
       "alpha_y1": -1.09,
       "rank_overall": 794,
-      "rank_in_category": 631
+      "rank_in_category": 628
     },
     {
       "id": "emkay-investment-managers-limited-emkays-12",
@@ -10421,7 +10421,7 @@
       "y3": 9.19,
       "alpha_y1": 2.67,
       "rank_overall": 795,
-      "rank_in_category": 632
+      "rank_in_category": 629
     },
     {
       "id": "ohm-portfolio-equi-research-private-limited-ohm-absolute",
@@ -10434,7 +10434,7 @@
       "y3": 11.55,
       "alpha_y1": 2.66,
       "rank_overall": 796,
-      "rank_in_category": 633
+      "rank_in_category": 630
     },
     {
       "id": "accuracap-alphagennext-fund",
@@ -10447,7 +10447,7 @@
       "y3": 9.6,
       "alpha_y1": -0.1,
       "rank_overall": 797,
-      "rank_in_category": 634
+      "rank_in_category": 631
     },
     {
       "id": "aditya-birla-sun-life-amc-india-equity-opportunities-fund",
@@ -10460,7 +10460,7 @@
       "y3": 15.44,
       "alpha_y1": -1.8,
       "rank_overall": 797,
-      "rank_in_category": 634
+      "rank_in_category": 631
     },
     {
       "id": "first-water-capital-advisors-llp-first-water-capital-fund",
@@ -10473,7 +10473,7 @@
       "y3": 23.8,
       "alpha_y1": -3.61,
       "rank_overall": 797,
-      "rank_in_category": 634
+      "rank_in_category": 631
     },
     {
       "id": "prudent-equity-pvt-ltd-ace-fund",
@@ -10486,7 +10486,7 @@
       "y3": 26.1,
       "alpha_y1": -0.1,
       "rank_overall": 797,
-      "rank_in_category": 634
+      "rank_in_category": 631
     },
     {
       "id": "alfaccurate-advisors-aaa-india-equity-fund",
@@ -10499,7 +10499,7 @@
       "y3": 14.52,
       "alpha_y1": -1.14,
       "rank_overall": 801,
-      "rank_in_category": 638
+      "rank_in_category": 635
     },
     {
       "id": "scient-capital-pvt-ltd-scient-smart-beta-pms",
@@ -10512,7 +10512,7 @@
       "y3": -6.52,
       "alpha_y1": null,
       "rank_overall": 801,
-      "rank_in_category": 638
+      "rank_in_category": 635
     },
     {
       "id": "sincere-syndication-and-corporate-services-llp-metamorphosis-fund",
@@ -10525,7 +10525,7 @@
       "y3": 10.15,
       "alpha_y1": -1.14,
       "rank_overall": 801,
-      "rank_in_category": 638
+      "rank_in_category": 635
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-multi-manager-thematic-strategy",
@@ -10538,7 +10538,7 @@
       "y3": 14.73,
       "alpha_y1": 2.61,
       "rank_overall": 804,
-      "rank_in_category": 22
+      "rank_in_category": 24
     },
     {
       "id": "pioneer-client-associates-pvt-ltd-ca-equity-multi-manager-portfolio",
@@ -10551,7 +10551,7 @@
       "y3": null,
       "alpha_y1": -1.18,
       "rank_overall": 805,
-      "rank_in_category": 641
+      "rank_in_category": 638
     },
     {
       "id": "equipoise-capital-management-private-limited-equipoise-india-select",
@@ -10564,7 +10564,7 @@
       "y3": null,
       "alpha_y1": -1.2,
       "rank_overall": 806,
-      "rank_in_category": 642
+      "rank_in_category": 639
     },
     {
       "id": "jain-investment-advisors-pvt-ltd-india-equity",
@@ -10577,7 +10577,7 @@
       "y3": 17.4,
       "alpha_y1": -1.21,
       "rank_overall": 807,
-      "rank_in_category": 643
+      "rank_in_category": 640
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-equity-large-cap-oriented",
@@ -10603,7 +10603,7 @@
       "y3": 11.48,
       "alpha_y1": 2.55,
       "rank_overall": 808,
-      "rank_in_category": 644
+      "rank_in_category": 641
     },
     {
       "id": "geojit-financial-services-ltd-freedom-portfolio",
@@ -10616,7 +10616,7 @@
       "y3": 5.36,
       "alpha_y1": 2.53,
       "rank_overall": 810,
-      "rank_in_category": 645
+      "rank_in_category": 642
     },
     {
       "id": "wallfort-fund-management-llp-wallfort-kosh-value-fund",
@@ -10642,7 +10642,7 @@
       "y3": 14.39,
       "alpha_y1": -1.31,
       "rank_overall": 812,
-      "rank_in_category": 646
+      "rank_in_category": 643
     },
     {
       "id": "trivantage-capital-management-india-private-limited-trivantage-capital-focussed-corporate-lenders-portfolio",
@@ -10655,7 +10655,7 @@
       "y3": 5.3,
       "alpha_y1": 2.43,
       "rank_overall": 813,
-      "rank_in_category": 647
+      "rank_in_category": 644
     },
     {
       "id": "badjate-wealth-private-limited-badjate-multicap-fund",
@@ -10668,7 +10668,7 @@
       "y3": 26.88,
       "alpha_y1": -1.35,
       "rank_overall": 814,
-      "rank_in_category": 648
+      "rank_in_category": 645
     },
     {
       "id": "spark-asia-impact-managers-private-limited-spark-india-75-core-and-satellite-strategy",
@@ -10681,7 +10681,7 @@
       "y3": 14.79,
       "alpha_y1": 2.41,
       "rank_overall": 815,
-      "rank_in_category": 649
+      "rank_in_category": 646
     },
     {
       "id": "360-one-asset-management-high-growth-companies-fund",
@@ -10694,7 +10694,7 @@
       "y3": 17.01,
       "alpha_y1": -0.75,
       "rank_overall": 816,
-      "rank_in_category": 650
+      "rank_in_category": 647
     },
     {
       "id": "senora-asset-management-co-ltd-senora-stag-series-1",
@@ -10720,7 +10720,7 @@
       "y3": 10.43,
       "alpha_y1": 2.34,
       "rank_overall": 818,
-      "rank_in_category": 651
+      "rank_in_category": 648
     },
     {
       "id": "nippon-life-india-aif-management-ltd-nieo-5-the-5-trillion-dollar-opportunity",
@@ -10733,7 +10733,7 @@
       "y3": 14.1,
       "alpha_y1": null,
       "rank_overall": 818,
-      "rank_in_category": 651
+      "rank_in_category": 648
     },
     {
       "id": "karma-capital-advisors-pvt-ltd-karma-wealth-builder",
@@ -10746,7 +10746,7 @@
       "y3": 19.05,
       "alpha_y1": -1.46,
       "rank_overall": 820,
-      "rank_in_category": 653
+      "rank_in_category": 650
     },
     {
       "id": "unifi-capital-p-ltd-insider-shadow-strategy",
@@ -10759,7 +10759,7 @@
       "y3": 7.43,
       "alpha_y1": -1.46,
       "rank_overall": 820,
-      "rank_in_category": 653
+      "rank_in_category": 650
     },
     {
       "id": "lgt-wealth-india-private-limited-ultima-select",
@@ -10772,7 +10772,7 @@
       "y3": 7.38,
       "alpha_y1": 2.29,
       "rank_overall": 822,
-      "rank_in_category": 655
+      "rank_in_category": 652
     },
     {
       "id": "bonanza-portfolio-limited-bonanza-pulse-sector-fund",
@@ -10785,7 +10785,7 @@
       "y3": null,
       "alpha_y1": 2.28,
       "rank_overall": 823,
-      "rank_in_category": 23
+      "rank_in_category": 25
     },
     {
       "id": "narnolia-financial-services-limited-narnolia-mid-and-small-cap-strategy",
@@ -10811,7 +10811,7 @@
       "y3": 13.86,
       "alpha_y1": -1.5,
       "rank_overall": 825,
-      "rank_in_category": 656
+      "rank_in_category": 653
     },
     {
       "id": "value-prolific-investments-and-consulting-private-limited-valpro-conserve-c-pms",
@@ -10824,7 +10824,7 @@
       "y3": 11.07,
       "alpha_y1": 2.27,
       "rank_overall": 825,
-      "rank_in_category": 656
+      "rank_in_category": 653
     },
     {
       "id": "sykes-and-ray-equities-india-limited-sre-inflection-idea",
@@ -10837,7 +10837,7 @@
       "y3": null,
       "alpha_y1": -1.51,
       "rank_overall": 827,
-      "rank_in_category": 658
+      "rank_in_category": 655
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-flexicap-portfolio",
@@ -10850,7 +10850,7 @@
       "y3": 13.17,
       "alpha_y1": -1.52,
       "rank_overall": 828,
-      "rank_in_category": 659
+      "rank_in_category": 656
     },
     {
       "id": "equentis-wealth-advisory-services-limited-equentis-concentrated-portfolio",
@@ -10863,7 +10863,7 @@
       "y3": null,
       "alpha_y1": 2.25,
       "rank_overall": 828,
-      "rank_in_category": 659
+      "rank_in_category": 656
     },
     {
       "id": "julius-baer-wealth-advisors-india-private-limited-julius-baer-india-equity-opportunities-portfolio",
@@ -10876,7 +10876,7 @@
       "y3": null,
       "alpha_y1": -1.52,
       "rank_overall": 828,
-      "rank_in_category": 659
+      "rank_in_category": 656
     },
     {
       "id": "banyan-capital-advisors-llp-banyan-india-portfolio",
@@ -10889,7 +10889,7 @@
       "y3": 19.57,
       "alpha_y1": -1.53,
       "rank_overall": 831,
-      "rank_in_category": 662
+      "rank_in_category": 659
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-focussed-multicap",
@@ -10902,7 +10902,7 @@
       "y3": 9.28,
       "alpha_y1": -1.54,
       "rank_overall": 832,
-      "rank_in_category": 663
+      "rank_in_category": 660
     },
     {
       "id": "sanctum-wealth-private-limited-sanctum-indian-titans",
@@ -10915,7 +10915,7 @@
       "y3": 8.64,
       "alpha_y1": -1.58,
       "rank_overall": 833,
-      "rank_in_category": 664
+      "rank_in_category": 661
     },
     {
       "id": "klay-securities-private-limited-klay-growth-fund",
@@ -10941,7 +10941,7 @@
       "y3": null,
       "alpha_y1": -0.71,
       "rank_overall": 835,
-      "rank_in_category": 665
+      "rank_in_category": 662
     },
     {
       "id": "icici-prudential-amc-ltd-enhanced-dynamic-equity-fund",
@@ -10967,7 +10967,7 @@
       "y3": 21.57,
       "alpha_y1": -1.64,
       "rank_overall": 837,
-      "rank_in_category": 666
+      "rank_in_category": 663
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-quantfin-growth",
@@ -10980,7 +10980,7 @@
       "y3": 9.85,
       "alpha_y1": -1.66,
       "rank_overall": 838,
-      "rank_in_category": 667
+      "rank_in_category": 664
     },
     {
       "id": "unifi-capital-p-ltd-apj-formerly-known-as-apj-20",
@@ -10993,7 +10993,7 @@
       "y3": 13.57,
       "alpha_y1": -1.7,
       "rank_overall": 839,
-      "rank_in_category": 668
+      "rank_in_category": 665
     },
     {
       "id": "equentis-wealth-advisory-services-limited-equentis-special-opportunities-portfolio",
@@ -11006,7 +11006,7 @@
       "y3": null,
       "alpha_y1": 2.02,
       "rank_overall": 840,
-      "rank_in_category": 669
+      "rank_in_category": 666
     },
     {
       "id": "oaks-asset-management-private-limited-oaks-co-investment-portfolio",
@@ -11019,7 +11019,7 @@
       "y3": 0.75,
       "alpha_y1": 1.99,
       "rank_overall": 841,
-      "rank_in_category": 670
+      "rank_in_category": 667
     },
     {
       "id": "white-whale-partners-white-whale-north-star",
@@ -11032,7 +11032,7 @@
       "y3": 8.23,
       "alpha_y1": 1.97,
       "rank_overall": 842,
-      "rank_in_category": 671
+      "rank_in_category": 668
     },
     {
       "id": "pgim-india-asset-management-private-limited-pgim-india-equity-portfolio-series-ii",
@@ -11045,7 +11045,7 @@
       "y3": null,
       "alpha_y1": 1.96,
       "rank_overall": 843,
-      "rank_in_category": 672
+      "rank_in_category": 669
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-small-cap-multifactor-strategy",
@@ -11071,7 +11071,7 @@
       "y3": -2.06,
       "alpha_y1": 1.94,
       "rank_overall": 845,
-      "rank_in_category": 673
+      "rank_in_category": 670
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-premier",
@@ -11084,7 +11084,7 @@
       "y3": 18.96,
       "alpha_y1": -1.84,
       "rank_overall": 846,
-      "rank_in_category": 674
+      "rank_in_category": 671
     },
     {
       "id": "oaks-asset-management-private-limited-structured-product-series-4-foodlink",
@@ -11097,7 +11097,7 @@
       "y3": -1.85,
       "alpha_y1": 1.93,
       "rank_overall": 846,
-      "rank_in_category": 674
+      "rank_in_category": 671
     },
     {
       "id": "acepro-advisors-private-limited-acepro-galaxy-strategy",
@@ -11110,7 +11110,7 @@
       "y3": 3.9,
       "alpha_y1": 1.87,
       "rank_overall": 848,
-      "rank_in_category": 676
+      "rank_in_category": 673
     },
     {
       "id": "ask-investment-managers-limited-ask-domestic-resurgence-portfolio",
@@ -11123,7 +11123,7 @@
       "y3": 8.61,
       "alpha_y1": -1.9,
       "rank_overall": 848,
-      "rank_in_category": 676
+      "rank_in_category": 673
     },
     {
       "id": "narnolia-financial-services-limited-narnolia-large-cap-strategy",
@@ -11149,7 +11149,7 @@
       "y3": null,
       "alpha_y1": -1.94,
       "rank_overall": 851,
-      "rank_in_category": 678
+      "rank_in_category": 675
     },
     {
       "id": "ksema-wealth-pvt-ltd-ksema-wealth-alpha-india-opportunities",
@@ -11162,7 +11162,7 @@
       "y3": 14.24,
       "alpha_y1": 1.83,
       "rank_overall": 851,
-      "rank_in_category": 678
+      "rank_in_category": 675
     },
     {
       "id": "icici-securities-limited-active-index-portfolio",
@@ -11175,7 +11175,7 @@
       "y3": 12.54,
       "alpha_y1": 1.8,
       "rank_overall": 853,
-      "rank_in_category": 680
+      "rank_in_category": 677
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-structured-product-series-ix",
@@ -11188,7 +11188,7 @@
       "y3": -2.05,
       "alpha_y1": 1.79,
       "rank_overall": 854,
-      "rank_in_category": 681
+      "rank_in_category": 678
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-coffee-can-portfolio",
@@ -11201,7 +11201,7 @@
       "y3": 9.15,
       "alpha_y1": 1.78,
       "rank_overall": 855,
-      "rank_in_category": 682
+      "rank_in_category": 679
     },
     {
       "id": "hdfc-asset-management-company-limited-india-ascent-portfolio-dpms",
@@ -11214,7 +11214,7 @@
       "y3": null,
       "alpha_y1": -2.04,
       "rank_overall": 856,
-      "rank_in_category": 683
+      "rank_in_category": 680
     },
     {
       "id": "ametra-investment-managers-private-limited-ametra-factoralpha-pms",
@@ -11227,7 +11227,7 @@
       "y3": null,
       "alpha_y1": -2.07,
       "rank_overall": 857,
-      "rank_in_category": 684
+      "rank_in_category": 681
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-majestic",
@@ -11240,7 +11240,7 @@
       "y3": null,
       "alpha_y1": -2.11,
       "rank_overall": 858,
-      "rank_in_category": 685
+      "rank_in_category": 682
     },
     {
       "id": "quantum-advisors-private-limited-q-india-ethical-returns-strategy",
@@ -11253,7 +11253,7 @@
       "y3": null,
       "alpha_y1": -2.11,
       "rank_overall": 858,
-      "rank_in_category": 685
+      "rank_in_category": 682
     },
     {
       "id": "ask-investment-managers-limited-ask-domestic-resurgence-portfolio-stp",
@@ -11266,7 +11266,7 @@
       "y3": 7.91,
       "alpha_y1": -2.12,
       "rank_overall": 860,
-      "rank_in_category": 687
+      "rank_in_category": 684
     },
     {
       "id": "multi-act-equity-consultancy-private-limited-moats-and-special-situations-portfolio",
@@ -11292,7 +11292,7 @@
       "y3": 16.65,
       "alpha_y1": -2.14,
       "rank_overall": 862,
-      "rank_in_category": 688
+      "rank_in_category": 685
     },
     {
       "id": "smifs-limited-harvest",
@@ -11305,7 +11305,7 @@
       "y3": 16.29,
       "alpha_y1": 1.63,
       "rank_overall": 862,
-      "rank_in_category": 688
+      "rank_in_category": 685
     },
     {
       "id": "whiteoak-capital-asset-management-limited-whiteoak-india-business-leaders-pms",
@@ -11318,7 +11318,7 @@
       "y3": 10.43,
       "alpha_y1": -2.15,
       "rank_overall": 864,
-      "rank_in_category": 690
+      "rank_in_category": 687
     },
     {
       "id": "chona-financial-services-limited-pms-3-q5",
@@ -11331,7 +11331,7 @@
       "y3": 12.06,
       "alpha_y1": 1.54,
       "rank_overall": 865,
-      "rank_in_category": 691
+      "rank_in_category": 688
     },
     {
       "id": "nippon-life-india-aif-management-ltd-nieo-6-champions-21st-century",
@@ -11344,20 +11344,20 @@
       "y3": 13.2,
       "alpha_y1": null,
       "rank_overall": 865,
-      "rank_in_category": 691
+      "rank_in_category": 688
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-approach",
       "manager": "Abakkus Asset Manager Private Limited",
       "approach": "Abakkus Emerging Opportunities Approach",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "aum_cr": 5663.42,
       "y1": -2.39,
       "y3": 18.14,
       "alpha_y1": -2.32,
       "rank_overall": 867,
-      "rank_in_category": 693
+      "rank_in_category": 18
     },
     {
       "id": "prudent-investment-managers-llp-prudent-financial-resurgence-portfolio-frp",
@@ -11370,7 +11370,7 @@
       "y3": null,
       "alpha_y1": 1.45,
       "rank_overall": 867,
-      "rank_in_category": 24
+      "rank_in_category": 26
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-core-equity-portfolio",
@@ -11383,7 +11383,7 @@
       "y3": 8.13,
       "alpha_y1": 1.42,
       "rank_overall": 869,
-      "rank_in_category": 694
+      "rank_in_category": 690
     },
     {
       "id": "way2wealth-brokers-private-limited-wealth-weaver-growth-portfolio-axis",
@@ -11396,7 +11396,7 @@
       "y3": 5.41,
       "alpha_y1": 1.39,
       "rank_overall": 870,
-      "rank_in_category": 695
+      "rank_in_category": 691
     },
     {
       "id": "capitalmind-financial-services-private-limited-surge-india",
@@ -11409,7 +11409,7 @@
       "y3": 20.61,
       "alpha_y1": 1.38,
       "rank_overall": 871,
-      "rank_in_category": 696
+      "rank_in_category": 692
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-core-equity-portfolio-nr",
@@ -11422,7 +11422,7 @@
       "y3": 8.35,
       "alpha_y1": 1.37,
       "rank_overall": 872,
-      "rank_in_category": 697
+      "rank_in_category": 693
     },
     {
       "id": "paterson-securities-private-limited-delta-fund",
@@ -11435,7 +11435,7 @@
       "y3": null,
       "alpha_y1": 1.36,
       "rank_overall": 873,
-      "rank_in_category": 698
+      "rank_in_category": 694
     },
     {
       "id": "oaks-asset-management-private-limited-structure-product-series-3-hero-electric",
@@ -11448,7 +11448,7 @@
       "y3": -117.98,
       "alpha_y1": 1.35,
       "rank_overall": 874,
-      "rank_in_category": 699
+      "rank_in_category": 695
     },
     {
       "id": "magadh-capital-advisors-llp-value-for-growth",
@@ -11474,7 +11474,7 @@
       "y3": 7.81,
       "alpha_y1": 1.28,
       "rank_overall": 876,
-      "rank_in_category": 700
+      "rank_in_category": 696
     },
     {
       "id": "itus-capital-advisors-private-limited-fund-of-funds",
@@ -11487,7 +11487,7 @@
       "y3": 10.17,
       "alpha_y1": 1.24,
       "rank_overall": 877,
-      "rank_in_category": 701
+      "rank_in_category": 697
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-opulence",
@@ -11500,7 +11500,7 @@
       "y3": null,
       "alpha_y1": -2.54,
       "rank_overall": 878,
-      "rank_in_category": 702
+      "rank_in_category": 698
     },
     {
       "id": "tamohara-investment-managers-pvt-ltd-tamohara-family-office-series-vi",
@@ -11513,7 +11513,7 @@
       "y3": 0.42,
       "alpha_y1": 1.22,
       "rank_overall": 879,
-      "rank_in_category": 703
+      "rank_in_category": 699
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-flexicap-portfolio-t",
@@ -11526,7 +11526,7 @@
       "y3": 12.21,
       "alpha_y1": -2.61,
       "rank_overall": 880,
-      "rank_in_category": 704
+      "rank_in_category": 700
     },
     {
       "id": "svan-investment-managers-llp-svan-investment-managers-llp-velocity",
@@ -11539,7 +11539,7 @@
       "y3": null,
       "alpha_y1": -2.61,
       "rank_overall": 880,
-      "rank_in_category": 704
+      "rank_in_category": 700
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-built-to-last-nri",
@@ -11552,7 +11552,7 @@
       "y3": 8.35,
       "alpha_y1": -2.65,
       "rank_overall": 882,
-      "rank_in_category": 706
+      "rank_in_category": 702
     },
     {
       "id": "val-q-investment-advisory-pvt-ltd-val-q-mid-cap-high-quality-fund",
@@ -11565,7 +11565,7 @@
       "y3": 9.98,
       "alpha_y1": null,
       "rank_overall": 883,
-      "rank_in_category": 9
+      "rank_in_category": 10
     },
     {
       "id": "wealth-managers-india-pvt-ltd-smart-beta-portfolio",
@@ -11578,7 +11578,7 @@
       "y3": null,
       "alpha_y1": 1.06,
       "rank_overall": 884,
-      "rank_in_category": 707
+      "rank_in_category": 703
     },
     {
       "id": "citrus-advisors-private-limited-citrus-index-plus-fund-strategy",
@@ -11591,7 +11591,7 @@
       "y3": null,
       "alpha_y1": 1.05,
       "rank_overall": 885,
-      "rank_in_category": 708
+      "rank_in_category": 704
     },
     {
       "id": "iifl-capital-asset-management-limited-iifl-flagship-leaders-portfolio",
@@ -11604,7 +11604,7 @@
       "y3": null,
       "alpha_y1": -2.72,
       "rank_overall": 885,
-      "rank_in_category": 708
+      "rank_in_category": 704
     },
     {
       "id": "quantum-advisors-private-limited-q-india-value-equity-strategy-constrained-v",
@@ -11630,7 +11630,7 @@
       "y3": 13.59,
       "alpha_y1": 1.05,
       "rank_overall": 885,
-      "rank_in_category": 708
+      "rank_in_category": 704
     },
     {
       "id": "wealth-managers-india-pvt-ltd-sensex-plus-portfolio",
@@ -11643,7 +11643,7 @@
       "y3": null,
       "alpha_y1": 1.05,
       "rank_overall": 885,
-      "rank_in_category": 708
+      "rank_in_category": 704
     },
     {
       "id": "ask-investment-managers-limited-ask-india-vision-portfolio",
@@ -11656,7 +11656,7 @@
       "y3": 5.44,
       "alpha_y1": -2.73,
       "rank_overall": 890,
-      "rank_in_category": 712
+      "rank_in_category": 708
     },
     {
       "id": "concept-investwell-private-limited-concept-sepcial",
@@ -11669,7 +11669,7 @@
       "y3": 10.9,
       "alpha_y1": -2.74,
       "rank_overall": 891,
-      "rank_in_category": 713
+      "rank_in_category": 709
     },
     {
       "id": "barclays-securities-india-private-limited-barclays-wealth-creator",
@@ -11682,7 +11682,7 @@
       "y3": 7.57,
       "alpha_y1": 0.94,
       "rank_overall": 892,
-      "rank_in_category": 714
+      "rank_in_category": 710
     },
     {
       "id": "equipoise-capital-management-private-limited-equipoise-emerging-stars",
@@ -11695,7 +11695,7 @@
       "y3": null,
       "alpha_y1": -2.83,
       "rank_overall": 892,
-      "rank_in_category": 714
+      "rank_in_category": 710
     },
     {
       "id": "aditya-birla-money-limited-abm-india-consumption-portfolio",
@@ -11708,7 +11708,7 @@
       "y3": 11.77,
       "alpha_y1": 0.92,
       "rank_overall": 894,
-      "rank_in_category": 25
+      "rank_in_category": 27
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-motilal-oswal-microcap-multifactor-strategy",
@@ -11747,7 +11747,7 @@
       "y3": 14.24,
       "alpha_y1": 0.84,
       "rank_overall": 897,
-      "rank_in_category": 716
+      "rank_in_category": 712
     },
     {
       "id": "girik-wealth-advisors-private-limited-girik-multicap-strategy",
@@ -11760,20 +11760,20 @@
       "y3": 18.27,
       "alpha_y1": 0.84,
       "rank_overall": 897,
-      "rank_in_category": 716
+      "rank_in_category": 712
     },
     {
       "id": "green-portfolio-private-limited-green-portfolio-mnc-advantage-fund",
       "manager": "Green Portfolio Private Limited",
       "approach": "GREEN PORTFOLIO MNC ADVANTAGE FUND",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Thematic/Sectoral",
       "aum_cr": 9.38,
       "y1": -3.04,
       "y3": 16.1,
       "alpha_y1": -2.97,
       "rank_overall": 899,
-      "rank_in_category": 718
+      "rank_in_category": 28
     },
     {
       "id": "abans-broking-services-private-limited-abans-growth-and-momentum",
@@ -11786,7 +11786,7 @@
       "y3": 10.84,
       "alpha_y1": -3.01,
       "rank_overall": 900,
-      "rank_in_category": 719
+      "rank_in_category": 714
     },
     {
       "id": "monarch-networth-capital-mncl-capital-compounder-fund-i",
@@ -11799,7 +11799,7 @@
       "y3": null,
       "alpha_y1": -3.4,
       "rank_overall": 901,
-      "rank_in_category": 720
+      "rank_in_category": 715
     },
     {
       "id": "counter-cyclical-investments-private-limited-diversified-long-term-value",
@@ -11812,7 +11812,7 @@
       "y3": 22.64,
       "alpha_y1": -3.05,
       "rank_overall": 902,
-      "rank_in_category": 721
+      "rank_in_category": 716
     },
     {
       "id": "harmoney-finserv-india-private-limited-genius",
@@ -11825,7 +11825,7 @@
       "y3": null,
       "alpha_y1": 0.72,
       "rank_overall": 902,
-      "rank_in_category": 721
+      "rank_in_category": 716
     },
     {
       "id": "the-investment-trust-of-india-ltd-long-short-equity-fund",
@@ -11851,7 +11851,7 @@
       "y3": null,
       "alpha_y1": -3.08,
       "rank_overall": 904,
-      "rank_in_category": 723
+      "rank_in_category": 718
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-built-to-last-portfolio",
@@ -11864,7 +11864,7 @@
       "y3": 8.2,
       "alpha_y1": -3.1,
       "rank_overall": 906,
-      "rank_in_category": 724
+      "rank_in_category": 719
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-alpha-star",
@@ -11877,7 +11877,7 @@
       "y3": 6.24,
       "alpha_y1": -3.1,
       "rank_overall": 906,
-      "rank_in_category": 724
+      "rank_in_category": 719
     },
     {
       "id": "ask-investment-managers-limited-ask-india-vision-portfolio-stp",
@@ -11890,7 +11890,7 @@
       "y3": 5.13,
       "alpha_y1": -3.17,
       "rank_overall": 908,
-      "rank_in_category": 726
+      "rank_in_category": 721
     },
     {
       "id": "ask-investment-managers-limited-ask-financial-opportunities-portfolio",
@@ -11903,7 +11903,7 @@
       "y3": 8.68,
       "alpha_y1": 0.59,
       "rank_overall": 909,
-      "rank_in_category": 26
+      "rank_in_category": 29
     },
     {
       "id": "cosmea-portfolio-management-private-limited-all-weather",
@@ -11916,7 +11916,7 @@
       "y3": 20.85,
       "alpha_y1": -3.21,
       "rank_overall": 910,
-      "rank_in_category": 727
+      "rank_in_category": 722
     },
     {
       "id": "prajana-advisors-pvt-ltd-athena-enhanced-equity-fund",
@@ -11942,7 +11942,7 @@
       "y3": 5.7,
       "alpha_y1": -3.24,
       "rank_overall": 912,
-      "rank_in_category": 728
+      "rank_in_category": 723
     },
     {
       "id": "unifi-capital-p-ltd-blended-rangoli",
@@ -11955,7 +11955,7 @@
       "y3": 10.18,
       "alpha_y1": -3.27,
       "rank_overall": 913,
-      "rank_in_category": 729
+      "rank_in_category": 724
     },
     {
       "id": "buglerock-capital-private-limited-inca",
@@ -11968,7 +11968,7 @@
       "y3": null,
       "alpha_y1": -3.28,
       "rank_overall": 914,
-      "rank_in_category": 730
+      "rank_in_category": 725
     },
     {
       "id": "renaissance-investment-managers-private-limited-renaissance-platinum-portfolio",
@@ -11981,7 +11981,7 @@
       "y3": 16.27,
       "alpha_y1": 0.49,
       "rank_overall": 914,
-      "rank_in_category": 730
+      "rank_in_category": 725
     },
     {
       "id": "prosperity-wealth-management-private-limited-prosperity-discovery-fund",
@@ -11994,7 +11994,7 @@
       "y3": 14.63,
       "alpha_y1": -3.33,
       "rank_overall": 916,
-      "rank_in_category": 732
+      "rank_in_category": 727
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-india-large-cap-quant-equity-portfolio",
@@ -12020,7 +12020,7 @@
       "y3": 8.56,
       "alpha_y1": 0.41,
       "rank_overall": 918,
-      "rank_in_category": 733
+      "rank_in_category": 728
     },
     {
       "id": "tamohara-investment-managers-pvt-ltd-tamohara-trade-sanchay-strategy",
@@ -12033,7 +12033,7 @@
       "y3": 12.71,
       "alpha_y1": 0.4,
       "rank_overall": 919,
-      "rank_in_category": 734
+      "rank_in_category": 729
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-emerging-giants-small-cap-portfolio",
@@ -12059,7 +12059,7 @@
       "y3": 9.16,
       "alpha_y1": -3.41,
       "rank_overall": 921,
-      "rank_in_category": 735
+      "rank_in_category": 730
     },
     {
       "id": "axis-securities-ltd-axis-securities-contrarian",
@@ -12072,7 +12072,7 @@
       "y3": 20.32,
       "alpha_y1": -3.47,
       "rank_overall": 922,
-      "rank_in_category": 736
+      "rank_in_category": 731
     },
     {
       "id": "pgim-india-equity-growth-opportunities-fund-series-i",
@@ -12085,7 +12085,7 @@
       "y3": null,
       "alpha_y1": -3.82,
       "rank_overall": 922,
-      "rank_in_category": 736
+      "rank_in_category": 731
     },
     {
       "id": "360-one-asset-management-multi-strategy-fund",
@@ -12098,7 +12098,7 @@
       "y3": 7.27,
       "alpha_y1": -2.46,
       "rank_overall": 924,
-      "rank_in_category": 738
+      "rank_in_category": 733
     },
     {
       "id": "equipoise-capital-management-private-limited-equipoise-new-india-opportunities",
@@ -12111,7 +12111,7 @@
       "y3": null,
       "alpha_y1": -3.5,
       "rank_overall": 924,
-      "rank_in_category": 738
+      "rank_in_category": 733
     },
     {
       "id": "moneygrow-asset-private-limited-moneygrow-small-midcap",
@@ -12124,7 +12124,7 @@
       "y3": null,
       "alpha_y1": 0.25,
       "rank_overall": 926,
-      "rank_in_category": 10
+      "rank_in_category": 11
     },
     {
       "id": "quantum-advisors-private-limited-q-india-value-equity-strategy-constrained-xviii",
@@ -12150,7 +12150,7 @@
       "y3": 9.7,
       "alpha_y1": -3.52,
       "rank_overall": 926,
-      "rank_in_category": 740
+      "rank_in_category": 735
     },
     {
       "id": "vallum-capital-advisors-private-limited-vallum-india-discovery-strategy",
@@ -12163,7 +12163,7 @@
       "y3": 11.58,
       "alpha_y1": -3.57,
       "rank_overall": 929,
-      "rank_in_category": 741
+      "rank_in_category": 736
     },
     {
       "id": "nj-asset-management-private-limited-bluechip-portfolio",
@@ -12189,7 +12189,7 @@
       "y3": 16.71,
       "alpha_y1": -3.61,
       "rank_overall": 931,
-      "rank_in_category": 742
+      "rank_in_category": 737
     },
     {
       "id": "progressive-share-brokers-private-limited-equity-flexi-cap",
@@ -12202,7 +12202,7 @@
       "y3": null,
       "alpha_y1": -3.62,
       "rank_overall": 932,
-      "rank_in_category": 743
+      "rank_in_category": 738
     },
     {
       "id": "first-global-finance-private-limited-first-global-india-super-50-fg-is50",
@@ -12215,7 +12215,7 @@
       "y3": 8.79,
       "alpha_y1": -3.63,
       "rank_overall": 933,
-      "rank_in_category": 744
+      "rank_in_category": 739
     },
     {
       "id": "quantum-advisors-private-limited-q-india-value-equity-strategy-constrained-xix",
@@ -12241,7 +12241,7 @@
       "y3": 6.17,
       "alpha_y1": -3.67,
       "rank_overall": 935,
-      "rank_in_category": 745
+      "rank_in_category": 740
     },
     {
       "id": "guardian-asset-management-private-limited-guardian-asset-management-pvt-ltd-multi-cap",
@@ -12254,7 +12254,7 @@
       "y3": 7.24,
       "alpha_y1": -3.72,
       "rank_overall": 936,
-      "rank_in_category": 746
+      "rank_in_category": 741
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-flexicap-portfolio-t-nri",
@@ -12267,7 +12267,7 @@
       "y3": 13.63,
       "alpha_y1": -3.75,
       "rank_overall": 937,
-      "rank_in_category": 747
+      "rank_in_category": 742
     },
     {
       "id": "avestha-fund-management-llp-avestha-growth",
@@ -12280,7 +12280,7 @@
       "y3": 14.35,
       "alpha_y1": -3.76,
       "rank_overall": 938,
-      "rank_in_category": 748
+      "rank_in_category": 743
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-jewel",
@@ -12293,7 +12293,7 @@
       "y3": 21.18,
       "alpha_y1": -3.78,
       "rank_overall": 939,
-      "rank_in_category": 749
+      "rank_in_category": 744
     },
     {
       "id": "whiteoak-capital-asset-management-limited-research-picks-i-portfolio-approach",
@@ -12306,7 +12306,7 @@
       "y3": 9.55,
       "alpha_y1": -3.8,
       "rank_overall": 940,
-      "rank_in_category": 750
+      "rank_in_category": 745
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-coral-cyclical",
@@ -12319,7 +12319,7 @@
       "y3": null,
       "alpha_y1": -0.04,
       "rank_overall": 941,
-      "rank_in_category": 751
+      "rank_in_category": 746
     },
     {
       "id": "hdfc-asset-management-company-limited-enhanced-portfolio-1",
@@ -12332,7 +12332,7 @@
       "y3": 9.19,
       "alpha_y1": -3.84,
       "rank_overall": 942,
-      "rank_in_category": 752
+      "rank_in_category": 747
     },
     {
       "id": "phillipcapital-india-pvt-ltd-phillip-ethical-india-portfolio",
@@ -12345,7 +12345,7 @@
       "y3": 7.03,
       "alpha_y1": -3.85,
       "rank_overall": 943,
-      "rank_in_category": 753
+      "rank_in_category": 748
     },
     {
       "id": "360-one-asset-management-limited-360-one-multicap-pms",
@@ -12358,7 +12358,7 @@
       "y3": 10.85,
       "alpha_y1": -3.88,
       "rank_overall": 944,
-      "rank_in_category": 754
+      "rank_in_category": 749
     },
     {
       "id": "vajra-one-cap-trust-vajra-capital-growth-scheme",
@@ -12397,7 +12397,7 @@
       "y3": 15.83,
       "alpha_y1": -3.92,
       "rank_overall": 946,
-      "rank_in_category": 755
+      "rank_in_category": 750
     },
     {
       "id": "hdfc-asset-management-company-limited-all-cap-portfolio-dpms",
@@ -12410,20 +12410,20 @@
       "y3": 12.32,
       "alpha_y1": -3.94,
       "rank_overall": 948,
-      "rank_in_category": 756
+      "rank_in_category": 751
     },
     {
       "id": "marcellus-investment-managers-private-limited-consistent-compounders",
       "manager": "Marcellus Investment Managers Private Limited",
       "approach": "Consistent Compounders",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Large Cap",
       "aum_cr": 1695.15,
       "y1": -4.05,
       "y3": 5.43,
       "alpha_y1": -0.21,
       "rank_overall": 949,
-      "rank_in_category": 757
+      "rank_in_category": 28
     },
     {
       "id": "whiteoak-capital-asset-management-limited-white-oak-india-pioneers-equity-portfolio",
@@ -12436,7 +12436,7 @@
       "y3": 10.36,
       "alpha_y1": -4.07,
       "rank_overall": 950,
-      "rank_in_category": 758
+      "rank_in_category": 752
     },
     {
       "id": "roha-asset-managers-llp-roha-emerging-champions-portfolio",
@@ -12449,7 +12449,7 @@
       "y3": 17.22,
       "alpha_y1": -4.08,
       "rank_overall": 951,
-      "rank_in_category": 759
+      "rank_in_category": 753
     },
     {
       "id": "kb-capital-markets-pvt-ltd-concentrated-diversified-equity",
@@ -12462,7 +12462,7 @@
       "y3": null,
       "alpha_y1": -0.41,
       "rank_overall": 952,
-      "rank_in_category": 760
+      "rank_in_category": 754
     },
     {
       "id": "incred-asset-management-private-limited-incred-active-momentum-portfolio",
@@ -12475,7 +12475,7 @@
       "y3": null,
       "alpha_y1": -4.25,
       "rank_overall": 953,
-      "rank_in_category": 761
+      "rank_in_category": 755
     },
     {
       "id": "whiteoak-capital-asset-management-limited-white-oak-india-pioneers-equity-esg-portfolio",
@@ -12488,7 +12488,7 @@
       "y3": 9.73,
       "alpha_y1": -4.25,
       "rank_overall": 953,
-      "rank_in_category": 761
+      "rank_in_category": 755
     },
     {
       "id": "narnolia-financial-services-limited-narnolia-fusion-opportunity-strategy",
@@ -12501,7 +12501,7 @@
       "y3": 14.24,
       "alpha_y1": -0.51,
       "rank_overall": 955,
-      "rank_in_category": 763
+      "rank_in_category": 757
     },
     {
       "id": "concept-investwell-private-limited-concept-legend",
@@ -12514,7 +12514,7 @@
       "y3": 7.63,
       "alpha_y1": -4.3,
       "rank_overall": 956,
-      "rank_in_category": 764
+      "rank_in_category": 758
     },
     {
       "id": "quantum-advisors-private-limited-q-india-value-equity-strategy-constrained-xvii",
@@ -12540,7 +12540,7 @@
       "y3": null,
       "alpha_y1": -0.59,
       "rank_overall": 958,
-      "rank_in_category": 765
+      "rank_in_category": 759
     },
     {
       "id": "pelican-holdings-private-limited-pelican-top100-fund",
@@ -12553,7 +12553,7 @@
       "y3": 8.03,
       "alpha_y1": -0.63,
       "rank_overall": 959,
-      "rank_in_category": 28
+      "rank_in_category": 29
     },
     {
       "id": "kb-capital-markets-pvt-ltd-diversified-equity-portfolio",
@@ -12566,7 +12566,7 @@
       "y3": 13.11,
       "alpha_y1": -0.65,
       "rank_overall": 960,
-      "rank_in_category": 766
+      "rank_in_category": 760
     },
     {
       "id": "varanium-capital-advisors-private-limited-varanium-g2g-india-portfolio-00010051",
@@ -12579,7 +12579,7 @@
       "y3": 17.44,
       "alpha_y1": -0.67,
       "rank_overall": 961,
-      "rank_in_category": 767
+      "rank_in_category": 761
     },
     {
       "id": "atlas-integrated-finance-ltd-midcap",
@@ -12592,7 +12592,7 @@
       "y3": 14.31,
       "alpha_y1": -4.46,
       "rank_overall": 962,
-      "rank_in_category": 11
+      "rank_in_category": 12
     },
     {
       "id": "driv-drisht-llp-dhanvesttor-faith-fund",
@@ -12605,7 +12605,7 @@
       "y3": null,
       "alpha_y1": -4.47,
       "rank_overall": 963,
-      "rank_in_category": 768
+      "rank_in_category": 762
     },
     {
       "id": "quantum-advisors-private-limited-q-india-responsible-returns-strategy",
@@ -12618,7 +12618,7 @@
       "y3": 9.58,
       "alpha_y1": -4.51,
       "rank_overall": 964,
-      "rank_in_category": 769
+      "rank_in_category": 763
     },
     {
       "id": "girik-wealth-advisors-pvt-ltd-multicap-growth-equity-fund-ii",
@@ -12631,7 +12631,7 @@
       "y3": 17.13,
       "alpha_y1": -0.76,
       "rank_overall": 965,
-      "rank_in_category": 770
+      "rank_in_category": 764
     },
     {
       "id": "pioneer-client-associates-pvt-ltd-ca-mfm-multi-cap",
@@ -12644,7 +12644,7 @@
       "y3": 4.55,
       "alpha_y1": -4.53,
       "rank_overall": 965,
-      "rank_in_category": 770
+      "rank_in_category": 764
     },
     {
       "id": "waterfield-financial-and-investment-advisors-private-limited-market-leaders-portfolio-large-cap-allocator",
@@ -12657,7 +12657,7 @@
       "y3": null,
       "alpha_y1": -0.78,
       "rank_overall": 967,
-      "rank_in_category": 29
+      "rank_in_category": 30
     },
     {
       "id": "impetus-arthasutra-pvt-lted-impetus-value-portfolio",
@@ -12683,7 +12683,7 @@
       "y3": 13.61,
       "alpha_y1": -4.58,
       "rank_overall": 968,
-      "rank_in_category": 772
+      "rank_in_category": 766
     },
     {
       "id": "clubmillionaire-financial-services-private-limited-the-all-star-portfolio",
@@ -12696,7 +12696,7 @@
       "y3": 10.57,
       "alpha_y1": -4.6,
       "rank_overall": 970,
-      "rank_in_category": 773
+      "rank_in_category": 767
     },
     {
       "id": "invesco-asset-management-india-private-limited-invesco-india-large-cap-core-portfolio",
@@ -12709,7 +12709,7 @@
       "y3": 11.54,
       "alpha_y1": -0.86,
       "rank_overall": 971,
-      "rank_in_category": 30
+      "rank_in_category": 31
     },
     {
       "id": "ask-investment-managers-limited-ask-financial-opportunities-portfolio-stp",
@@ -12722,7 +12722,7 @@
       "y3": 8.21,
       "alpha_y1": -0.88,
       "rank_overall": 972,
-      "rank_in_category": 27
+      "rank_in_category": 30
     },
     {
       "id": "karma-capital-advisors-pvt-ltd-karma-capital-kwb-select-pms",
@@ -12735,7 +12735,7 @@
       "y3": null,
       "alpha_y1": -4.66,
       "rank_overall": 973,
-      "rank_in_category": 774
+      "rank_in_category": 768
     },
     {
       "id": "whiteoak-capital-asset-management-limited-white-oak-india-pioneers-equity-portfolio-stp-plan",
@@ -12748,7 +12748,7 @@
       "y3": 10.1,
       "alpha_y1": -4.66,
       "rank_overall": 973,
-      "rank_in_category": 774
+      "rank_in_category": 768
     },
     {
       "id": "hdfc-asset-management-company-limited-bespoke-accounts",
@@ -12761,7 +12761,7 @@
       "y3": 6.99,
       "alpha_y1": -0.91,
       "rank_overall": 975,
-      "rank_in_category": 776
+      "rank_in_category": 770
     },
     {
       "id": "marcellus-investment-managers-private-limited-meritorq",
@@ -12774,7 +12774,7 @@
       "y3": 13,
       "alpha_y1": -4.68,
       "rank_overall": 975,
-      "rank_in_category": 776
+      "rank_in_category": 770
     },
     {
       "id": "almondz-financial-services-limited-almondz-aim-multicap-investment-approach",
@@ -12787,7 +12787,7 @@
       "y3": null,
       "alpha_y1": -4.71,
       "rank_overall": 977,
-      "rank_in_category": 778
+      "rank_in_category": 772
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-curated-portfolios",
@@ -12800,7 +12800,7 @@
       "y3": 6.46,
       "alpha_y1": -4.71,
       "rank_overall": 977,
-      "rank_in_category": 778
+      "rank_in_category": 772
     },
     {
       "id": "right-horizons-portfolio-management-pvt-ltd-rhpmpl-rh-india-business-leader-portfolio",
@@ -12813,7 +12813,7 @@
       "y3": 11.58,
       "alpha_y1": -0.94,
       "rank_overall": 977,
-      "rank_in_category": 778
+      "rank_in_category": 772
     },
     {
       "id": "incred-asset-management-emerging-business-fund",
@@ -12826,7 +12826,7 @@
       "y3": 11.7,
       "alpha_y1": -4.72,
       "rank_overall": 980,
-      "rank_in_category": 781
+      "rank_in_category": 775
     },
     {
       "id": "buglerock-capital-private-limited-core-value-regular",
@@ -12852,7 +12852,7 @@
       "y3": null,
       "alpha_y1": -4.74,
       "rank_overall": 982,
-      "rank_in_category": 782
+      "rank_in_category": 776
     },
     {
       "id": "wryght-research-and-capital-private-limited-wright-alpha-fund",
@@ -12865,7 +12865,7 @@
       "y3": null,
       "alpha_y1": -4.84,
       "rank_overall": 983,
-      "rank_in_category": 783
+      "rank_in_category": 777
     },
     {
       "id": "moat-financial-services-private-limited-special-opportunities",
@@ -12878,7 +12878,7 @@
       "y3": 10.92,
       "alpha_y1": -4.88,
       "rank_overall": 984,
-      "rank_in_category": 784
+      "rank_in_category": 778
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-bay-capital-customized-concentrated-portfolio",
@@ -12891,7 +12891,7 @@
       "y3": null,
       "alpha_y1": -1.12,
       "rank_overall": 985,
-      "rank_in_category": 785
+      "rank_in_category": 779
     },
     {
       "id": "tata-asset-management-private-limited-tata-pms-act-investment-approach",
@@ -12904,7 +12904,7 @@
       "y3": 9.23,
       "alpha_y1": -4.9,
       "rank_overall": 986,
-      "rank_in_category": 786
+      "rank_in_category": 780
     },
     {
       "id": "tcg-advisory-services-private-limited-tcg-transformative-growth-portfolio",
@@ -12917,7 +12917,7 @@
       "y3": null,
       "alpha_y1": -4.9,
       "rank_overall": 986,
-      "rank_in_category": 786
+      "rank_in_category": 780
     },
     {
       "id": "r-wadiwala-securities-private-limited-r-wadiwala-ingenious-equity-portfolio-ingenious",
@@ -12930,7 +12930,7 @@
       "y3": 0,
       "alpha_y1": -4.96,
       "rank_overall": 988,
-      "rank_in_category": 788
+      "rank_in_category": 782
     },
     {
       "id": "edelweiss-financial-services-limited-alternative-equity-scheme",
@@ -12969,7 +12969,7 @@
       "y3": 13.11,
       "alpha_y1": -5.09,
       "rank_overall": 991,
-      "rank_in_category": 789
+      "rank_in_category": 783
     },
     {
       "id": "way2wealth-brokers-private-limited-wealth-dominion",
@@ -12982,7 +12982,7 @@
       "y3": 12.78,
       "alpha_y1": -5.1,
       "rank_overall": 992,
-      "rank_in_category": 790
+      "rank_in_category": 784
     },
     {
       "id": "unique-asset-management-llp-unique-strategic-fund",
@@ -12995,7 +12995,7 @@
       "y3": 18.77,
       "alpha_y1": -5.11,
       "rank_overall": 993,
-      "rank_in_category": 791
+      "rank_in_category": 785
     },
     {
       "id": "avendus-investment-managers-private-limited-avendus-olivo-core-equity-portfolio",
@@ -13008,7 +13008,7 @@
       "y3": 12.67,
       "alpha_y1": -5.12,
       "rank_overall": 994,
-      "rank_in_category": 792
+      "rank_in_category": 786
     },
     {
       "id": "ask-investment-managers-limited-ask-lighthouse-portfolio",
@@ -13021,7 +13021,7 @@
       "y3": null,
       "alpha_y1": -5.14,
       "rank_overall": 995,
-      "rank_in_category": 793
+      "rank_in_category": 787
     },
     {
       "id": "barclays-securities-india-private-limited-barclays-wealth-dynamic-opportunities-portfolio",
@@ -13034,7 +13034,7 @@
       "y3": 11.7,
       "alpha_y1": -5.18,
       "rank_overall": 996,
-      "rank_in_category": 794
+      "rank_in_category": 788
     },
     {
       "id": "unifi-capital-p-ltd-bcad-breakout-20",
@@ -13047,7 +13047,7 @@
       "y3": 9.16,
       "alpha_y1": -5.19,
       "rank_overall": 997,
-      "rank_in_category": 795
+      "rank_in_category": 789
     },
     {
       "id": "banyan-capital-advisors-llp-banyan-yield-plus",
@@ -13073,7 +13073,7 @@
       "y3": 15.71,
       "alpha_y1": -5.26,
       "rank_overall": 999,
-      "rank_in_category": 796
+      "rank_in_category": 790
     },
     {
       "id": "invesco-asset-management-india-private-limited-invesco-india-dawn-portfolio",
@@ -13086,7 +13086,7 @@
       "y3": 9.77,
       "alpha_y1": -5.27,
       "rank_overall": 1000,
-      "rank_in_category": 797
+      "rank_in_category": 791
     },
     {
       "id": "incred-asset-management-private-limited-incred-small-and-midcap-portfolio",
@@ -13099,7 +13099,7 @@
       "y3": 10.81,
       "alpha_y1": -5.32,
       "rank_overall": 1001,
-      "rank_in_category": 18
+      "rank_in_category": 19
     },
     {
       "id": "nafa-asset-managers-private-limited-nafa-wealth-builder-portfolio",
@@ -13112,7 +13112,7 @@
       "y3": 5.68,
       "alpha_y1": -5.39,
       "rank_overall": 1002,
-      "rank_in_category": 798
+      "rank_in_category": 792
     },
     {
       "id": "motilal-oswal-asset-management-company-limited-portfolio-managers-value-migration-strategy",
@@ -13138,7 +13138,7 @@
       "y3": 8.44,
       "alpha_y1": -5.43,
       "rank_overall": 1004,
-      "rank_in_category": 799
+      "rank_in_category": 793
     },
     {
       "id": "a-c-choksi-share-brokers-private-limited-money-multiplier",
@@ -13151,7 +13151,7 @@
       "y3": 9.47,
       "alpha_y1": -5.49,
       "rank_overall": 1005,
-      "rank_in_category": 800
+      "rank_in_category": 794
     },
     {
       "id": "renaissance-investment-managers-private-limited-renaissance-midcap-portfolio",
@@ -13164,7 +13164,7 @@
       "y3": 10.18,
       "alpha_y1": -1.73,
       "rank_overall": 1006,
-      "rank_in_category": 12
+      "rank_in_category": 13
     },
     {
       "id": "nafa-asset-managers-private-limited-nafa-emerging-blue-chip-portfolio",
@@ -13177,7 +13177,7 @@
       "y3": 13.38,
       "alpha_y1": -5.51,
       "rank_overall": 1007,
-      "rank_in_category": 31
+      "rank_in_category": 32
     },
     {
       "id": "anand-rathi-advisors-limited-decennium-opportunity-port-nri",
@@ -13190,7 +13190,7 @@
       "y3": 10.46,
       "alpha_y1": -5.53,
       "rank_overall": 1008,
-      "rank_in_category": 801
+      "rank_in_category": 795
     },
     {
       "id": "nippon-life-india-aif-management-ltd-nieo-8-unlimited-india",
@@ -13203,7 +13203,7 @@
       "y3": 12.4,
       "alpha_y1": null,
       "rank_overall": 1008,
-      "rank_in_category": 801
+      "rank_in_category": 795
     },
     {
       "id": "alpha-alternatives-fund-advisors-llp-alpha-alternatives-fund-advisors-llp-pms-systematic-equity",
@@ -13216,7 +13216,7 @@
       "y3": 14.47,
       "alpha_y1": -5.57,
       "rank_overall": 1010,
-      "rank_in_category": 803
+      "rank_in_category": 797
     },
     {
       "id": "steptrade-capital-revolution-fund-1",
@@ -13242,7 +13242,7 @@
       "y3": 9.49,
       "alpha_y1": -5.64,
       "rank_overall": 1012,
-      "rank_in_category": 804
+      "rank_in_category": 798
     },
     {
       "id": "360-one-asset-management-equity-opportunity-fund-series-2",
@@ -13255,7 +13255,7 @@
       "y3": 6.71,
       "alpha_y1": -5.02,
       "rank_overall": 1013,
-      "rank_in_category": 805
+      "rank_in_category": 799
     },
     {
       "id": "360-one-portfolio-managers-limited-formerly-known-as-iifl-wealth-portfolio-managers-limited-360-one-equity-diversified",
@@ -13268,7 +13268,7 @@
       "y3": 7.73,
       "alpha_y1": -1.89,
       "rank_overall": 1013,
-      "rank_in_category": 805
+      "rank_in_category": 799
     },
     {
       "id": "valuequest-investment-advisors-pvt-ltd-vq-fastercap-fund",
@@ -13281,7 +13281,7 @@
       "y3": null,
       "alpha_y1": -5.66,
       "rank_overall": 1013,
-      "rank_in_category": 805
+      "rank_in_category": 799
     },
     {
       "id": "ambit-wealth-private-limited-ambit-alpha-growth-portfolio-stp",
@@ -13294,7 +13294,7 @@
       "y3": 21.55,
       "alpha_y1": -1.9,
       "rank_overall": 1016,
-      "rank_in_category": 808
+      "rank_in_category": 802
     },
     {
       "id": "concept-investwell-private-limited-concept-legend-flexi",
@@ -13307,7 +13307,7 @@
       "y3": null,
       "alpha_y1": -5.67,
       "rank_overall": 1016,
-      "rank_in_category": 808
+      "rank_in_category": 802
     },
     {
       "id": "hpmg-shares-and-securities-pvt-ltd-hpmg-small-cap-fund",
@@ -13333,7 +13333,7 @@
       "y3": null,
       "alpha_y1": -2.1,
       "rank_overall": 1019,
-      "rank_in_category": 810
+      "rank_in_category": 804
     },
     {
       "id": "emkay-investment-managers-limited-emkay-lead",
@@ -13346,7 +13346,7 @@
       "y3": 5.77,
       "alpha_y1": -2.2,
       "rank_overall": 1020,
-      "rank_in_category": 811
+      "rank_in_category": 805
     },
     {
       "id": "axis-securities-ltd-axis-securities-retirement",
@@ -13359,7 +13359,7 @@
       "y3": 8.21,
       "alpha_y1": -6.03,
       "rank_overall": 1021,
-      "rank_in_category": 812
+      "rank_in_category": 806
     },
     {
       "id": "ambit-wealth-private-limited-ambit-alpha-growth-portfolio",
@@ -13372,7 +13372,7 @@
       "y3": 22.56,
       "alpha_y1": -2.27,
       "rank_overall": 1022,
-      "rank_in_category": 813
+      "rank_in_category": 807
     },
     {
       "id": "marcellus-investment-managers-private-limited-kings-of-capital",
@@ -13385,7 +13385,7 @@
       "y3": 8.25,
       "alpha_y1": -2.28,
       "rank_overall": 1023,
-      "rank_in_category": 814
+      "rank_in_category": 808
     },
     {
       "id": "anand-rathi-advisors-limited-decennium-opportunity-portfolio",
@@ -13398,7 +13398,7 @@
       "y3": 11.09,
       "alpha_y1": -6.08,
       "rank_overall": 1024,
-      "rank_in_category": 815
+      "rank_in_category": 809
     },
     {
       "id": "ithought-financial-consulting-llp-trublu",
@@ -13411,7 +13411,7 @@
       "y3": 8.63,
       "alpha_y1": -2.31,
       "rank_overall": 1024,
-      "rank_in_category": 815
+      "rank_in_category": 809
     },
     {
       "id": "moat-financial-services-private-limited-emerging-moat",
@@ -13424,7 +13424,7 @@
       "y3": 13.22,
       "alpha_y1": -6.17,
       "rank_overall": 1026,
-      "rank_in_category": 817
+      "rank_in_category": 811
     },
     {
       "id": "r-wadiwala-securities-private-limited-r-wadiwala-ethical-portfolio-pms",
@@ -13437,7 +13437,7 @@
       "y3": 9.23,
       "alpha_y1": -6.17,
       "rank_overall": 1026,
-      "rank_in_category": 817
+      "rank_in_category": 811
     },
     {
       "id": "moat-financial-services-private-limited-moderate-compounders",
@@ -13450,7 +13450,7 @@
       "y3": 13.14,
       "alpha_y1": -6.19,
       "rank_overall": 1028,
-      "rank_in_category": 819
+      "rank_in_category": 813
     },
     {
       "id": "sundaram-alternate-assets-limited-suniop",
@@ -13463,7 +13463,7 @@
       "y3": 2.67,
       "alpha_y1": -6.19,
       "rank_overall": 1028,
-      "rank_in_category": 819
+      "rank_in_category": 813
     },
     {
       "id": "craving-alpha-wealth-fund-chandrahas-moat-opportunities",
@@ -13489,7 +13489,7 @@
       "y3": 9.64,
       "alpha_y1": -2.51,
       "rank_overall": 1031,
-      "rank_in_category": 821
+      "rank_in_category": 815
     },
     {
       "id": "buglerock-capital-private-limited-core-value-concentrated",
@@ -13515,7 +13515,7 @@
       "y3": 7.2,
       "alpha_y1": -2.59,
       "rank_overall": 1033,
-      "rank_in_category": 32
+      "rank_in_category": 33
     },
     {
       "id": "lgt-wealth-india-private-limited-lighthouse",
@@ -13528,7 +13528,7 @@
       "y3": 5.45,
       "alpha_y1": -2.61,
       "rank_overall": 1034,
-      "rank_in_category": 822
+      "rank_in_category": 816
     },
     {
       "id": "ask-investment-managers-limited-ask-high-conviction-portfolio",
@@ -13541,7 +13541,7 @@
       "y3": 8.26,
       "alpha_y1": -6.44,
       "rank_overall": 1035,
-      "rank_in_category": 823
+      "rank_in_category": 817
     },
     {
       "id": "prp-edge-wealth-pvt-ltd-alphaa-focused-small-cap-portfolio",
@@ -13593,7 +13593,7 @@
       "y3": 15.61,
       "alpha_y1": -6.5,
       "rank_overall": 1038,
-      "rank_in_category": 824
+      "rank_in_category": 818
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-spark-emerging-companies-quality-growth",
@@ -13606,20 +13606,20 @@
       "y3": null,
       "alpha_y1": -2.75,
       "rank_overall": 1040,
-      "rank_in_category": 825
+      "rank_in_category": 819
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-emerging-opportunities-shariah-approach",
       "manager": "Abakkus Asset Manager Private Limited",
       "approach": "Abakkus Emerging Opportunities (Shariah) Approach",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "aum_cr": 15.16,
       "y1": -6.6,
       "y3": null,
       "alpha_y1": -6.53,
       "rank_overall": 1041,
-      "rank_in_category": 826
+      "rank_in_category": 20
     },
     {
       "id": "ambit-investment-advisors-private-limited-ambit-micro-marvels-portfolio",
@@ -13632,7 +13632,7 @@
       "y3": null,
       "alpha_y1": -6.56,
       "rank_overall": 1042,
-      "rank_in_category": 827
+      "rank_in_category": 820
     },
     {
       "id": "sharekhan-limited-prime-picks",
@@ -13645,7 +13645,7 @@
       "y3": 9.74,
       "alpha_y1": -6.56,
       "rank_overall": 1042,
-      "rank_in_category": 827
+      "rank_in_category": 820
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-nucleus",
@@ -13658,7 +13658,7 @@
       "y3": null,
       "alpha_y1": -6.59,
       "rank_overall": 1044,
-      "rank_in_category": 829
+      "rank_in_category": 822
     },
     {
       "id": "tcg-advisory-services-private-limited-tcg-advisory-services-pvt-ltd-fund-1",
@@ -13671,7 +13671,7 @@
       "y3": 12.12,
       "alpha_y1": -6.66,
       "rank_overall": 1045,
-      "rank_in_category": 830
+      "rank_in_category": 823
     },
     {
       "id": "darashaw-and-company-private-limited-darashaw-pms-disc",
@@ -13684,7 +13684,7 @@
       "y3": 9.48,
       "alpha_y1": -6.69,
       "rank_overall": 1046,
-      "rank_in_category": 831
+      "rank_in_category": 824
     },
     {
       "id": "marcellus-investment-managers-private-limited-little-champs",
@@ -13697,7 +13697,7 @@
       "y3": 1.96,
       "alpha_y1": -6.7,
       "rank_overall": 1047,
-      "rank_in_category": 832
+      "rank_in_category": 825
     },
     {
       "id": "renaissance-investment-managers-private-limited-renaissance-opportunities-portfolio",
@@ -13710,7 +13710,7 @@
       "y3": 10.09,
       "alpha_y1": -2.94,
       "rank_overall": 1048,
-      "rank_in_category": 833
+      "rank_in_category": 826
     },
     {
       "id": "axis-securities-ltd-axis-securities-ethical",
@@ -13723,7 +13723,7 @@
       "y3": 13.4,
       "alpha_y1": -6.72,
       "rank_overall": 1049,
-      "rank_in_category": 834
+      "rank_in_category": 827
     },
     {
       "id": "invesq-investment-managers-llp-invesq-multicap-opportunities-portfolio",
@@ -13736,7 +13736,7 @@
       "y3": null,
       "alpha_y1": -6.73,
       "rank_overall": 1050,
-      "rank_in_category": 835
+      "rank_in_category": 828
     },
     {
       "id": "concept-investwell-private-limited-legend-jain",
@@ -13749,7 +13749,7 @@
       "y3": 8.74,
       "alpha_y1": -6.75,
       "rank_overall": 1051,
-      "rank_in_category": 836
+      "rank_in_category": 829
     },
     {
       "id": "capitalmind-financial-services-private-limited-surge-india-nri",
@@ -13762,7 +13762,7 @@
       "y3": null,
       "alpha_y1": -3.01,
       "rank_overall": 1052,
-      "rank_in_category": 837
+      "rank_in_category": 830
     },
     {
       "id": "icici-prudential-asset-management-company-ltd-icici-prudential-pms-etf-strategy",
@@ -13775,7 +13775,7 @@
       "y3": 8.84,
       "alpha_y1": -3.01,
       "rank_overall": 1052,
-      "rank_in_category": 837
+      "rank_in_category": 830
     },
     {
       "id": "ask-investment-managers-limited-ask-conviction-portfolio",
@@ -13788,7 +13788,7 @@
       "y3": 8.96,
       "alpha_y1": -3.03,
       "rank_overall": 1054,
-      "rank_in_category": 839
+      "rank_in_category": 832
     },
     {
       "id": "equitree-capital-advisors-private-limited-equitree-emerging-opportunities",
@@ -13801,7 +13801,7 @@
       "y3": 27.24,
       "alpha_y1": -6.8,
       "rank_overall": 1054,
-      "rank_in_category": 839
+      "rank_in_category": 832
     },
     {
       "id": "geojit-financial-services-ltd-dakshin-portfolio",
@@ -13814,7 +13814,7 @@
       "y3": 6.98,
       "alpha_y1": -6.83,
       "rank_overall": 1056,
-      "rank_in_category": 841
+      "rank_in_category": 834
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-top-200-core-equity-portfolio-stp",
@@ -13827,7 +13827,7 @@
       "y3": 8.56,
       "alpha_y1": -3.07,
       "rank_overall": 1057,
-      "rank_in_category": 842
+      "rank_in_category": 835
     },
     {
       "id": "nippon-life-india-asset-management-ltd-concentrated-portfolio",
@@ -13840,7 +13840,7 @@
       "y3": 10.67,
       "alpha_y1": -6.88,
       "rank_overall": 1058,
-      "rank_in_category": 843
+      "rank_in_category": 836
     },
     {
       "id": "fractal-capital-investments-llp-fci-llp-wealth-builder",
@@ -13853,7 +13853,7 @@
       "y3": 14.36,
       "alpha_y1": -6.89,
       "rank_overall": 1059,
-      "rank_in_category": 844
+      "rank_in_category": 837
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-top-200-core-equity-portfolio",
@@ -13866,7 +13866,7 @@
       "y3": 9.23,
       "alpha_y1": -3.13,
       "rank_overall": 1060,
-      "rank_in_category": 845
+      "rank_in_category": 838
     },
     {
       "id": "avendus-investment-managers-private-limited-avendus-margin-of-safety",
@@ -13879,7 +13879,7 @@
       "y3": null,
       "alpha_y1": -3.17,
       "rank_overall": 1061,
-      "rank_in_category": 846
+      "rank_in_category": 839
     },
     {
       "id": "marcellus-investment-managers-private-limited-marcellus-rising-giants",
@@ -13892,7 +13892,7 @@
       "y3": 6.09,
       "alpha_y1": -6.97,
       "rank_overall": 1062,
-      "rank_in_category": 847
+      "rank_in_category": 840
     },
     {
       "id": "jeetay-investments-pvt-ltd-growth-plus-value-investing",
@@ -13918,7 +13918,7 @@
       "y3": null,
       "alpha_y1": -7.07,
       "rank_overall": 1064,
-      "rank_in_category": 848
+      "rank_in_category": 841
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-india-special-opportunities-portfolio-stp",
@@ -13931,7 +13931,7 @@
       "y3": 10.48,
       "alpha_y1": -7.1,
       "rank_overall": 1065,
-      "rank_in_category": 849
+      "rank_in_category": 842
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-india-special-opportunities-portfolio-nr",
@@ -13944,7 +13944,7 @@
       "y3": 11.1,
       "alpha_y1": -7.15,
       "rank_overall": 1066,
-      "rank_in_category": 850
+      "rank_in_category": 843
     },
     {
       "id": "ladderup-asset-managers-private-limited-proud-portfolio",
@@ -13957,7 +13957,7 @@
       "y3": 6.32,
       "alpha_y1": -7.15,
       "rank_overall": 1066,
-      "rank_in_category": 850
+      "rank_in_category": 843
     },
     {
       "id": "narnolia-financial-services-limited-narnolia-ethical-s-1",
@@ -13970,7 +13970,7 @@
       "y3": null,
       "alpha_y1": -3.42,
       "rank_overall": 1068,
-      "rank_in_category": 852
+      "rank_in_category": 845
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-india-special-opportunities-portfolio",
@@ -13983,7 +13983,7 @@
       "y3": 10.83,
       "alpha_y1": -7.21,
       "rank_overall": 1069,
-      "rank_in_category": 853
+      "rank_in_category": 846
     },
     {
       "id": "ask-investment-managers-limited-ask-special-opportunities-portfolio",
@@ -13996,7 +13996,7 @@
       "y3": null,
       "alpha_y1": -7.28,
       "rank_overall": 1070,
-      "rank_in_category": 854
+      "rank_in_category": 847
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-innovation-portfolio",
@@ -14009,7 +14009,7 @@
       "y3": 12.58,
       "alpha_y1": -7.35,
       "rank_overall": 1071,
-      "rank_in_category": 855
+      "rank_in_category": 848
     },
     {
       "id": "joindre-capital-services-limited-joindre-value-fund",
@@ -14035,7 +14035,7 @@
       "y3": null,
       "alpha_y1": -7.49,
       "rank_overall": 1073,
-      "rank_in_category": 856
+      "rank_in_category": 849
     },
     {
       "id": "capgrow-capital-advisors-llp-growth",
@@ -14048,7 +14048,7 @@
       "y3": 5.63,
       "alpha_y1": -7.5,
       "rank_overall": 1074,
-      "rank_in_category": 857
+      "rank_in_category": 850
     },
     {
       "id": "quest-investment-managers-smart-alpha-sector-rotation",
@@ -14061,7 +14061,7 @@
       "y3": 11.53,
       "alpha_y1": -6.97,
       "rank_overall": 1075,
-      "rank_in_category": 858
+      "rank_in_category": 851
     },
     {
       "id": "rbsa-investment-manager-llp-serenity-wealth",
@@ -14074,7 +14074,7 @@
       "y3": null,
       "alpha_y1": -7.62,
       "rank_overall": 1076,
-      "rank_in_category": 859
+      "rank_in_category": 852
     },
     {
       "id": "kunvarji-finstock-pvt-ltd-kunvarji-finstock-private-limited",
@@ -14087,7 +14087,7 @@
       "y3": 4.79,
       "alpha_y1": -7.66,
       "rank_overall": 1077,
-      "rank_in_category": 860
+      "rank_in_category": 853
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-built-to-last-t",
@@ -14100,7 +14100,7 @@
       "y3": 7.44,
       "alpha_y1": -7.67,
       "rank_overall": 1078,
-      "rank_in_category": 861
+      "rank_in_category": 854
     },
     {
       "id": "marcellus-investment-managers-pvt-ltd-rising-giants",
@@ -14113,7 +14113,7 @@
       "y3": 4.56,
       "alpha_y1": -7.69,
       "rank_overall": 1079,
-      "rank_in_category": 13
+      "rank_in_category": 14
     },
     {
       "id": "nine-rivers-capital-holdings-private-limited-aurum-small-cap-opportunities",
@@ -14139,7 +14139,7 @@
       "y3": 9.18,
       "alpha_y1": -3.98,
       "rank_overall": 1080,
-      "rank_in_category": 28
+      "rank_in_category": 31
     },
     {
       "id": "ask-investment-managers-limited-ask-indian-entrepreneur-portfolio",
@@ -14152,7 +14152,7 @@
       "y3": 5.71,
       "alpha_y1": -7.76,
       "rank_overall": 1082,
-      "rank_in_category": 862
+      "rank_in_category": 855
     },
     {
       "id": "invesco-asset-management-india-private-limited-invesco-india-challengers-portfolio",
@@ -14165,7 +14165,7 @@
       "y3": 14.41,
       "alpha_y1": -7.78,
       "rank_overall": 1083,
-      "rank_in_category": 863
+      "rank_in_category": 856
     },
     {
       "id": "capitalmind-financial-services-private-limited-custom-portfolio-19",
@@ -14178,7 +14178,7 @@
       "y3": 5.9,
       "alpha_y1": -4.07,
       "rank_overall": 1084,
-      "rank_in_category": 864
+      "rank_in_category": 857
     },
     {
       "id": "whiteoak-capital-asset-management-limited-white-oak-india-select-equity-portfolio",
@@ -14191,7 +14191,7 @@
       "y3": 9.89,
       "alpha_y1": -7.89,
       "rank_overall": 1085,
-      "rank_in_category": 865
+      "rank_in_category": 858
     },
     {
       "id": "prp-edge-wealth-pvt-ltd-alphaa-better-risk-reward-30-stocks-portfolio",
@@ -14204,7 +14204,7 @@
       "y3": null,
       "alpha_y1": -4.14,
       "rank_overall": 1086,
-      "rank_in_category": 866
+      "rank_in_category": 859
     },
     {
       "id": "ghalla-bhansali-stock-brokers-pvt-ltd-leapfrog",
@@ -14217,7 +14217,7 @@
       "y3": null,
       "alpha_y1": -7.96,
       "rank_overall": 1087,
-      "rank_in_category": 867
+      "rank_in_category": 860
     },
     {
       "id": "quest-investment-managers-pvt-ltd-questpms-flagship-portfolio",
@@ -14230,7 +14230,7 @@
       "y3": 11.59,
       "alpha_y1": -7.96,
       "rank_overall": 1087,
-      "rank_in_category": 867
+      "rank_in_category": 860
     },
     {
       "id": "aditya-birla-sun-life-amc-absl-india-special-opportunities-fund",
@@ -14243,7 +14243,7 @@
       "y3": null,
       "alpha_y1": -7.99,
       "rank_overall": 1089,
-      "rank_in_category": 869
+      "rank_in_category": 862
     },
     {
       "id": "bellwether-capital-private-limited-bellwether-long-term-growth",
@@ -14256,7 +14256,7 @@
       "y3": 12.8,
       "alpha_y1": -8.03,
       "rank_overall": 1090,
-      "rank_in_category": 870
+      "rank_in_category": 863
     },
     {
       "id": "ventura-securities-limited-ventura-siddhartha-best-in-class",
@@ -14269,7 +14269,7 @@
       "y3": 1.64,
       "alpha_y1": -4.38,
       "rank_overall": 1091,
-      "rank_in_category": 871
+      "rank_in_category": 864
     },
     {
       "id": "ask-investment-managers-limited-ask-indian-entrepreneur-portfolio-stp",
@@ -14282,7 +14282,7 @@
       "y3": 5,
       "alpha_y1": -8.28,
       "rank_overall": 1092,
-      "rank_in_category": 872
+      "rank_in_category": 865
     },
     {
       "id": "pgim-india-asset-management-private-limited-pgim-india-phoenix-portfolio",
@@ -14295,7 +14295,7 @@
       "y3": 11.16,
       "alpha_y1": -4.56,
       "rank_overall": 1093,
-      "rank_in_category": 873
+      "rank_in_category": 866
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-innovation-portfolio-stp",
@@ -14308,7 +14308,7 @@
       "y3": 10.52,
       "alpha_y1": -8.39,
       "rank_overall": 1094,
-      "rank_in_category": 874
+      "rank_in_category": 867
     },
     {
       "id": "varanium-capital-advisors-private-limited-varanium-g2g-india-portfolio-00002316",
@@ -14321,7 +14321,7 @@
       "y3": 120.38,
       "alpha_y1": -4.65,
       "rank_overall": 1095,
-      "rank_in_category": 875
+      "rank_in_category": 868
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-deep-value-multibagger-nri",
@@ -14360,7 +14360,7 @@
       "y3": null,
       "alpha_y1": -8.47,
       "rank_overall": 1098,
-      "rank_in_category": 876
+      "rank_in_category": 869
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-built-to-grow-multicap-nri",
@@ -14373,7 +14373,7 @@
       "y3": 9.1,
       "alpha_y1": -8.51,
       "rank_overall": 1099,
-      "rank_in_category": 877
+      "rank_in_category": 870
     },
     {
       "id": "whiteoak-capital-asset-management-limited-white-oak-india-digital-leaders",
@@ -14386,7 +14386,7 @@
       "y3": 9.58,
       "alpha_y1": -8.54,
       "rank_overall": 1100,
-      "rank_in_category": 29
+      "rank_in_category": 32
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-innovation-portfolio-nr",
@@ -14399,7 +14399,7 @@
       "y3": 11.24,
       "alpha_y1": -8.56,
       "rank_overall": 1101,
-      "rank_in_category": 878
+      "rank_in_category": 871
     },
     {
       "id": "renaissance-investment-managers-private-limited-renaissance-india-next-portfolio",
@@ -14412,7 +14412,7 @@
       "y3": 12.91,
       "alpha_y1": -8.78,
       "rank_overall": 1102,
-      "rank_in_category": 879
+      "rank_in_category": 872
     },
     {
       "id": "ask-investment-managers-limited-ask-specialised-portfolio",
@@ -14425,7 +14425,7 @@
       "y3": 9.06,
       "alpha_y1": -5.04,
       "rank_overall": 1103,
-      "rank_in_category": 880
+      "rank_in_category": 873
     },
     {
       "id": "acepro-advisors-private-limited-acepro-large-cap-strategy",
@@ -14438,7 +14438,7 @@
       "y3": 8.66,
       "alpha_y1": -5.06,
       "rank_overall": 1104,
-      "rank_in_category": 33
+      "rank_in_category": 34
     },
     {
       "id": "parag-parikh-financial-advisory-services-limited-cognito",
@@ -14451,7 +14451,7 @@
       "y3": 14.34,
       "alpha_y1": -8.84,
       "rank_overall": 1105,
-      "rank_in_category": 881
+      "rank_in_category": 874
     },
     {
       "id": "ask-investment-managers-limited-ask-life-portfolio",
@@ -14464,7 +14464,7 @@
       "y3": 2.5,
       "alpha_y1": -5.14,
       "rank_overall": 1106,
-      "rank_in_category": 882
+      "rank_in_category": 875
     },
     {
       "id": "awriga-capital-advisors-llp-awriga-core-strategy",
@@ -14477,7 +14477,7 @@
       "y3": 7.63,
       "alpha_y1": -5.16,
       "rank_overall": 1107,
-      "rank_in_category": 883
+      "rank_in_category": 876
     },
     {
       "id": "banyan-tree-advisors-pvt-ltd-growth-at-reasonable-price",
@@ -14490,7 +14490,7 @@
       "y3": 8.68,
       "alpha_y1": -5.16,
       "rank_overall": 1107,
-      "rank_in_category": 883
+      "rank_in_category": 876
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-built-to-grow-multicap-portfolio",
@@ -14503,7 +14503,7 @@
       "y3": 7.37,
       "alpha_y1": -9.01,
       "rank_overall": 1109,
-      "rank_in_category": 885
+      "rank_in_category": 878
     },
     {
       "id": "savvy-capital-advisors-llp-savvy-default",
@@ -14516,7 +14516,7 @@
       "y3": 21.84,
       "alpha_y1": -9.07,
       "rank_overall": 1110,
-      "rank_in_category": 886
+      "rank_in_category": 879
     },
     {
       "id": "drchoksey-finserv-private-limited-drchoksey-alpha-invest",
@@ -14529,7 +14529,7 @@
       "y3": 6.33,
       "alpha_y1": -5.36,
       "rank_overall": 1111,
-      "rank_in_category": 887
+      "rank_in_category": 880
     },
     {
       "id": "guardian-advisors-private-limited-special-opportunity-strategy",
@@ -14542,7 +14542,7 @@
       "y3": -3.31,
       "alpha_y1": -9.25,
       "rank_overall": 1112,
-      "rank_in_category": 888
+      "rank_in_category": 881
     },
     {
       "id": "unicorn-investment-managers-llp-unicorn-max-10-portfolio",
@@ -14555,7 +14555,7 @@
       "y3": null,
       "alpha_y1": -5.48,
       "rank_overall": 1112,
-      "rank_in_category": 888
+      "rank_in_category": 881
     },
     {
       "id": "ithought-financial-consulting-llp-vrddhi",
@@ -14568,7 +14568,7 @@
       "y3": 10.29,
       "alpha_y1": -9.27,
       "rank_overall": 1114,
-      "rank_in_category": 890
+      "rank_in_category": 883
     },
     {
       "id": "marcellus-investment-managers-private-limited-marcellus-curation",
@@ -14581,7 +14581,7 @@
       "y3": 1.94,
       "alpha_y1": -9.34,
       "rank_overall": 1115,
-      "rank_in_category": 891
+      "rank_in_category": 884
     },
     {
       "id": "bay-capital-investment-advisors-pvt-ltd-bay-india-opportunities-portfolio",
@@ -14594,7 +14594,7 @@
       "y3": 7.31,
       "alpha_y1": -5.61,
       "rank_overall": 1116,
-      "rank_in_category": 892
+      "rank_in_category": 885
     },
     {
       "id": "way2wealth-brokers-private-limited-wealth-focus-axis",
@@ -14607,7 +14607,7 @@
       "y3": 12.43,
       "alpha_y1": -5.67,
       "rank_overall": 1117,
-      "rank_in_category": 893
+      "rank_in_category": 886
     },
     {
       "id": "generational-capital-breakout-trust-breakout-fund-1",
@@ -14620,7 +14620,7 @@
       "y3": null,
       "alpha_y1": -4.72,
       "rank_overall": 1118,
-      "rank_in_category": 894
+      "rank_in_category": 887
     },
     {
       "id": "svobodha-infinity-investment-advisors-private-ltd-ad-astra-fund",
@@ -14633,7 +14633,7 @@
       "y3": null,
       "alpha_y1": -9.52,
       "rank_overall": 1119,
-      "rank_in_category": 895
+      "rank_in_category": 888
     },
     {
       "id": "ayan-analytics-pvt-ltd-pricebridge-eternal-long-life",
@@ -14646,7 +14646,7 @@
       "y3": null,
       "alpha_y1": -9.58,
       "rank_overall": 1120,
-      "rank_in_category": 896
+      "rank_in_category": 889
     },
     {
       "id": "aditya-birla-sun-life-amc-india-equity-services-fund",
@@ -14659,7 +14659,7 @@
       "y3": 7.9,
       "alpha_y1": -2.96,
       "rank_overall": 1121,
-      "rank_in_category": 897
+      "rank_in_category": 890
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-absl-india-equity-services",
@@ -14672,7 +14672,7 @@
       "y3": null,
       "alpha_y1": -9.66,
       "rank_overall": 1122,
-      "rank_in_category": 898
+      "rank_in_category": 891
     },
     {
       "id": "incred-asset-management-private-limited-incred-multicap-portfolio",
@@ -14685,7 +14685,7 @@
       "y3": 12.83,
       "alpha_y1": -9.81,
       "rank_overall": 1123,
-      "rank_in_category": 899
+      "rank_in_category": 892
     },
     {
       "id": "incred-asset-management-private-limited-incred-select-opportunities-portfolio",
@@ -14698,7 +14698,7 @@
       "y3": 9.33,
       "alpha_y1": -9.82,
       "rank_overall": 1124,
-      "rank_in_category": 900
+      "rank_in_category": 893
     },
     {
       "id": "sykes-and-ray-equities-india-limited-sre-small-cap-momentum-pms",
@@ -14724,7 +14724,7 @@
       "y3": 6.65,
       "alpha_y1": -10.18,
       "rank_overall": 1126,
-      "rank_in_category": 901
+      "rank_in_category": 894
     },
     {
       "id": "entrust-family-office-investment-advisors-pvt-ltd-deltabet-equity-approach",
@@ -14737,7 +14737,7 @@
       "y3": 0.55,
       "alpha_y1": -10.23,
       "rank_overall": 1127,
-      "rank_in_category": 902
+      "rank_in_category": 895
     },
     {
       "id": "aditya-birla-sun-life-amc-limited-absl-india-equity-services-portfolio-stp",
@@ -14750,7 +14750,7 @@
       "y3": null,
       "alpha_y1": -10.3,
       "rank_overall": 1128,
-      "rank_in_category": 903
+      "rank_in_category": 896
     },
     {
       "id": "pgim-india-asset-management-private-limited-pgim-india-equity-portfolio",
@@ -14763,7 +14763,7 @@
       "y3": 9.1,
       "alpha_y1": -6.57,
       "rank_overall": 1129,
-      "rank_in_category": 904
+      "rank_in_category": 897
     },
     {
       "id": "jainam-broking-limited-jpms-indias-front-runners-fund",
@@ -14776,7 +14776,7 @@
       "y3": 7.9,
       "alpha_y1": -6.63,
       "rank_overall": 1130,
-      "rank_in_category": 905
+      "rank_in_category": 898
     },
     {
       "id": "ask-investment-managers-limited-ask-strategic-portfolio",
@@ -14789,7 +14789,7 @@
       "y3": 7.32,
       "alpha_y1": -10.51,
       "rank_overall": 1131,
-      "rank_in_category": 906
+      "rank_in_category": 899
     },
     {
       "id": "concept-investwell-private-limited-concept-elegant",
@@ -14802,7 +14802,7 @@
       "y3": null,
       "alpha_y1": -10.51,
       "rank_overall": 1131,
-      "rank_in_category": 906
+      "rank_in_category": 899
     },
     {
       "id": "ask-investment-managers-limited-ask-growth-portfolio",
@@ -14815,7 +14815,7 @@
       "y3": 4.81,
       "alpha_y1": -10.55,
       "rank_overall": 1133,
-      "rank_in_category": 908
+      "rank_in_category": 901
     },
     {
       "id": "bhana-equity-advisors-llp-bea-india-growth-fund",
@@ -14828,7 +14828,7 @@
       "y3": 22.72,
       "alpha_y1": -10.6,
       "rank_overall": 1134,
-      "rank_in_category": 909
+      "rank_in_category": 902
     },
     {
       "id": "ask-investment-managers-limited-ask-india-select-portfolio",
@@ -14841,7 +14841,7 @@
       "y3": 4.7,
       "alpha_y1": -10.71,
       "rank_overall": 1135,
-      "rank_in_category": 910
+      "rank_in_category": 903
     },
     {
       "id": "drchoksey-finserv-private-limited-drchoksey-focused-advantage",
@@ -14854,7 +14854,7 @@
       "y3": 4.2,
       "alpha_y1": -6.96,
       "rank_overall": 1136,
-      "rank_in_category": 911
+      "rank_in_category": 904
     },
     {
       "id": "ask-investment-managers-limited-ask-emerging-opportunities-portfolio",
@@ -14867,7 +14867,7 @@
       "y3": 7.14,
       "alpha_y1": -10.77,
       "rank_overall": 1137,
-      "rank_in_category": 912
+      "rank_in_category": 905
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-good-to-great-nri",
@@ -14880,7 +14880,7 @@
       "y3": 9.43,
       "alpha_y1": -10.98,
       "rank_overall": 1138,
-      "rank_in_category": 913
+      "rank_in_category": 906
     },
     {
       "id": "r-wadiwala-securities-private-limited-r-wadiwala-agile-pe-ratio-portfolio-master",
@@ -14893,7 +14893,7 @@
       "y3": 10.92,
       "alpha_y1": -10.98,
       "rank_overall": 1138,
-      "rank_in_category": 913
+      "rank_in_category": 906
     },
     {
       "id": "basant-maheshwari-wealth-advisers-llp-bm-legacy-builders",
@@ -14906,7 +14906,7 @@
       "y3": null,
       "alpha_y1": -11.23,
       "rank_overall": 1140,
-      "rank_in_category": 915
+      "rank_in_category": 908
     },
     {
       "id": "nine-rivers-capital-holdings-private-limited-aurum-small-cap-plus",
@@ -14945,7 +14945,7 @@
       "y3": 5.11,
       "alpha_y1": -8.19,
       "rank_overall": 1143,
-      "rank_in_category": 916
+      "rank_in_category": 909
     },
     {
       "id": "ask-investment-managers-limited-ask-growth-portfolio-stp",
@@ -14958,7 +14958,7 @@
       "y3": 3.82,
       "alpha_y1": -12.07,
       "rank_overall": 1144,
-      "rank_in_category": 917
+      "rank_in_category": 910
     },
     {
       "id": "bhana-equity-advisors-llp-bea-specialized-portfolio",
@@ -14971,7 +14971,7 @@
       "y3": 20.89,
       "alpha_y1": -12.12,
       "rank_overall": 1145,
-      "rank_in_category": 918
+      "rank_in_category": 911
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-good-to-great-portfolio",
@@ -14984,7 +14984,7 @@
       "y3": 9.11,
       "alpha_y1": -12.18,
       "rank_overall": 1146,
-      "rank_in_category": 919
+      "rank_in_category": 912
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-deep-value-iv-nri",
@@ -15023,7 +15023,7 @@
       "y3": 8.57,
       "alpha_y1": -12.47,
       "rank_overall": 1149,
-      "rank_in_category": 920
+      "rank_in_category": 913
     },
     {
       "id": "ask-investment-managers-limited-ask-india-select-portfolio-stp",
@@ -15036,7 +15036,7 @@
       "y3": 3.57,
       "alpha_y1": -12.48,
       "rank_overall": 1150,
-      "rank_in_category": 921
+      "rank_in_category": 914
     },
     {
       "id": "finideas-growth-fund-finideas-growth-fund-scheme-1",
@@ -15049,7 +15049,7 @@
       "y3": 1.91,
       "alpha_y1": -8.56,
       "rank_overall": 1151,
-      "rank_in_category": 34
+      "rank_in_category": 35
     },
     {
       "id": "way2wealth-brokers-private-limited-wealth-optimiser-aggresive-growth-axis",
@@ -15062,7 +15062,7 @@
       "y3": 0.62,
       "alpha_y1": -9.07,
       "rank_overall": 1151,
-      "rank_in_category": 922
+      "rank_in_category": 915
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-good-to-great-t",
@@ -15075,7 +15075,7 @@
       "y3": 8.84,
       "alpha_y1": -12.96,
       "rank_overall": 1153,
-      "rank_in_category": 923
+      "rank_in_category": 916
     },
     {
       "id": "ambit-wealth-private-limited-ambit-build-india-portfolio-stp",
@@ -15088,7 +15088,7 @@
       "y3": null,
       "alpha_y1": -9.22,
       "rank_overall": 1154,
-      "rank_in_category": 924
+      "rank_in_category": 917
     },
     {
       "id": "guardian-advisors-private-limited-principal-value-strategy",
@@ -15114,7 +15114,7 @@
       "y3": 5.36,
       "alpha_y1": -13.35,
       "rank_overall": 1156,
-      "rank_in_category": 925
+      "rank_in_category": 918
     },
     {
       "id": "centrum-investment-advisers-limited-centrum-good-to-great-t-nri",
@@ -15127,7 +15127,7 @@
       "y3": 9.23,
       "alpha_y1": -13.43,
       "rank_overall": 1157,
-      "rank_in_category": 926
+      "rank_in_category": 919
     },
     {
       "id": "asian-markets-securities-private-limited-amsec-life",
@@ -15140,7 +15140,7 @@
       "y3": 3.2,
       "alpha_y1": -9.74,
       "rank_overall": 1158,
-      "rank_in_category": 927
+      "rank_in_category": 920
     },
     {
       "id": "moneybee-securities-pvt-ltd-queenbee",
@@ -15153,7 +15153,7 @@
       "y3": 17.06,
       "alpha_y1": -13.75,
       "rank_overall": 1159,
-      "rank_in_category": 928
+      "rank_in_category": 921
     },
     {
       "id": "maxiom-asset-management-private-limited-maxiom-pms-catalyst-special-situations",
@@ -15179,7 +15179,7 @@
       "y3": 1.62,
       "alpha_y1": -10.85,
       "rank_overall": 1161,
-      "rank_in_category": 929
+      "rank_in_category": 922
     },
     {
       "id": "concept-investwell-private-limited-concept-marvel",
@@ -15192,7 +15192,7 @@
       "y3": 5.47,
       "alpha_y1": -15.19,
       "rank_overall": 1162,
-      "rank_in_category": 930
+      "rank_in_category": 923
     },
     {
       "id": "wallfort-fund-management-llp-wallfort-focus-fund",
@@ -15205,7 +15205,7 @@
       "y3": null,
       "alpha_y1": -15.44,
       "rank_overall": 1163,
-      "rank_in_category": 931
+      "rank_in_category": 924
     },
     {
       "id": "trust-investment-advisors-pvt-ltd-chanakya-wealth-creation-plan",
@@ -15218,7 +15218,7 @@
       "y3": 2.13,
       "alpha_y1": -12.96,
       "rank_overall": 1164,
-      "rank_in_category": 932
+      "rank_in_category": 925
     },
     {
       "id": "nine-rivers-capital-holdings-private-limited-aurum-micro-cap-opportunities",
@@ -15244,7 +15244,7 @@
       "y3": null,
       "alpha_y1": -16.8,
       "rank_overall": 1166,
-      "rank_in_category": 933
+      "rank_in_category": 926
     },
     {
       "id": "burman-capital-management-private-limited-unicorn-portfolio",
@@ -15257,7 +15257,7 @@
       "y3": 7.18,
       "alpha_y1": -18.47,
       "rank_overall": 1167,
-      "rank_in_category": 934
+      "rank_in_category": 927
     },
     {
       "id": "guardian-advisors-private-limited-core-value-strategy",
@@ -15283,7 +15283,7 @@
       "y3": null,
       "alpha_y1": -19.46,
       "rank_overall": 1169,
-      "rank_in_category": 935
+      "rank_in_category": 928
     },
     {
       "id": "way2wealth-brokers-private-limited-wealth-spiral-dynamic-scheme-2",
@@ -15296,7 +15296,7 @@
       "y3": -5.18,
       "alpha_y1": -16.85,
       "rank_overall": 1170,
-      "rank_in_category": 936
+      "rank_in_category": 929
     },
     {
       "id": "pioneer-client-associates-pvt-ltd-ca-mfm-large-cap",
@@ -15309,7 +15309,7 @@
       "y3": -3.2,
       "alpha_y1": -17.27,
       "rank_overall": 1171,
-      "rank_in_category": 35
+      "rank_in_category": 36
     },
     {
       "id": "abchlor-investments-private-limited-abchlor-portfolio-management-service",
@@ -15322,7 +15322,7 @@
       "y3": 13.14,
       "alpha_y1": -21.55,
       "rank_overall": 1172,
-      "rank_in_category": 937
+      "rank_in_category": 930
     },
     {
       "id": "fe-securities-private-limited-fe-securities-focused-approach",
@@ -15335,7 +15335,7 @@
       "y3": null,
       "alpha_y1": -22.05,
       "rank_overall": 1173,
-      "rank_in_category": 938
+      "rank_in_category": 931
     },
     {
       "id": "equity-intelligence-india-private-limited-value-investing",
@@ -15361,7 +15361,7 @@
       "y3": 11.11,
       "alpha_y1": -24.06,
       "rank_overall": 1175,
-      "rank_in_category": 939
+      "rank_in_category": 932
     },
     {
       "id": "drchoksey-finserv-private-limited-drchoksey-select-multiplier",
@@ -15374,7 +15374,7 @@
       "y3": -9.19,
       "alpha_y1": -23.01,
       "rank_overall": 1176,
-      "rank_in_category": 940
+      "rank_in_category": 933
     },
     {
       "id": "paterson-securities-private-limited-paterson-advantage",
@@ -15387,7 +15387,7 @@
       "y3": null,
       "alpha_y1": -39.36,
       "rank_overall": 1177,
-      "rank_in_category": 941
+      "rank_in_category": 934
     },
     {
       "id": "pioneer-client-associates-pvt-ltd-ca-mfm-mid-cap",
@@ -15400,7 +15400,7 @@
       "y3": -15.44,
       "alpha_y1": -52.14,
       "rank_overall": 1178,
-      "rank_in_category": 14
+      "rank_in_category": 15
     },
     {
       "id": "abakkus-asset-manager-private-limited-abakkus-select-edge-approach",
@@ -16057,7 +16057,7 @@
       "manager": "Emkay Investment Managers Limited",
       "approach": "EIML SMID",
       "vehicle": "PMS",
-      "category": "Multi/Flexi Cap",
+      "category": "Mid & Small",
       "aum_cr": 114.02,
       "y1": null,
       "y3": null,

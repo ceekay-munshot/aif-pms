@@ -43,8 +43,12 @@ public/
   js/ui.js                Shared design system (tokens, formatting, charts, loadData)
   js/data.js              Shared data/selectors layer (filter/sort/rank/topN, deltas, history)
   js/drill.js             Shared fund-drill modal + reusable ladder/sparkline/vehicle pill
-  js/screener.js          Screener tab: filter bar + sortable/paginated table + category-relative top-N + getScreenerView()
-  js/app.js               Boot + shell behaviour (KPI strip, tabs)
+  js/screener.js          Screener tab: filter bar + sortable/paginated table + category-relative top-N + getScreenerView()/focusCategory()
+  js/leaderboard.js       Leaderboard tab: period/Return-Alpha/vehicle/category controls + presets + top-3 podium + ranked top-25
+  js/categories.js        Categories tab: median-by-category bar chart (1Y/3Y) + per-category table + best fund; click → Screener
+  js/movers.js            Movers tab: month-over-month Climbers/Fallers/New entrants (accruing empty-state until ≥2 snapshots)
+  js/export.js            Export: .xlsx via ExcelJS (unpkg fallback) + CSV fallback; current Screener view or full set
+  js/app.js               Boot + shell behaviour (KPI strip, tab routing, Export wiring, category deep-link)
   data/
     funds-performance.json   Core file: all funds for the latest month
     metadata.json            Counts + sources for the latest month
@@ -225,7 +229,7 @@ its file identically (never duplicates).
 8. [x] GitHub Actions (monthly + manual full backfill) → `.github/workflows/monthly-refresh.yml` (commits real data; manual tests `test-apmi`/`test-pmsbazaar`/`test-pipeline` stay artifact-only)
 9. [x] Dashboard shell on real data → `js/data.js` + `js/drill.js` + KPI strip (Screener tab was a temporary Top-25, replaced in step 10; visual check via `shoot-dashboard.yml`)
 10. [x] Screener tab (filters + sortable table + category-relative top-N) → `js/screener.js` (sticky filter bar: vehicle/category/search/min-AUM/period/Return-Alpha/min-threshold/category-relative top-N; sortable header ladder; frozen Fund column + nowrap numerics — fixes the α-clip; incremental pagination; removable chips; `getScreenerView()` for prompt 11 export)
-11. [ ] Leaderboard / Categories / Movers + fund-drill modal + export
+11. [x] Leaderboard / Categories / Movers + fund-drill modal + export → `js/leaderboard.js` (podium + presets + top-25), `js/categories.js` (median-by-category chart + table, click→Screener via `screener:focus`), `js/movers.js` (accruing empty-state until ≥2 snapshots), `js/export.js` (.xlsx/ExcelJS + CSV fallback). Every tab opens the drill. UI shows the PMS catch-all as **"Diversified / Multi-Cap"** (`ui.categoryLabel`; data value stays "Multi/Flexi Cap"). `shoot-dashboard.yml` shoots all tabs + verifies the Export download.
 12. [ ] Docs + polish + deploy notes
 
 ## 7. Running locally

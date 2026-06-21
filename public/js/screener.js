@@ -6,7 +6,7 @@
 // Export can pull exactly the current filtered+sorted set.
 
 import {
-  escapeHtml, initials, managerColor, categoryPill, fmtPct, pctColor, fmtAum, refreshIcons,
+  escapeHtml, initials, managerColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum, refreshIcons,
 } from "./ui.js";
 import * as data from "./data.js";
 import { openFundDrill, vehiclePill } from "./drill.js";
@@ -83,8 +83,24 @@ export function getScreenerView() {
     sortCol: F.sortCol,
     sortDir: F.sortDir,
     totalMatched: v.totalMatched,
+    // "active" = the row SET is narrowed/grouped (filters), not just reordered.
+    active: !!(F.vehicle || F.category || F.search || F.aumMin != null || F.minThresh != null || F.catRel),
     columns: PERIODS.map(([p, l]) => ({ key: p, label: l })),
   };
+}
+
+/** Deep-link entry from the Categories tab: filter the Screener to one category. */
+export function focusCategory(cat) {
+  F.vehicle = ""; F.category = cat; F.catRel = false; F.page = 1;
+  if (!$("scr-category")) return; // not rendered yet — state applies on next render
+  setSeg("scr-vehicle", "");
+  setSeg("scr-catrel", "off");
+  fillCategoryOptions();
+  const sel = $("scr-category");
+  sel.value = cat;
+  if (sel.value !== cat) F.category = ""; // unknown bucket → show all
+  syncCatRel();
+  renderResults();
 }
 
 // ── results rendering ─────────────────────────────────────────────────────────
@@ -209,7 +225,7 @@ function renderChips() {
   const chips = [];
   const add = (key, label) => chips.push({ key, label });
   if (F.vehicle) add("vehicle", `Vehicle: ${F.vehicle}`);
-  if (F.category) add("category", F.category);
+  if (F.category) add("category", categoryLabel(F.category));
   if (F.search) add("search", `“${F.search}”`);
   if (F.aumMin != null) add("aumMin", `AUM ≥ ₹${F.aumMin.toLocaleString("en-IN")} Cr`);
   if (F.minThresh != null) add("minThresh", `Min ${PERIOD_LABEL[F.period]}${F.mode === "alpha" ? " α" : ""} ≥ ${F.minThresh}%`);
@@ -270,7 +286,7 @@ function fillCategoryOptions() {
   const cur = F.category;
   sel.innerHTML =
     `<option value="">All categories (${xs.length.toLocaleString("en-IN")})</option>` +
-    opts.map(([c, n]) => `<option value="${escapeHtml(c)}">${escapeHtml(c)} (${n.toLocaleString("en-IN")})</option>`).join("");
+    opts.map(([c, n]) => `<option value="${escapeHtml(c)}">${escapeHtml(categoryLabel(c))} (${n.toLocaleString("en-IN")})</option>`).join("");
   // keep selection if still valid; else reset
   if (cur && counts.has(cur)) sel.value = cur;
   else { F.category = ""; sel.value = ""; }

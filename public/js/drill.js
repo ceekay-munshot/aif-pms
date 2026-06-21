@@ -65,7 +65,7 @@ export function fundSparkline(el, id) {
   const g = window.echarts?.graphic;
   chart.setOption({
     grid: { left: 6, right: 14, top: 16, bottom: 4, containLabel: true },
-    tooltip: { trigger: "axis", valueFormatter: (v) => fmtPct(v) },
+    tooltip: { trigger: "axis", confine: true, valueFormatter: (v) => fmtPct(v) },
     xAxis: {
       type: "category", data: hist.map((h) => shortMonth(h.month)), boundaryGap: false,
       axisTick: { show: false }, axisLine: { lineStyle: { color: "#e2e8f0" } },

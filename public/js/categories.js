@@ -41,9 +41,9 @@ function renderChart(aggs) {
   const key = _period === "y3" ? "m_y3" : "m_y1";
   const rows = aggs.filter((a) => a[key] != null).sort((a, b) => a[key] - b[key]); // asc → bars read bottom-up
   chart.setOption({
-    grid: { left: 8, right: 24, top: 10, bottom: 8, containLabel: true },
+    grid: { left: 8, right: 44, top: 10, bottom: 8, containLabel: true },
     tooltip: {
-      trigger: "axis", axisPointer: { type: "shadow" },
+      trigger: "axis", axisPointer: { type: "shadow" }, confine: true,
       formatter: (p) => {
         const a = rows[p[0].dataIndex];
         return `<b>${escapeHtml(categoryLabel(a.category))}</b><br/>median ${_period === "y3" ? "3Y" : "1Y"}: ${fmtPct(a[key])}<br/>${a.fund_count} funds`;

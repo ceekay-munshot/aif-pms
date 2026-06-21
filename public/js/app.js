@@ -119,7 +119,7 @@ async function boot() {
 
   // Header Export → current Screener view (if filtered) else the full set.
   $("export-btn")?.addEventListener("click", (e) => exportData(e.currentTarget));
-  // Header "Get Insight" → one-click Munshot Newspaper PDF.
+  // Header "Get Insight" → one-click Munshot Insights PDF.
   $("insight-btn")?.addEventListener("click", (e) => getInsight(e.currentTarget));
   // Categories tab deep-links into the Screener filtered to one category.
   document.addEventListener("screener:focus", (e) => {

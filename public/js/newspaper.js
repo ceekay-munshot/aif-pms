@@ -18,6 +18,14 @@ const PALETTE = ["#6366F1", "#8B5CF6", "#EC4899", "#F59E0B", "#10B981", "#06B6D4
 const clip = (s, n) => { s = String(s ?? "—"); return s.length > n ? s.slice(0, n - 1) + "…" : s; };
 const cls = (v) => (v == null ? "" : v >= 0 ? "np-pos" : "np-neg");
 const pc = (v) => escapeHtml(fmtPct(v));
+// Compact one-line category labels for the dense league tables (full labels wrap).
+const NPCAT = {
+  "Multi/Flexi Cap": "Multi-Cap", "Thematic/Sectoral": "Thematic", "Hybrid/Multi-Asset": "Hybrid",
+  "Large & Mid": "Large & Mid", "Mid & Small": "Mid & Small", "Large Cap": "Large Cap",
+  "Mid Cap": "Mid Cap", "Small Cap": "Small Cap", "Value/Contra": "Value", "Debt": "Debt",
+  "Unclassified": "Unclassified",
+};
+const npCat = (c) => NPCAT[c] || categoryLabel(c);
 
 // ── lazy CDN loaders ──────────────────────────────────────────────────────────
 function loadScript(src, ready) {
@@ -129,11 +137,12 @@ async function chartPng(stage, option, w, h) {
 // ── page 1 (front page) ───────────────────────────────────────────────────────
 function masthead(d) {
   return `<header class="np-mast">
-    <div class="np-mast-rules"><span></span><span class="np-mast-est">EST. 2026</span><span></span></div>
-    <h1>Munshot</h1>
+    <div class="np-mast-rules"><span></span><span class="np-mast-est">EST. 2026 · MUMBAI</span><span></span></div>
+    <h1 class="np-nameplate">Munshot</h1>
+    <div class="np-nameplate-sub"><span>NEWSPAPER</span></div>
     <p class="np-mast-tag">THE PMS &amp; AIF PERFORMANCE CHRONICLE</p>
     <div class="np-dateline">
-      <span>MUMBAI</span><span>${escapeHtml(d.monthName)}</span><span>VOL. 1 · NO. 1</span><span>FUND SCREENER — MGA</span>
+      <span>MUMBAI EDITION</span><span>${escapeHtml(d.monthName)}</span><span>VOL. 1 · NO. 1</span><span>FUND SCREENER — MGA</span>
     </div>
   </header>`;
 }
@@ -210,12 +219,12 @@ const fundCell = (r, n) => `<div class="np-fname">${escapeHtml(clip(r.approach |
 function page2(d) {
   const t1 = tbl([
     { h: "#", cls: "np-c", w: "22px", f: rankCell },
-    { h: "Fund / Manager", f: (r) => fundCell(r, 30) },
-    { h: "Veh", cls: "np-c", w: "34px", f: (r) => escapeHtml(r.vehicle) },
-    { h: "Category", w: "120px", f: (r) => escapeHtml(categoryLabel(r.category)) },
-    { h: "1Y", cls: "np-r", f: (r) => `<b class="${cls(r.returns?.y1)}">${pc(r.returns?.y1)}</b>` },
-    { h: "3Y", cls: "np-r", f: (r) => `<span class="${cls(r.returns?.y3)}">${pc(r.returns?.y3)}</span>` },
-    { h: "AUM", cls: "np-r", w: "78px", f: (r) => escapeHtml(fmtAum(r.aum_cr)) },
+    { h: "Fund / Manager", f: (r) => fundCell(r, 32) },
+    { h: "Veh", cls: "np-c", w: "32px", f: (r) => escapeHtml(r.vehicle) },
+    { h: "Category", cls: "np-nowrap", w: "92px", f: (r) => escapeHtml(npCat(r.category)) },
+    { h: "1Y", cls: "np-r", w: "62px", f: (r) => `<b class="${cls(r.returns?.y1)}">${pc(r.returns?.y1)}</b>` },
+    { h: "3Y", cls: "np-r", w: "58px", f: (r) => `<span class="${cls(r.returns?.y3)}">${pc(r.returns?.y3)}</span>` },
+    { h: "AUM", cls: "np-r", w: "80px", f: (r) => escapeHtml(fmtAum(r.aum_cr)) },
   ], d.top1y);
   const t3 = tbl([
     { h: "#", cls: "np-c", w: "20px", f: rankCell },
@@ -246,17 +255,17 @@ function page2(d) {
       <div class="np-p2hd-r">PAGE 2</div>
     </header>
 
-    <div class="np-sec np-grow">
+    <div class="np-sec">
       <div class="np-kicker np-k-emerald">TOP 10 · BY ONE-YEAR RETURN</div>
       ${t1}
     </div>
 
-    <div class="np-cols2 np-grow">
+    <div class="np-cols2">
       <div class="np-sec"><div class="np-kicker np-k-indigo">TOP 10 · THREE-YEAR (CAGR)</div>${t3}</div>
       <div class="np-sec"><div class="np-kicker np-k-pink">TOP 10 · ALPHA GENERATORS</div>${ta}</div>
     </div>
 
-    <div class="np-sec np-grow">
+    <div class="np-sec">
       <div class="np-kicker np-k-violet">CATEGORY ROUNDUP · MEDIANS &amp; HIT-RATE</div>
       ${cat}
     </div>
@@ -307,11 +316,14 @@ function injectStyles() {
   .np-pos{ color:${POS}; } .np-neg{ color:${NEG}; }
   /* masthead */
   .np-mast{ text-align:center; }
-  .np-mast-rules{ display:flex; align-items:center; gap:10px; }
+  .np-mast-rules{ display:flex; align-items:center; gap:12px; }
   .np-mast-rules span:first-child, .np-mast-rules span:last-child{ flex:1; height:0; border-top:2px solid ${INK}; }
-  .np-mast-est{ font-family:"Space Grotesk",sans-serif; font-size:9px; letter-spacing:.4em; }
-  .np-mast h1{ font-family:"Playfair Display",serif; font-weight:900; font-size:84px; line-height:.9; letter-spacing:-1.5px; margin:2px 0 0; background:linear-gradient(100deg,#6366F1,#A855F7 48%,#EC4899 88%); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .np-mast-tag{ font-family:"Space Grotesk",sans-serif; font-size:11px; letter-spacing:.42em; margin:2px 0 0; color:${INK}; }
+  .np-mast-est{ font-family:"Space Grotesk",sans-serif; font-size:9px; font-weight:600; letter-spacing:.45em; }
+  .np-nameplate{ font-family:"Playfair Display",serif; font-weight:900; font-size:92px; line-height:.84; letter-spacing:-2px; margin:4px 0 0; background:linear-gradient(100deg,#6366F1,#A855F7 48%,#EC4899 88%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .np-nameplate-sub{ display:flex; align-items:center; justify-content:center; gap:12px; margin-top:1px; }
+  .np-nameplate-sub::before, .np-nameplate-sub::after{ content:""; height:0; border-top:1.5px solid ${INK}; width:64px; }
+  .np-nameplate-sub span{ font-family:"Space Grotesk",sans-serif; font-weight:800; font-size:19px; letter-spacing:.6em; padding-left:.6em; color:${INK}; }
+  .np-mast-tag{ font-family:"Space Grotesk",sans-serif; font-size:10px; font-weight:500; letter-spacing:.34em; margin:7px 0 0; color:#46423a; }
   .np-dateline{ display:flex; justify-content:space-between; font-family:"Space Grotesk",sans-serif; font-size:9.5px; letter-spacing:.14em; border-top:1px solid ${INK}; border-bottom:3px double ${INK}; padding:5px 2px; margin-top:7px; }
   /* front grid */
   .np-front{ flex:1; display:grid; grid-template-columns:1fr 236px; gap:18px; min-height:0; margin-top:10px; }
@@ -324,7 +336,7 @@ function injectStyles() {
   .np-deck{ font-family:"Fraunces",serif; font-weight:600; font-size:14px; line-height:1.32; color:#3a3630; margin:0 0 4px; }
   .np-byline{ font-family:"Space Grotesk",sans-serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#8a8270; border-top:1px solid ${INK}; border-bottom:1px solid ${INK}; padding:3px 0; margin-bottom:8px; }
   .np-body{ flex:1; min-height:0; overflow:hidden; column-count:2; column-gap:18px; column-rule:1px solid #ddd2bc; text-align:justify; hyphens:auto; }
-  .np-body p{ font-size:12px; line-height:1.46; margin:0 0 7px; }
+  .np-body p{ font-size:11.5px; line-height:1.42; margin:0 0 6px; }
   .np-dropcap{ float:left; font-family:"Playfair Display",serif; font-weight:900; font-size:52px; line-height:.74; padding:6px 7px 0 0; color:#6366F1; }
   .np-figure{ margin:6px 0 0; border-top:2px solid ${INK}; padding-top:5px; }
   .np-fig-title{ font-family:"Space Grotesk",sans-serif; font-size:10px; font-weight:700; letter-spacing:.16em; margin-bottom:3px; }
@@ -350,18 +362,21 @@ function injectStyles() {
   .np-p2hd-l{ display:flex; flex-direction:column; }
   .np-mini{ font-family:"Playfair Display",serif; font-weight:900; font-size:20px; background:linear-gradient(100deg,#6366F1,#EC4899); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .np-mini-sub, .np-p2hd-r{ font-family:"Space Grotesk",sans-serif; font-size:9px; letter-spacing:.2em; color:#8a8270; }
-  .np-p2title{ font-family:"Playfair Display",serif; font-weight:800; font-size:26px; margin:0; }
-  .np-sec{ margin-top:9px; display:flex; flex-direction:column; }
-  .np-grow{ } .np-cols2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:9px; }
+  .np-p2title{ font-family:"Playfair Display",serif; font-weight:900; font-size:30px; letter-spacing:-.5px; margin:0; }
+  .np-page2{ justify-content:space-between; }
+  .np-sec{ margin-top:0; display:flex; flex-direction:column; }
+  .np-cols2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:0; }
   .np-tbl{ width:100%; border-collapse:collapse; font-family:"JetBrains Mono",monospace; margin-top:3px; }
   .np-tbl th{ font-family:"Space Grotesk",sans-serif; font-size:8.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; color:#6b6454; border-bottom:1.5px solid ${INK}; padding:3px 4px; }
-  .np-tbl td{ font-size:10px; padding:3px 4px; border-bottom:1px solid #e7ddc9; vertical-align:middle; }
+  .np-tbl td{ font-size:10px; padding:2px 5px; border-bottom:1px solid #e7ddc9; vertical-align:middle; }
   .np-tbl tr:nth-child(even) td{ background:rgba(99,102,241,.04); }
-  .np-r{ text-align:right; } .np-c{ text-align:center; }
+  .np-tbl th.np-r, .np-tbl td.np-r{ text-align:right; } .np-tbl th.np-c, .np-tbl td.np-c{ text-align:center; }
+  .np-r{ text-align:right; } .np-c{ text-align:center; } .np-nowrap{ white-space:nowrap; }
+  .np-tbl td{ white-space:nowrap; }
   .np-rank{ display:inline-flex; width:15px; height:15px; align-items:center; justify-content:center; border-radius:50%; background:${INK}; color:#fff; font-size:8.5px; font-weight:700; }
-  .np-fname{ font-family:"Newsreader",serif; font-size:11px; font-weight:600; line-height:1.05; }
-  .np-fmgr{ font-family:"Space Grotesk",sans-serif; font-size:8px; color:#8a8270; line-height:1.1; }
-  .np-band{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:11px; flex:1; min-height:0; }
+  .np-fname{ font-family:"Newsreader",serif; font-size:10.5px; font-weight:600; line-height:1.02; }
+  .np-fmgr{ font-family:"Space Grotesk",sans-serif; font-size:7.5px; color:#8a8270; line-height:1.04; letter-spacing:.02em; }
+  .np-band{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:0; }
   .np-band-box{ overflow:hidden; }
   .np-band-box .np-box-hd{ font-size:11px; padding:5px 8px; }
   .np-band-box .np-stat-k{ font-size:11px; } .np-band-box .np-stat-v{ font-size:12px; }

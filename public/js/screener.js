@@ -6,16 +6,17 @@
 // Export can pull exactly the current filtered+sorted set.
 
 import {
-  escapeHtml, initials, managerColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum, refreshIcons,
+  escapeHtml, initials, managerColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum,
+  refreshIcons, periodLong, periodShort,
 } from "./ui.js";
 import * as data from "./data.js";
 import { openFundDrill, vehiclePill } from "./drill.js";
+import { compareButton } from "./compare.js";
 
 const PERIODS = [
   ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"],
   ["y2", "2Y"], ["y3", "3Y"], ["y5", "5Y"], ["si", "SI"],
 ];
-const PERIOD_LABEL = Object.fromEntries(PERIODS);
 const PAGE = 100;
 const MEDAL = { 1: "#F59E0B", 2: "#94A3B8", 3: "#F97316" };
 // Opaque (flattened-over-white) tints so the sticky Fund column never lets the
@@ -81,7 +82,7 @@ export function getScreenerView() {
     groups: v.catRel ? v.groups : null,
     mode: F.mode,
     period: F.period,
-    periodLabel: PERIOD_LABEL[F.period],
+    periodLabel: periodLong(F.period),
     sortCol: F.sortCol,
     sortDir: F.sortDir,
     totalMatched: v.totalMatched,
@@ -107,12 +108,12 @@ export function focusCategory(cat) {
 
 // ── results rendering ─────────────────────────────────────────────────────────
 function head() {
-  return PERIODS.map(([p, l]) => {
+  return PERIODS.map(([p]) => {
     const active = !F.catRel && F.sortCol === p;
     const caret = active ? (F.sortDir === "desc" ? " ↓" : " ↑") : "";
     const cls = F.catRel ? "" : "cursor-pointer hover:text-slate-600";
     const hl = active ? "text-violet-600" : "text-slate-400";
-    return `<th data-col="${p}" class="scr-num px-2 py-2 text-right text-[11px] font-semibold uppercase tracking-wide ${hl} ${cls}">${l}${caret}</th>`;
+    return `<th data-col="${p}" class="scr-num px-2 py-2 text-right text-[11px] font-semibold uppercase tracking-wide ${hl} ${cls}">${periodShort(p)}${caret}</th>`;
   }).join("");
 }
 
@@ -120,10 +121,11 @@ function fundCell(f) {
   const color = managerColor(f.manager || f.id);
   return `<div class="flex items-center gap-2.5">
     <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-bold text-white" style="background:${color};">${escapeHtml(initials(f.manager))}</div>
-    <div class="min-w-0">
+    <div class="min-w-0 flex-1">
       <p class="truncate text-sm font-semibold text-slate-700">${escapeHtml(f.approach || "—")}</p>
       <div class="mt-0.5 flex items-center gap-1.5">${vehiclePill(f.vehicle)}<span class="truncate text-xs text-slate-400">${escapeHtml(f.manager || "—")}</span></div>
     </div>
+    ${compareButton(f.id, "icon")}
   </div>`;
 }
 
@@ -170,11 +172,11 @@ function renderResults() {
   const results = $("scr-results");
   if (!results) return;
 
-  const metricName = `${PERIOD_LABEL[F.period]}${F.mode === "alpha" ? " alpha" : ""}`;
+  const metricName = `${periodLong(F.period)}${F.mode === "alpha" ? " alpha" : ""}`;
   if (meta) {
     meta.innerHTML = F.catRel
       ? `<span class="font-semibold text-slate-700">${_view.groups.length}</span> categories · top ${F.perCat} by ${metricName} · <span class="font-semibold text-slate-700">${_view.totalMatched.toLocaleString("en-IN")}</span> of ${data.funds().length.toLocaleString("en-IN")} funds`
-      : `Showing <span class="font-semibold text-slate-700">${Math.min(F.page * PAGE, _view.rows.length).toLocaleString("en-IN")}</span> of <span class="font-semibold text-slate-700">${_view.totalMatched.toLocaleString("en-IN")}</span> · sorted by ${PERIOD_LABEL[F.sortCol]}${F.mode === "alpha" ? " alpha" : ""} ${F.sortDir === "desc" ? "↓" : "↑"}`;
+      : `Showing <span class="font-semibold text-slate-700">${Math.min(F.page * PAGE, _view.rows.length).toLocaleString("en-IN")}</span> of <span class="font-semibold text-slate-700">${_view.totalMatched.toLocaleString("en-IN")}</span> · sorted by ${periodLong(F.sortCol)}${F.mode === "alpha" ? " alpha" : ""} ${F.sortDir === "desc" ? "↓" : "↑"}`;
   }
 
   if (_view.totalMatched === 0) {
@@ -204,7 +206,10 @@ function renderResults() {
     $("scr-more")?.addEventListener("click", () => { F.page += 1; renderResults(); });
   }
 
-  results.querySelectorAll("tr[data-id]").forEach((tr) => tr.addEventListener("click", () => openFundDrill(tr.dataset.id)));
+  results.querySelectorAll("tr[data-id]").forEach((tr) => tr.addEventListener("click", (e) => {
+    if (e.target.closest("[data-cmp-add]")) return; // +Compare handled separately
+    openFundDrill(tr.dataset.id);
+  }));
   if (!F.catRel) {
     results.querySelectorAll("th[data-col]").forEach((th) =>
       th.addEventListener("click", () => {
@@ -230,7 +235,7 @@ function renderChips() {
   if (F.category) add("category", categoryLabel(F.category));
   if (F.search) add("search", `“${F.search}”`);
   if (F.aumMin != null) add("aumMin", `AUM ≥ ₹${F.aumMin.toLocaleString("en-IN")} Cr`);
-  if (F.minThresh != null) add("minThresh", `Min ${PERIOD_LABEL[F.period]}${F.mode === "alpha" ? " α" : ""} ≥ ${F.minThresh}%`);
+  if (F.minThresh != null) add("minThresh", `Min ${periodLong(F.period)}${F.mode === "alpha" ? " α" : ""} ≥ ${F.minThresh}%`);
   if (F.mode === "alpha") add("mode", "Alpha view");
   if (F.catRel) add("catRel", `Top ${F.perCat} / category`);
   box.innerHTML = chips.length
@@ -253,7 +258,7 @@ function clearFilter(key) {
 
 // ── segmented control helpers ─────────────────────────────────────────────────
 function seg(id, opts, active) {
-  return `<div id="${id}" class="inline-flex items-center gap-0.5 rounded-full bg-slate-100 p-1">
+  return `<div id="${id}" class="inline-flex flex-wrap items-center gap-0.5 rounded-full bg-slate-100 p-1">
     ${opts.map((o) => `<button data-val="${o.val}" class="seg-btn rounded-full px-3 py-1 text-xs font-semibold transition ${o.val === active ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}">${o.label}</button>`).join("")}
   </div>`;
 }
@@ -299,7 +304,7 @@ function syncCatRel() {
   if (wrap) wrap.style.display = F.catRel ? "" : "none";
 }
 
-const threshLabel = () => `Min ${PERIOD_LABEL[F.period]}${F.mode === "alpha" ? " α" : ""} ≥`;
+const threshLabel = () => `Min ${periodLong(F.period)}${F.mode === "alpha" ? " α" : ""} ≥`;
 function updateThreshLabel() {
   const el = $("scr-thresh-label");
   if (el) el.textContent = threshLabel();
@@ -321,7 +326,7 @@ function filterBar() {
     </div>
 
     <div id="scr-adv" class="mt-3 hidden flex-wrap items-center gap-x-4 gap-y-3 sm:flex">
-      <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("scr-period", PERIODS.map(([v, l]) => ({ val: v, label: l })), F.period)}</div>
+      <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("scr-period", PERIODS.map(([v]) => ({ val: v, label: periodLong(v) })), F.period)}</div>
       <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Metric</span>${seg("scr-mode", [{ val: "returns", label: "Returns" }, { val: "alpha", label: "Alpha" }], F.mode)}</div>
       <label class="flex items-center gap-2 text-xs font-medium text-slate-400">AUM ≥ <input id="scr-aum" type="number" min="0" placeholder="₹ Cr" class="${inputCls} w-24" /></label>
       <label class="flex items-center gap-2 text-xs font-medium text-slate-400"><span id="scr-thresh-label">${threshLabel()}</span> <input id="scr-thresh" type="number" placeholder="%" class="${inputCls} w-20" /></label>

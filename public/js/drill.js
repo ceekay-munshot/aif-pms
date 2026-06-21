@@ -6,9 +6,10 @@
 
 import {
   makeChart, fmtPct, pctColor, fmtAum, fmtDate, escapeHtml, initials,
-  managerColor, categoryPill, refreshIcons,
+  managerColor, categoryPill, refreshIcons, periodShort, starsHtml, growthMultiple,
 } from "./ui.js";
-import { fundById, fundHistory, fundRank } from "./data.js";
+import { fundById, fundHistory, fundRank, starRating } from "./data.js";
+import { compareButton } from "./compare.js";
 
 const PERIODS = [
   ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"],
@@ -35,7 +36,7 @@ const softChip = (text, icon) =>
 // ── reusable: returns-vs-benchmark ladder table ──────────────────────────────
 export function renderReturnLadder(f) {
   const head = PERIODS.map(
-    ([, lbl]) => `<th class="px-2 py-1.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">${lbl}</th>`
+    ([p]) => `<th class="px-2 py-1.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">${periodShort(p)}</th>`
   ).join("");
   const cells = (obj, colored) =>
     PERIODS.map(([p]) => {
@@ -111,6 +112,30 @@ function drillHtml(f) {
     f.aif_cat ? softChip(f.aif_cat, "shield") : "",
   ].join("");
 
+  // ★ rating (#10)
+  const sr = starRating(f.id);
+  const starsBadge = sr
+    ? `<span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">${starsHtml(sr.stars)}<span class="text-amber-600/80">better than ${Math.round(sr.pct * 100)}% of funds</span></span>`
+    : "";
+
+  // "What ₹1 would've become" (#6)
+  const growCard = (p, lbl) => {
+    const m = growthMultiple(p, f.returns?.[p]);
+    if (m == null) return "";
+    return `<div class="rounded-xl bg-slate-50 px-3 py-2 text-center">
+      <p class="text-[11px] font-medium uppercase tracking-wide text-slate-400">${lbl}</p>
+      <p class="mt-0.5 text-sm font-bold text-slate-800">₹1 → ₹${m.toFixed(2)}</p>
+      <p class="text-[11px] text-slate-400">${m.toFixed(1)}× your money</p></div>`;
+  };
+  const growCards = [growCard("y1", "1 year"), growCard("y3", "3 years"), growCard("y5", "5 years")].filter(Boolean).join("");
+  const growSection = growCards
+    ? `<div class="mt-5">
+        <h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="piggy-bank" class="h-4 w-4 text-slate-400"></i> What ₹1 would've become</h4>
+        <div class="grid grid-cols-3 gap-2">${growCards}</div>
+        <p class="mt-1 text-[11px] text-slate-400">If you'd invested and stayed in — from reported returns; past performance isn't a promise.</p>
+      </div>`
+    : "";
+
   return `
     <div class="flex items-start justify-between gap-4">
       <div class="flex min-w-0 items-start gap-3">
@@ -136,7 +161,9 @@ function drillHtml(f) {
       ${stat("Inception", fmtDate(f.inception))}
     </div>
 
-    <div class="mt-4">${rankBadge}</div>
+    <div class="mt-4 flex flex-wrap items-center gap-2">${rankBadge}${starsBadge}${compareButton(f.id, "full")}</div>
+
+    ${growSection}
 
     <div class="mt-5">
       <h4 class="mb-1 flex items-center gap-2 font-display text-sm font-semibold text-slate-700">

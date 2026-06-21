@@ -48,7 +48,9 @@ public/
   js/categories.js        Categories tab: median-by-category bar chart (1Y/3Y) + per-category table + best fund; click → Screener
   js/movers.js            Movers tab: month-over-month Climbers/Fallers/New entrants (accruing empty-state until ≥2 snapshots)
   js/export.js            Export: .xlsx via ExcelJS (unpkg fallback) + CSV fallback; current Screener view or full set
-  js/app.js               Boot + shell behaviour (KPI strip, tab routing, Export wiring, category deep-link)
+  js/compare.js           "Compare like phones": pick ≤3 funds → floating tray + side-by-side modal (data-cmp-* delegation)
+  js/newspaper.js         "Get Insight" → one-click 2-page Munshot Newspaper PDF (html2canvas+jsPDF, ECharts→PNG, lazy CDN)
+  js/app.js               Boot + shell behaviour (KPI strip, tab routing, Export + Get Insight wiring, category deep-link)
   data/
     funds-performance.json   Core file: all funds for the latest month
     metadata.json            Counts + sources for the latest month
@@ -279,6 +281,16 @@ step 8's scheduled Action invokes; the manual `test-pipeline.yml` runs it in CI.
 The product is complete and live on Cloudflare (auto-deploy on push to `main`).
 Routine upkeep:
 
+- **"Get Insight" → Munshot Newspaper** (`js/newspaper.js`): header button builds a
+  2-page A4 editorial PDF from live `data.js` selectors (lead story headlined from
+  the data, By-the-Numbers box, league tables, category roundup, benchmarks, watch
+  list). Renders fixed 794×1123px page elements → ECharts `getDataURL` for charts →
+  html2canvas (scale 2) → jsPDF, one page per canvas (full-bleed). Libs + display
+  fonts (Playfair Display / Fraunces / Newsreader) lazy-load from CDN on click, so
+  it **only works where the CDNs are reachable** (the live deploy, not the sandbox).
+  The "fill every page, nothing clipped" rule is tuned to A4 with capped Top-10
+  tables; re-verify on deploy after any data shape change and adjust the few layout
+  numbers (body paragraph count, table row caps, font sizes) in `newspaper.js`.
 - **Monthly refresh** is automatic (`monthly-refresh.yml`, cron `23 14 20 * *`).
   To force one or backfill: run it manually with `month=YYYY-MM` (blank = latest).
   Same-month re-run = idempotent overlay (categories/values update, counts hold).

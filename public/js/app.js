@@ -14,6 +14,7 @@ import { renderCategories } from "./categories.js";
 import { renderMovers } from "./movers.js";
 import { exportData } from "./export.js";
 import { mountCompare } from "./compare.js";
+import { getInsight } from "./newspaper.js";
 
 const $ = (id) => document.getElementById(id);
 const TABS = ["screener", "leaderboard", "categories", "movers"];
@@ -118,6 +119,8 @@ async function boot() {
 
   // Header Export → current Screener view (if filtered) else the full set.
   $("export-btn")?.addEventListener("click", (e) => exportData(e.currentTarget));
+  // Header "Get Insight" → one-click Munshot Newspaper PDF.
+  $("insight-btn")?.addEventListener("click", (e) => getInsight(e.currentTarget));
   // Categories tab deep-links into the Screener filtered to one category.
   document.addEventListener("screener:focus", (e) => {
     focusCategory(e.detail?.category);

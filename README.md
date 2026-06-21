@@ -27,8 +27,17 @@ A KPI strip (funds tracked, median 1Y, median 3Y, % beating benchmark) over four
 | **Movers** | Month-over-month Climbers / Fallers / New entrants + biggest 1Y change. Accrues from the monthly snapshot trail (it lights up once there are two months). |
 
 Every row/card opens a **fund-drill** modal (returns-vs-benchmark ladder + 1Y
-history sparkline + rank badge), and the header **Export** button downloads the
-current view (or the full set) as a styled `.xlsx` (CSV fallback).
+history sparkline + rank badge + ★ rating + "what ₹1 became"), you can **＋ Compare**
+up to 3 funds side-by-side, and the header **Export** button downloads the current
+view (or the full set) as a styled `.xlsx` (CSV fallback).
+
+**Get Insight → the Munshot Newspaper.** A header button composes a 2-page,
+colorful editorial **PDF** ("MUNSHOT") from the live data in one click — a lead
+story headlined from the month's standout, a By-the-Numbers box, league tables
+(Top 10 by 1Y / 3Y / alpha), a category roundup, the BSE 500 / Nifty 50 benchmark
+strip, and a watch list. Built as fixed A4 pages (ECharts → PNG, html2canvas +
+jsPDF); libraries and display fonts lazy-load from CDN, so it runs on the live
+deploy (not behind a CDN-blocked network).
 
 ---
 

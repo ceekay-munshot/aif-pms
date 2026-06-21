@@ -337,7 +337,7 @@ function injectStyles() {
   .np-byline{ font-family:"Space Grotesk",sans-serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#8a8270; border-top:1px solid ${INK}; border-bottom:1px solid ${INK}; padding:3px 0; margin-bottom:8px; }
   .np-body{ flex:1; min-height:0; overflow:hidden; column-count:2; column-gap:18px; column-rule:1px solid #ddd2bc; text-align:justify; hyphens:auto; }
   .np-body p{ font-size:11.5px; line-height:1.42; margin:0 0 6px; }
-  .np-dropcap{ float:left; font-family:"Playfair Display",serif; font-weight:900; font-size:52px; line-height:.74; padding:6px 7px 0 0; color:#6366F1; }
+  .np-dropcap{ float:left; font-family:"Playfair Display",serif; font-weight:900; font-size:40px; line-height:.8; margin:1px 9px 0 0; color:#6366F1; }
   .np-figure{ margin:6px 0 0; border-top:2px solid ${INK}; padding-top:5px; }
   .np-fig-title{ font-family:"Space Grotesk",sans-serif; font-size:10px; font-weight:700; letter-spacing:.16em; margin-bottom:3px; }
   .np-figure img{ display:block; width:100%; height:236px; object-fit:contain; }

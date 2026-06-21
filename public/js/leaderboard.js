@@ -6,6 +6,7 @@
 
 import {
   escapeHtml, initials, managerColor, categoryPill, fmtPct, pctColor, refreshIcons,
+  periodLong, starsHtml,
 } from "./ui.js";
 import * as data from "./data.js";
 import { openFundDrill, vehiclePill } from "./drill.js";
@@ -14,7 +15,6 @@ const PERIODS = [
   ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"],
   ["y2", "2Y"], ["y3", "3Y"], ["y5", "5Y"], ["si", "SI"],
 ];
-const PL = Object.fromEntries(PERIODS);
 const MEDAL = { 1: "#F59E0B", 2: "#94A3B8", 3: "#F97316" };
 const PRESETS = [
   ["Best 1Y", { period: "y1", mode: "returns" }],
@@ -26,10 +26,10 @@ const PRESETS = [
 const F = { period: "y1", mode: "returns", vehicle: "", category: "" };
 const $ = (id) => document.getElementById(id);
 const metric = () => (F.mode === "alpha" ? "alpha_" : "") + F.period;
-const metricLabel = () => `${PL[F.period]}${F.mode === "alpha" ? " alpha" : ""}`;
+const metricLabel = () => `${periodLong(F.period)}${F.mode === "alpha" ? " alpha" : ""}`;
 
 function seg(id, opts, active) {
-  return `<div id="${id}" class="inline-flex items-center gap-0.5 rounded-full bg-slate-100 p-1">
+  return `<div id="${id}" class="inline-flex flex-wrap items-center gap-0.5 rounded-full bg-slate-100 p-1">
     ${opts.map((o) => `<button data-val="${o.val}" class="lb-seg rounded-full px-3 py-1 text-xs font-semibold transition ${o.val === active ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}">${o.label}</button>`).join("")}
   </div>`;
 }
@@ -58,6 +58,7 @@ function avatar(f, size = "h-10 w-10", text = "text-xs") {
 
 function podiumCard(f, rank) {
   const v = data.metricValue(f, metric());
+  const sr = data.starRating(f.id);
   const lift = rank === 1 ? "sm:-translate-y-3" : "";
   const ring = rank === 1 ? "ring-2 ring-amber-300" : "ring-1 ring-slate-200/70";
   return `<button data-id="${escapeHtml(f.id)}" class="lb-card group relative flex w-full flex-col items-center gap-2 rounded-3xl bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${lift} ${ring}">
@@ -66,12 +67,14 @@ function podiumCard(f, rank) {
     <p class="line-clamp-2 font-display text-sm font-bold leading-tight text-slate-800">${escapeHtml(f.approach || "—")}</p>
     <p class="-mt-1 truncate text-xs text-slate-400 max-w-full">${escapeHtml(f.manager || "—")}</p>
     <p class="lb-val font-display text-2xl font-extrabold ${pctColor(v)}">—</p>
+    ${sr ? `<div class="-mt-1 text-sm">${starsHtml(sr.stars)}</div>` : ""}
     <div class="flex flex-wrap items-center justify-center gap-1">${vehiclePill(f.vehicle)}${categoryPill(f.category)}</div>
   </button>`;
 }
 
 function listRow(f, rank) {
   const v = data.metricValue(f, metric());
+  const sr = data.starRating(f.id);
   return `<button data-id="${escapeHtml(f.id)}" class="lb-card flex w-full items-center gap-3 border-t border-slate-100 px-2 py-2.5 text-left transition hover:bg-violet-50">
     <span class="w-6 shrink-0 text-right font-mono text-xs text-slate-400">${rank}</span>
     ${avatar(f, "h-9 w-9", "text-[11px]")}
@@ -80,7 +83,10 @@ function listRow(f, rank) {
       <div class="mt-0.5 flex items-center gap-1.5">${vehiclePill(f.vehicle)}<span class="truncate text-xs text-slate-400">${escapeHtml(f.manager || "—")}</span></div>
     </div>
     <span class="hidden sm:block">${categoryPill(f.category)}</span>
-    <span class="shrink-0 font-mono text-sm font-bold ${pctColor(v)} whitespace-nowrap">${fmtPct(v)}</span>
+    <div class="shrink-0 text-right">
+      <div class="font-mono text-sm font-bold ${pctColor(v)} whitespace-nowrap">${fmtPct(v)}</div>
+      ${sr ? `<div class="text-[11px] leading-none">${starsHtml(sr.stars)}</div>` : ""}
+    </div>
   </button>`;
 }
 
@@ -122,7 +128,7 @@ export function renderLeaderboard(sec) {
       </div>
 
       <div class="mb-5 flex flex-wrap items-center gap-x-4 gap-y-3">
-        <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("lb-period", PERIODS.map(([v, l]) => ({ val: v, label: l })), F.period)}</div>
+        <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("lb-period", PERIODS.map(([v]) => ({ val: v, label: periodLong(v) })), F.period)}</div>
         <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Metric</span>${seg("lb-mode", [{ val: "returns", label: "Returns" }, { val: "alpha", label: "Alpha" }], F.mode)}</div>
         <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Vehicle</span>${seg("lb-vehicle", [{ val: "", label: "All" }, { val: "PMS", label: "PMS" }, { val: "AIF", label: "AIF" }], F.vehicle)}</div>
         <select id="lb-category" class="${inputCls} max-w-[220px]">${categoryOptions()}</select>

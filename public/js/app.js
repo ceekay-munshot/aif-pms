@@ -13,6 +13,7 @@ import { renderLeaderboard } from "./leaderboard.js";
 import { renderCategories } from "./categories.js";
 import { renderMovers } from "./movers.js";
 import { exportData } from "./export.js";
+import { mountCompare } from "./compare.js";
 
 const $ = (id) => document.getElementById(id);
 const TABS = ["screener", "leaderboard", "categories", "movers"];
@@ -113,6 +114,7 @@ async function boot() {
     btn.addEventListener("click", () => showTab(btn.dataset.tab))
   );
   showTab("screener");
+  mountCompare(); // floating compare tray + side-by-side modal
 
   // Header Export → current Screener view (if filtered) else the full set.
   $("export-btn")?.addEventListener("click", (e) => exportData(e.currentTarget));

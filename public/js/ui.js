@@ -123,6 +123,40 @@ export function fmtMonth(ym) {
 }
 
 // ---------------------------------------------------------------------------
+// Periods (plain-English) & star ratings — for non-finance readers
+// ---------------------------------------------------------------------------
+// Each period has a compact `short` (dense tables) and a plain `long` (pills/prose).
+export const PERIOD_META = {
+  m1: { short: "1M", long: "1 month" },
+  m3: { short: "3M", long: "3 months" },
+  m6: { short: "6M", long: "6 months" },
+  y1: { short: "1Y", long: "1 year" },
+  y2: { short: "2Y", long: "2 years" },
+  y3: { short: "3Y", long: "3 years" },
+  y5: { short: "5Y", long: "5 years" },
+  si: { short: "Start", long: "Since launch" },
+};
+export const periodShort = (k) => PERIOD_META[k]?.short ?? k;
+export const periodLong = (k) => PERIOD_META[k]?.long ?? k;
+
+// "₹1 grew to ₹X" multiple for a period. Short windows (≤1Y) are absolute returns
+// → 1 + r/100; CAGR windows (2/3/5Y) compound by their years; `si` horizon is
+// unknown → null. e.g. growthMultiple("y3", 13.6) ≈ 1.47.
+export function growthMultiple(period, ret) {
+  if (ret == null || Number.isNaN(ret)) return null;
+  const yrs = { y2: 2, y3: 3, y5: 5 }[period];
+  if (yrs) return Math.pow(1 + ret / 100, yrs);
+  if (period === "si") return null;
+  return 1 + ret / 100;
+}
+
+// ★★★★☆ — filled amber + faint outline. n = 0..5.
+export function starsHtml(n, extra = "") {
+  const full = Math.max(0, Math.min(5, Math.round(Number(n) || 0)));
+  return `<span class="whitespace-nowrap ${extra}" role="img" aria-label="${full} out of 5 stars"><span class="text-amber-400">${"★".repeat(full)}</span><span class="text-slate-300">${"★".repeat(5 - full)}</span></span>`;
+}
+
+// ---------------------------------------------------------------------------
 // Small UI bits
 // ---------------------------------------------------------------------------
 export function emptyState(icon, title, sub) {

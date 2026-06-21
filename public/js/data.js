@@ -197,6 +197,22 @@ export function fundRank(id) {
   return r ? { rank_overall: r.rank_overall ?? null, rank_in_category: r.rank_in_category ?? null } : null;
 }
 
+// 1–5 star rating from the fund's percentile on 3Y return (fallback 1Y) across all
+// funds reporting that period. Buckets ~ top 10% → 5★, 70–90% → 4★, 30–70% → 3★,
+// 10–30% → 2★, bottom 10% → 1★. Returns { stars, pct, metric } or null.
+export function starRating(id) {
+  const f = fundById(id);
+  if (!f) return null;
+  const metric = f.returns?.y3 != null ? "y3" : f.returns?.y1 != null ? "y1" : null;
+  if (metric == null) return null;
+  const v = metricValue(f, metric);
+  const peers = st().funds.map((x) => metricValue(x, metric)).filter((x) => x != null);
+  if (!peers.length || v == null) return null;
+  const pct = peers.filter((p) => p <= v).length / peers.length; // higher = better
+  const stars = pct >= 0.9 ? 5 : pct >= 0.7 ? 4 : pct >= 0.3 ? 3 : pct >= 0.1 ? 2 : 1;
+  return { stars, pct, metric };
+}
+
 // ── headline stats (KPI strip) ───────────────────────────────────────────────
 export function summary() {
   const fs = st().funds;

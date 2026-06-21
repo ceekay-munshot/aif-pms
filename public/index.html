@@ -163,6 +163,15 @@
       </div>
     </div>
 
+    <!-- Compare tray (floating) + side-by-side modal -->
+    <div id="cmp-tray" class="fixed bottom-5 left-1/2 z-40 hidden -translate-x-1/2 px-3"></div>
+    <div id="cmp-overlay" class="fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm"></div>
+    <div id="cmp-panel" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+      <div id="cmp-card" class="card w-full max-w-3xl">
+        <div id="cmp-content" class="scroll-area max-h-[85vh] overflow-y-auto p-6"></div>
+      </div>
+    </div>
+
     <script type="module" src="js/app.js"></script>
   </body>
 </html>

@@ -51,7 +51,7 @@ function renderKpis(meta, s) {
     }),
     kpiCard({
       label: "Beating Benchmark (1Y)", icon: "target",
-      valueHtml: `<span id="kpi-beating">0</span><span class="text-slate-300">%</span>`,
+      valueHtml: `<span id="kpi-beating">0</span><span class="text-slate-500">%</span>`,
       subHtml: `${s.beatingCount.toLocaleString("en-IN")} of ${s.beatingDenom.toLocaleString("en-IN")} with 1Y alpha`,
     }),
   ].join("");

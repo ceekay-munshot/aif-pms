@@ -18,7 +18,9 @@ const PERIODS = [
 const PERIOD_LABEL = Object.fromEntries(PERIODS);
 const PAGE = 100;
 const MEDAL = { 1: "#F59E0B", 2: "#94A3B8", 3: "#F97316" };
-const TINT = { 1: "rgba(245,158,11,0.10)", 2: "rgba(148,163,184,0.12)", 3: "rgba(249,115,22,0.09)" };
+// Opaque (flattened-over-white) tints so the sticky Fund column never lets the
+// scrolling cells bleed through on a medal row.
+const TINT = { 1: "#FEF5E7", 2: "#F2F4F6", 3: "#FEF2EA" };
 
 // Filter/sort state.
 const F = {

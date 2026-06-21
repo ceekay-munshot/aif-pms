@@ -31,13 +31,13 @@ history sparkline + rank badge + ★ rating + "what ₹1 became"), you can **＋
 up to 3 funds side-by-side, and the header **Export** button downloads the current
 view (or the full set) as a styled `.xlsx` (CSV fallback).
 
-**Get Insight → the Munshot Newspaper.** A header button composes a 2-page,
-colorful editorial **PDF** ("MUNSHOT") from the live data in one click — a lead
-story headlined from the month's standout, a By-the-Numbers box, league tables
-(Top 10 by 1Y / 3Y / alpha), a category roundup, the BSE 500 / Nifty 50 benchmark
-strip, and a watch list. Built as fixed A4 pages (ECharts → PNG, html2canvas +
-jsPDF); libraries and display fonts lazy-load from CDN, so it runs on the live
-deploy (not behind a CDN-blocked network).
+**Get Insight → Munshot Insights.** A header button composes a 2-page,
+colorful editorial **PDF** ("MUNSHOT · INSIGHTS") from the live data in one click —
+a lead story headlined from the month's standout, a By-the-Numbers box, league
+tables (Top 8 by 1Y / 3Y / alpha), a category roundup, the BSE 500 / Nifty 50
+benchmark strip, and a watch list. Built as fixed A4 pages (ECharts → PNG,
+html2canvas + jsPDF); libraries and display fonts lazy-load from CDN, so it runs
+on the live deploy (not behind a CDN-blocked network).
 
 ---
 

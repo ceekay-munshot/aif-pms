@@ -1,4 +1,4 @@
-// newspaper.js — Fund Screener — MGA · "Get Insight" → the Munshot Newspaper.
+// newspaper.js — Fund Screener — MGA · "Get Insight" → the Munshot Insights edition.
 //
 // One click builds a 2-page, data-driven editorial broadsheet from the live
 // committed data and downloads it as a PDF (no print dialog). Each page is a
@@ -139,7 +139,7 @@ function masthead(d) {
   return `<header class="np-mast">
     <div class="np-mast-rules"><span></span><span class="np-mast-est">EST. 2026 · MUMBAI</span><span></span></div>
     <h1 class="np-nameplate">Munshot</h1>
-    <div class="np-nameplate-sub"><span>NEWSPAPER</span></div>
+    <div class="np-nameplate-sub"><span>INSIGHTS</span></div>
     <p class="np-mast-tag">THE PMS &amp; AIF PERFORMANCE CHRONICLE</p>
     <div class="np-dateline">
       <span>MUMBAI EDITION</span><span>${escapeHtml(d.monthName)}</span><span>VOL. 1 · NO. 1</span><span>FUND SCREENER — MGA</span>
@@ -250,7 +250,7 @@ function page2(d) {
   const leadVeh = (d.pms.y1 ?? -9) >= (d.aif.y1 ?? -9) ? "PMS" : "AIF";
   return `<section class="np-page np-page2">
     <header class="np-p2hd">
-      <div class="np-p2hd-l"><span class="np-mini">Munshot</span><span class="np-mini-sub">NEWSPAPER · ${escapeHtml(d.monthName)}</span></div>
+      <div class="np-p2hd-l"><span class="np-mini">Munshot</span><span class="np-mini-sub">INSIGHTS · ${escapeHtml(d.monthName)}</span></div>
       <h2 class="np-p2title">League Tables &amp; Analysis</h2>
       <div class="np-p2hd-r">PAGE 2</div>
     </header>
@@ -424,10 +424,10 @@ export async function getInsight(btn) {
       if (i > 0) pdf.addPage([PAGE_W, PAGE_H], "portrait");
       pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, PAGE_W, PAGE_H, undefined, "FAST");
     }
-    pdf.save(`Munshot-Newspaper-${d.m}.pdf`);
+    pdf.save(`Munshot-Insights-${d.m}.pdf`);
   } catch (err) {
     console.error("Get Insight failed:", err);
-    alert("Couldn't compose the newspaper — please retry on a connected network.");
+    alert("Couldn't compose the Insights edition — please retry on a connected network.");
   } finally {
     stage.remove();
     if (btn && label != null) { btn.disabled = false; btn.innerHTML = label; window.lucide?.createIcons(); }

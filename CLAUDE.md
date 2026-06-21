@@ -49,7 +49,7 @@ public/
   js/movers.js            Movers tab: month-over-month Climbers/Fallers/New entrants (accruing empty-state until ≥2 snapshots)
   js/export.js            Export: .xlsx via ExcelJS (unpkg fallback) + CSV fallback; current Screener view or full set
   js/compare.js           "Compare like phones": pick ≤3 funds → floating tray + side-by-side modal (data-cmp-* delegation)
-  js/newspaper.js         "Get Insight" → one-click 2-page Munshot Newspaper PDF (html2canvas+jsPDF, ECharts→PNG, lazy CDN)
+  js/newspaper.js         "Get Insight" → one-click 2-page Munshot Insights PDF (html2canvas+jsPDF, ECharts→PNG, lazy CDN)
   js/app.js               Boot + shell behaviour (KPI strip, tab routing, Export + Get Insight wiring, category deep-link)
   data/
     funds-performance.json   Core file: all funds for the latest month
@@ -281,7 +281,7 @@ step 8's scheduled Action invokes; the manual `test-pipeline.yml` runs it in CI.
 The product is complete and live on Cloudflare (auto-deploy on push to `main`).
 Routine upkeep:
 
-- **"Get Insight" → Munshot Newspaper** (`js/newspaper.js`): header button builds a
+- **"Get Insight" → Munshot Insights** (`js/newspaper.js`, internal filename kept): header button builds a
   2-page A4 editorial PDF from live `data.js` selectors (lead story headlined from
   the data, By-the-Numbers box, league tables, category roundup, benchmarks, watch
   list). Renders fixed 794×1123px page elements → ECharts `getDataURL` for charts →

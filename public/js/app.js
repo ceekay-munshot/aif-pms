@@ -1,14 +1,18 @@
-// app.js — Fund Screener — MGA · boot + shell behaviour (step 10).
+// app.js — Fund Screener — MGA · boot + shell behaviour (step 11: full build).
 //
 // Loads the committed data via the shared data layer, renders the performance KPI
-// strip, and wires tabs. The Screener tab is the full filterable Screener
-// (js/screener.js). Leaderboard / Categories / Movers stay placeholders (11).
+// strip, and wires the four tabs (Screener / Leaderboard / Categories / Movers)
+// plus the header Export button. Every tab opens the shared fund-drill on click.
 
 import {
   countUp, fmtPct, pctColor, fmtMonth, emptyState, refreshIcons, resizeCharts,
 } from "./ui.js";
 import * as data from "./data.js";
-import { renderScreener } from "./screener.js";
+import { renderScreener, focusCategory } from "./screener.js";
+import { renderLeaderboard } from "./leaderboard.js";
+import { renderCategories } from "./categories.js";
+import { renderMovers } from "./movers.js";
+import { exportData } from "./export.js";
 
 const $ = (id) => document.getElementById(id);
 const TABS = ["screener", "leaderboard", "categories", "movers"];
@@ -56,11 +60,13 @@ function renderKpis(meta, s) {
   countUp($("kpi-beating"), Math.round(s.beatingPct));
 }
 
-// --- Placeholders (built in prompt 11) --------------------------------------
-function renderPlaceholder(tab) {
-  const sec = $(`tab-${tab}`);
-  if (sec) sec.innerHTML = emptyState("hammer", "Built in prompt 11", "Leaderboard, Categories and Movers arrive next.");
-}
+// --- Tab routing ------------------------------------------------------------
+const RENDERERS = {
+  screener: renderScreener,
+  leaderboard: renderLeaderboard,
+  categories: renderCategories,
+  movers: renderMovers,
+};
 
 const _rendered = new Set();
 function showTab(name) {
@@ -72,11 +78,12 @@ function showTab(name) {
     if (sec) sec.hidden = t !== name;
   });
   if (!_rendered.has(name)) {
-    if (name === "screener") renderScreener($("tab-screener"));
-    else renderPlaceholder(name);
+    RENDERERS[name]?.($(`tab-${name}`));
     _rendered.add(name);
   }
   refreshIcons();
+  // The newly-visible tab's charts may have sized to 0 while hidden — refit.
+  requestAnimationFrame(resizeCharts);
 }
 
 // --- Boot -------------------------------------------------------------------
@@ -107,7 +114,13 @@ async function boot() {
   );
   showTab("screener");
 
-  $("export-btn")?.addEventListener("click", () => console.info("Export: implemented in prompt 11."));
+  // Header Export → current Screener view (if filtered) else the full set.
+  $("export-btn")?.addEventListener("click", (e) => exportData(e.currentTarget));
+  // Categories tab deep-links into the Screener filtered to one category.
+  document.addEventListener("screener:focus", (e) => {
+    focusCategory(e.detail?.category);
+    showTab("screener");
+  });
   window.addEventListener("resize", resizeCharts);
 
   refreshIcons();

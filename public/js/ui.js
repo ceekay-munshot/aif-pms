@@ -44,6 +44,13 @@ function categoryIcon(cat) {
   return "tag";
 }
 
+// Display label for a category. The huge PMS catch-all ("Multi/Flexi Cap") is
+// shown as "Diversified / Multi-Cap" so the UI never implies false cap precision —
+// the underlying data value stays "Multi/Flexi Cap" (filters/selectors use that).
+export function categoryLabel(cat) {
+  return cat === "Multi/Flexi Cap" ? "Diversified / Multi-Cap" : (cat || "—");
+}
+
 // Soft HSL pill for a category, with the vehicle (PMS/AIF) as a muted suffix.
 export function categoryPill(cat, vehicle) {
   const h = hashStr(cat) % 360;
@@ -56,7 +63,7 @@ export function categoryPill(cat, vehicle) {
     : "";
   return `<span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium"
     style="background:${bg}; color:${fg}; box-shadow: inset 0 0 0 1px ${ring};">
-    <i data-lucide="${icon}" class="h-3.5 w-3.5"></i>${escapeHtml(cat)}${veh}</span>`;
+    <i data-lucide="${icon}" class="h-3.5 w-3.5"></i>${escapeHtml(categoryLabel(cat))}${veh}</span>`;
 }
 
 // ---------------------------------------------------------------------------

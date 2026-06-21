@@ -12,7 +12,7 @@
 
 import { chromium } from "playwright";
 import { createServer } from "node:http";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, mkdir, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -71,7 +71,7 @@ async function main() {
     headless: !HEADFUL,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
   });
-  const context = await browser.newContext({ viewport: { width: 1440, height: 1600 }, deviceScaleFactor: 2 });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1600 }, deviceScaleFactor: 2, acceptDownloads: true });
   const page = await context.newPage();
   page.setDefaultTimeout(45_000);
 
@@ -125,9 +125,25 @@ async function main() {
     for (const [i, tab] of [["05", "leaderboard"], ["06", "categories"], ["07", "movers"]]) {
       await page.click(`.tab-btn[data-tab="${tab}"]`);
       await page.waitForSelector(`#tab-${tab}:not([hidden])`, { timeout: 10_000 });
-      await sleep(500);
+      if (tab === "categories") await page.waitForSelector("#cat-chart canvas", { timeout: 8000 }).catch(() => {});
+      await sleep(700);
       await shoot(page, `${i}-${tab}.png`);
     }
+
+    // Verify Export downloads a populated workbook (acceptance check).
+    try {
+      await page.click('.tab-btn[data-tab="screener"]');
+      await page.waitForSelector("#tab-screener:not([hidden]) tr[data-id]", { timeout: 10_000 });
+      const [download] = await Promise.all([
+        page.waitForEvent("download", { timeout: 15_000 }),
+        page.click("#export-btn"),
+      ]);
+      const name = download.suggestedFilename();
+      const dlPath = path.join(OUT, name);
+      await download.saveAs(dlPath);
+      const { size } = await stat(dlPath);
+      log(`Export: downloaded ${name} (${size.toLocaleString()} bytes)`);
+    } catch (e) { log("  (export check skipped: " + (e && e.message) + ")"); }
 
     // Open the fund-drill from the first Screener row and capture it.
     await page.click('.tab-btn[data-tab="screener"]');

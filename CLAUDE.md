@@ -230,7 +230,7 @@ its file identically (never duplicates).
 9. [x] Dashboard shell on real data → `js/data.js` + `js/drill.js` + KPI strip (Screener tab was a temporary Top-25, replaced in step 10; visual check via `shoot-dashboard.yml`)
 10. [x] Screener tab (filters + sortable table + category-relative top-N) → `js/screener.js` (sticky filter bar: vehicle/category/search/min-AUM/period/Return-Alpha/min-threshold/category-relative top-N; sortable header ladder; frozen Fund column + nowrap numerics — fixes the α-clip; incremental pagination; removable chips; `getScreenerView()` for prompt 11 export)
 11. [x] Leaderboard / Categories / Movers + fund-drill modal + export → `js/leaderboard.js` (podium + presets + top-25), `js/categories.js` (median-by-category chart + table, click→Screener via `screener:focus`), `js/movers.js` (accruing empty-state until ≥2 snapshots), `js/export.js` (.xlsx/ExcelJS + CSV fallback). Every tab opens the drill. UI shows the PMS catch-all as **"Diversified / Multi-Cap"** (`ui.categoryLabel`; data value stays "Multi/Flexi Cap"). `shoot-dashboard.yml` shoots all tabs + verifies the Export download.
-12. [ ] Docs + polish + deploy notes
+12. [x] Docs + polish + deploy notes → `README.md` (what it is / pipeline / data files / tuning + env knobs / automation / deploy / honest caveats / runbook / roadmap); polish sweep (inline SVG favicon + OG/theme-color meta, drill focus-trap + focus-restore, Screener filter-bar mobile collapse); maintenance section below. **All 12 steps complete — v1.**
 
 ## 7. Running locally
 
@@ -273,3 +273,24 @@ Runs each step as a child process (env forwarded). Steps 1–4 are **required**
 Extra knobs: `SKIP_APMI=1` / `SKIP_PMSBAZAAR=1` (testing). Prints a consolidated
 summary (counts, alpha coverage, new-funds-vs-prior-month, elapsed). This is what
 step 8's scheduled Action invokes; the manual `test-pipeline.yml` runs it in CI.
+
+## 8. Maintenance (v1 shipped)
+
+The product is complete and live on Cloudflare (auto-deploy on push to `main`).
+Routine upkeep:
+
+- **Monthly refresh** is automatic (`monthly-refresh.yml`, cron `23 14 20 * *`).
+  To force one or backfill: run it manually with `month=YYYY-MM` (blank = latest).
+  Same-month re-run = idempotent overlay (categories/values update, counts hold).
+- **Tune categories** → edit `static/pms-category-overrides.json` (id→bucket) and
+  regenerate. **Patch PMS alpha** → edit `static/benchmark-returns.json`
+  (committed wins) and regenerate. Regenerate = re-run the pipeline, or just
+  `build-store.mjs` + `write-snapshot.mjs` if a normalized run already exists.
+- **Scraper breakage** → `DEBUG=1` (selects/endpoints) or `EXPLORE=1` (recon, no
+  writes); inspect the failure PNG (`output/apmi-page.png`); scrapers fail fast so
+  the store never gets junk. Review UI via `shoot-dashboard.yml`.
+- **Secrets** live only in GitHub Actions (`PMSBAZAAR_EMAIL` / `PMSBAZAAR_PASSWORD`)
+  — never commit them. **Design tokens** (`ui.js` + `index.html` `<style>`) are the
+  brand contract shared with Fund Tracker — MGA; don't let them drift.
+- **Future** (see README): PMS-Bazaar PMS-category enrichment; Debt/Hybrid PMS via
+  the `STRATEGY` knob; risk-adjusted metrics once history accrues.

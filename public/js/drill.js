@@ -157,9 +157,25 @@ function drillHtml(f) {
 // ── open / close ─────────────────────────────────────────────────────────────
 let _bound = false;
 let _open = false;
+let _lastFocus = null;
 
 function els() {
   return { overlay: $("drill-overlay"), panel: $("drill-panel"), card: $("drill-card"), content: $("drill-content") };
+}
+
+// Keep Tab focus inside the open modal (basic focus trap).
+function focusables(card) {
+  return [...card.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((el) => el.offsetParent !== null);
+}
+function trapTab(e) {
+  const card = $("drill-card");
+  if (!card) return;
+  const list = focusables(card);
+  if (!list.length) return;
+  const first = list[0], last = list[list.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 }
 
 function setFrom(card, overlay, panel) {
@@ -179,6 +195,8 @@ export function closeFundDrill() {
     panel.classList.add("hidden");
     panel.classList.remove("flex");
     document.body.style.overflow = "";
+    _lastFocus?.focus?.(); // return focus to whatever opened the drill
+    _lastFocus = null;
   }, 280);
 }
 
@@ -188,6 +206,7 @@ export function openFundDrill(id) {
   if (!f || !overlay || !panel || !card || !content) return;
 
   bindOnce();
+  _lastFocus = document.activeElement; // remember opener for focus restore
   content.innerHTML = drillHtml(f);
   content.scrollTop = 0;
   card.classList.remove("translate-y-4", "opacity-0"); // hand control to inline styles
@@ -209,6 +228,8 @@ export function openFundDrill(id) {
   );
 
   refreshIcons();
+  // Move focus into the modal (close button) for keyboard users.
+  requestAnimationFrame(() => card.querySelector("[data-drill-close]")?.focus());
   // Render the sparkline once the panel has laid out (so ECharts sizes correctly).
   requestAnimationFrame(() => fundSparkline($("drill-spark"), f.id));
 }
@@ -225,6 +246,8 @@ function bindOnce() {
     if (e.target.closest("[data-drill-close]")) closeFundDrill();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && _open) closeFundDrill();
+    if (!_open) return;
+    if (e.key === "Escape") closeFundDrill();
+    else if (e.key === "Tab") trapTab(e);
   });
 }

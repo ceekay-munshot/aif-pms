@@ -315,9 +315,10 @@ function filterBar() {
         <input id="scr-search" type="search" placeholder="Search manager or approach…" class="${inputCls} w-full pl-9" />
       </div>
       <button id="scr-reset" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Reset</button>
+      <button id="scr-adv-toggle" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:hidden"><i data-lucide="sliders-horizontal" class="h-4 w-4"></i> Filters</button>
     </div>
 
-    <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+    <div id="scr-adv" class="mt-3 hidden flex-wrap items-center gap-x-4 gap-y-3 sm:flex">
       <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("scr-period", PERIODS.map(([v, l]) => ({ val: v, label: l })), F.period)}</div>
       <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Metric</span>${seg("scr-mode", [{ val: "returns", label: "Returns" }, { val: "alpha", label: "Alpha" }], F.mode)}</div>
       <label class="flex items-center gap-2 text-xs font-medium text-slate-400">AUM ≥ <input id="scr-aum" type="number" min="0" placeholder="₹ Cr" class="${inputCls} w-24" /></label>
@@ -358,6 +359,7 @@ export function renderScreener(sec) {
   $("scr-aum")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.aumMin = Number.isFinite(n) ? n : null; F.page = 1; renderResults(); }, 220));
   $("scr-thresh")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.minThresh = Number.isFinite(n) ? n : null; F.page = 1; renderResults(); }, 220));
   $("scr-reset")?.addEventListener("click", reset);
+  $("scr-adv-toggle")?.addEventListener("click", () => $("scr-adv")?.classList.toggle("hidden"));
 
   renderResults();
   refreshIcons();

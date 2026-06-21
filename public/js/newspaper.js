@@ -66,9 +66,9 @@ function gather() {
   const funds = data.funds();
   const s = data.summary();
   const m = data.asOfMonth();
-  const top1y = data.topN("y1", 10);
-  const top3y = data.topN("y3", 10);
-  const topA = data.topN("alpha_y1", 10);
+  const top1y = data.topN("y1", 8);
+  const top3y = data.topN("y3", 8);
+  const topA = data.topN("alpha_y1", 8);
   const withY1 = funds.filter((f) => f.returns?.y1 != null);
   const worst = [...withY1].sort((a, b) => a.returns.y1 - b.returns.y1).slice(0, 6);
   const best1y = top1y[0]?.returns?.y1 ?? null;
@@ -250,19 +250,19 @@ function page2(d) {
   const leadVeh = (d.pms.y1 ?? -9) >= (d.aif.y1 ?? -9) ? "PMS" : "AIF";
   return `<section class="np-page np-page2">
     <header class="np-p2hd">
-      <div class="np-p2hd-l"><span class="np-mini">MUNSHOT</span><span class="np-mini-sub">${escapeHtml(d.monthName)}</span></div>
+      <div class="np-p2hd-l"><span class="np-mini">Munshot</span><span class="np-mini-sub">NEWSPAPER · ${escapeHtml(d.monthName)}</span></div>
       <h2 class="np-p2title">League Tables &amp; Analysis</h2>
       <div class="np-p2hd-r">PAGE 2</div>
     </header>
 
     <div class="np-sec">
-      <div class="np-kicker np-k-emerald">TOP 10 · BY ONE-YEAR RETURN</div>
+      <div class="np-kicker np-k-emerald">TOP 8 · BY ONE-YEAR RETURN</div>
       ${t1}
     </div>
 
     <div class="np-cols2">
-      <div class="np-sec"><div class="np-kicker np-k-indigo">TOP 10 · THREE-YEAR (CAGR)</div>${t3}</div>
-      <div class="np-sec"><div class="np-kicker np-k-pink">TOP 10 · ALPHA GENERATORS</div>${ta}</div>
+      <div class="np-sec"><div class="np-kicker np-k-indigo">TOP 8 · THREE-YEAR (CAGR)</div>${t3}</div>
+      <div class="np-sec"><div class="np-kicker np-k-pink">TOP 8 · ALPHA GENERATORS</div>${ta}</div>
     </div>
 
     <div class="np-sec">
@@ -321,8 +321,8 @@ function injectStyles() {
   .np-mast-est{ font-family:"Space Grotesk",sans-serif; font-size:9px; font-weight:600; letter-spacing:.45em; }
   .np-nameplate{ font-family:"Playfair Display",serif; font-weight:900; font-size:92px; line-height:.84; letter-spacing:-2px; margin:4px 0 0; background:linear-gradient(100deg,#6366F1,#A855F7 48%,#EC4899 88%); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .np-nameplate-sub{ display:flex; align-items:center; justify-content:center; gap:12px; margin-top:1px; }
-  .np-nameplate-sub::before, .np-nameplate-sub::after{ content:""; height:0; border-top:1.5px solid ${INK}; width:64px; }
-  .np-nameplate-sub span{ font-family:"Space Grotesk",sans-serif; font-weight:800; font-size:19px; letter-spacing:.6em; padding-left:.6em; color:${INK}; }
+  .np-nameplate-sub::before, .np-nameplate-sub::after{ content:""; height:0; border-top:1.5px solid ${INK}; width:74px; }
+  .np-nameplate-sub span{ font-family:"Space Grotesk",sans-serif; font-weight:800; font-size:22px; letter-spacing:.56em; padding-left:.56em; color:${INK}; }
   .np-mast-tag{ font-family:"Space Grotesk",sans-serif; font-size:10px; font-weight:500; letter-spacing:.34em; margin:7px 0 0; color:#46423a; }
   .np-dateline{ display:flex; justify-content:space-between; font-family:"Space Grotesk",sans-serif; font-size:9.5px; letter-spacing:.14em; border-top:1px solid ${INK}; border-bottom:3px double ${INK}; padding:5px 2px; margin-top:7px; }
   /* front grid */
@@ -360,26 +360,30 @@ function injectStyles() {
   /* page 2 */
   .np-p2hd{ display:flex; align-items:center; justify-content:space-between; border-bottom:3px double ${INK}; padding-bottom:6px; }
   .np-p2hd-l{ display:flex; flex-direction:column; }
-  .np-mini{ font-family:"Playfair Display",serif; font-weight:900; font-size:20px; background:linear-gradient(100deg,#6366F1,#EC4899); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .np-mini-sub, .np-p2hd-r{ font-family:"Space Grotesk",sans-serif; font-size:9px; letter-spacing:.2em; color:#8a8270; }
+  .np-mini{ font-family:"Playfair Display",serif; font-weight:900; font-size:30px; line-height:.9; background:linear-gradient(100deg,#6366F1,#A855F7 55%,#EC4899); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .np-mini-sub{ font-family:"Space Grotesk",sans-serif; font-size:9px; font-weight:700; letter-spacing:.22em; color:${INK}; }
+  .np-p2hd-r{ font-family:"Space Grotesk",sans-serif; font-size:9px; letter-spacing:.2em; color:#8a8270; align-self:flex-end; }
   .np-p2title{ font-family:"Playfair Display",serif; font-weight:900; font-size:30px; letter-spacing:-.5px; margin:0; }
   .np-page2{ justify-content:space-between; }
   .np-sec{ margin-top:0; display:flex; flex-direction:column; }
   .np-cols2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:0; }
   .np-tbl{ width:100%; border-collapse:collapse; font-family:"JetBrains Mono",monospace; margin-top:3px; }
-  .np-tbl th{ font-family:"Space Grotesk",sans-serif; font-size:8.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; color:#6b6454; border-bottom:1.5px solid ${INK}; padding:3px 4px; }
-  .np-tbl td{ font-size:10px; padding:2px 5px; border-bottom:1px solid #e7ddc9; vertical-align:middle; }
+  .np-tbl th{ font-family:"Space Grotesk",sans-serif; font-size:8.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; color:#6b6454; border-bottom:1.5px solid ${INK}; padding:4px 7px; }
+  .np-tbl td{ font-size:10px; padding:3px 7px; border-bottom:1px solid #e7ddc9; vertical-align:middle; }
   .np-tbl tr:nth-child(even) td{ background:rgba(99,102,241,.04); }
   .np-tbl th.np-r, .np-tbl td.np-r{ text-align:right; } .np-tbl th.np-c, .np-tbl td.np-c{ text-align:center; }
   .np-r{ text-align:right; } .np-c{ text-align:center; } .np-nowrap{ white-space:nowrap; }
   .np-tbl td{ white-space:nowrap; }
   .np-rank{ display:inline-flex; width:15px; height:15px; align-items:center; justify-content:center; border-radius:50%; background:${INK}; color:#fff; font-size:8.5px; font-weight:700; }
-  .np-fname{ font-family:"Newsreader",serif; font-size:10.5px; font-weight:600; line-height:1.02; }
-  .np-fmgr{ font-family:"Space Grotesk",sans-serif; font-size:7.5px; color:#8a8270; line-height:1.04; letter-spacing:.02em; }
+  .np-fname{ font-family:"Newsreader",serif; font-size:10.5px; font-weight:600; line-height:1.18; }
+  .np-fmgr{ font-family:"Space Grotesk",sans-serif; font-size:7.5px; color:#8a8270; line-height:1.12; letter-spacing:.02em; }
   .np-band{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:0; }
   .np-band-box{ overflow:hidden; }
   .np-band-box .np-box-hd{ font-size:11px; padding:5px 8px; }
+  .np-band-box .np-box-bd{ padding:4px 9px; }
+  .np-band-box .np-stat{ padding:1.5px 0; }
   .np-band-box .np-stat-k{ font-size:11px; } .np-band-box .np-stat-v{ font-size:12px; }
+  .np-band-box .np-verdict{ margin-top:3px; font-size:10px; }
   .np-watch .np-stat-k{ font-family:"Newsreader",serif; }
   .np-verdict{ font-family:"Fraunces",serif; font-style:italic; font-size:11px; color:#46423a; margin-top:6px; line-height:1.3; }
   .np-colophon{ font-family:"Space Grotesk",sans-serif; font-size:8.5px; line-height:1.5; letter-spacing:.04em; color:#6b6454; border-top:2px solid ${INK}; padding-top:6px; margin-top:10px; text-align:center; }

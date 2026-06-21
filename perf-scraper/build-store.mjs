@@ -113,7 +113,10 @@ export function mergeFund(prior, next) {
     source_url: pick('source_url'),
     source_category: pick('source_category'),
   };
-  const cf = 'category_fallback' in next ? next.category_fallback : prior.category_fallback;
+  // category_fallback travels WITH the category. category always comes from `next`
+  // when present (it never normalizes to null), so the flag must too — otherwise a
+  // fund reclassified out of the fallback bucket would keep a stale `true`.
+  const cf = next.category != null ? next.category_fallback : prior.category_fallback;
   if (cf) m.category_fallback = true;
   return orderFund(m);
 }

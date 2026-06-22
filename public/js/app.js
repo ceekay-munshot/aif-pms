@@ -15,6 +15,7 @@ import { renderMovers } from "./movers.js";
 import { exportData } from "./export.js";
 import { mountCompare } from "./compare.js";
 import { getInsight } from "./newspaper.js";
+import { mountSearch } from "./search.js";
 
 const $ = (id) => document.getElementById(id);
 const TABS = ["screener", "leaderboard", "categories", "movers"];
@@ -116,6 +117,7 @@ async function boot() {
   );
   showTab("screener");
   mountCompare(); // floating compare tray + side-by-side modal
+  mountSearch();  // header global fund search → drill
 
   // Header Export → current Screener view (if filtered) else the full set.
   $("export-btn")?.addEventListener("click", (e) => exportData(e.currentTarget));

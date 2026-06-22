@@ -1,9 +1,11 @@
-// screener.js — Fund Screener — MGA · the Screener tab (filters + sortable
-// table + category-relative top-N). The heart of the product.
+// screener.js — Fund Screener — MGA · the Screener tab.
 //
-// Renders a sticky filter bar once (so the search box keeps focus), then
-// re-renders only the results on change. Exposes getScreenerView() so prompt 11's
-// Export can pull exactly the current filtered+sorted set.
+// A clean filter panel (vehicle · category · period dropdown · metric · AUM ·
+// threshold · category-relative) + a "Run Screener" action that shows a brief
+// computing animation, then a sortable, paginated table (10 at a time, "show
+// more") with FROZEN column headers + a frozen Fund column inside a capped
+// scroll area. Global fund search lives in the header (js/search.js), not here.
+// getScreenerView() feeds Export; focusCategory() is the Categories deep-link.
 
 import {
   escapeHtml, initials, managerColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum,
@@ -17,20 +19,19 @@ const PERIODS = [
   ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"],
   ["y2", "2Y"], ["y3", "3Y"], ["y5", "5Y"], ["si", "SI"],
 ];
-const PAGE = 100;
+const PAGE = 10;          // rows per "page" (Show more adds another 10)
+const RUN_MS = 3000;      // "Run Screener" computing animation
 const MEDAL = { 1: "#F59E0B", 2: "#94A3B8", 3: "#F97316" };
-// Opaque (flattened-over-white) tints so the sticky Fund column never lets the
-// scrolling cells bleed through on a medal row.
 const TINT = { 1: "#FEF5E7", 2: "#F2F4F6", 3: "#FEF2EA" };
+const GRAD = "background-image:linear-gradient(100deg,#6366F1,#A855F7 50%,#EC4899);";
 
-// Filter/sort state.
 const F = {
-  vehicle: "", category: "", search: "", aumMin: null, minThresh: null,
+  vehicle: "", category: "", aumMin: null, minThresh: null,
   period: "y1", mode: "returns", catRel: false, perCat: 5,
   sortCol: "y1", sortDir: "desc", page: 1,
 };
+let _view = null, _ran = false, _running = false;
 
-let _view = null; // last computed view (for export)
 const $ = (id) => document.getElementById(id);
 const primaryMetric = () => (F.mode === "alpha" ? "alpha_" : "") + F.period;
 const sortMetric = () => (F.mode === "alpha" ? "alpha_" : "") + F.sortCol;
@@ -41,25 +42,17 @@ function computeView() {
   let xs = data.filterFunds({
     vehicle: F.vehicle || undefined,
     category: F.category || undefined,
-    search: F.search || undefined,
     aumMin: F.aumMin ?? undefined,
   });
   if (F.minThresh != null) {
     const pm = primaryMetric();
-    xs = xs.filter((f) => {
-      const v = data.metricValue(f, pm);
-      return v != null && v >= F.minThresh;
-    });
+    xs = xs.filter((f) => { const v = data.metricValue(f, pm); return v != null && v >= F.minThresh; });
   }
   const totalMatched = xs.length;
-
   if (F.catRel) {
     const pm = primaryMetric();
     const by = new Map();
-    for (const f of xs) {
-      if (!by.has(f.category)) by.set(f.category, []);
-      by.get(f.category).push(f);
-    }
+    for (const f of xs) { if (!by.has(f.category)) by.set(f.category, []); by.get(f.category).push(f); }
     const groups = [];
     for (const [category, list] of by) {
       const ranked = data.sortFunds(list.filter((f) => data.metricValue(f, pm) != null), pm, "desc");
@@ -68,55 +61,47 @@ function computeView() {
     groups.sort((a, b) => data.metricValue(b.rows[0], pm) - data.metricValue(a.rows[0], pm));
     return { catRel: true, groups, totalMatched, flat: groups.flatMap((g) => g.rows) };
   }
-
   const sorted = data.sortFunds(xs, sortMetric(), F.sortDir);
   return { catRel: false, rows: sorted, totalMatched, flat: sorted };
 }
 
-/** The current filtered+sorted dataset + config — consumed by Export (prompt 11). */
+/** Current filtered+sorted set + config — consumed by Export. */
 export function getScreenerView() {
   const v = _view || computeView();
   return {
-    rows: v.flat,
-    catRelative: v.catRel,
-    groups: v.catRel ? v.groups : null,
-    mode: F.mode,
-    period: F.period,
-    periodLabel: periodLong(F.period),
-    sortCol: F.sortCol,
-    sortDir: F.sortDir,
-    totalMatched: v.totalMatched,
-    // "active" = the row SET is narrowed/grouped (filters), not just reordered.
-    active: !!(F.vehicle || F.category || F.search || F.aumMin != null || F.minThresh != null || F.catRel),
+    rows: v.flat, catRelative: v.catRel, groups: v.catRel ? v.groups : null,
+    mode: F.mode, period: F.period, periodLabel: periodLong(F.period),
+    sortCol: F.sortCol, sortDir: F.sortDir, totalMatched: v.totalMatched,
+    active: !!(F.vehicle || F.category || F.aumMin != null || F.minThresh != null || F.catRel),
     columns: PERIODS.map(([p, l]) => ({ key: p, label: l })),
   };
 }
 
-/** Deep-link entry from the Categories tab: filter the Screener to one category. */
+/** Deep-link from the Categories tab: filter to one category and show results. */
 export function focusCategory(cat) {
   F.vehicle = ""; F.category = cat; F.catRel = false; F.page = 1;
-  if (!$("scr-category")) return; // not rendered yet — state applies on next render
+  if (!$("scr-category")) return;
   setSeg("scr-vehicle", "");
   setSeg("scr-catrel", "off");
   fillCategoryOptions();
   const sel = $("scr-category");
   sel.value = cat;
-  if (sel.value !== cat) F.category = ""; // unknown bucket → show all
+  if (sel.value !== cat) F.category = "";
   syncCatRel();
+  _ran = true; _running = false;
   renderResults();
 }
 
-// ── results rendering ─────────────────────────────────────────────────────────
+// ── table ──────────────────────────────────────────────────────────────────--
 function head() {
   return PERIODS.map(([p]) => {
     const active = !F.catRel && F.sortCol === p;
     const caret = active ? (F.sortDir === "desc" ? " ↓" : " ↑") : "";
     const cls = F.catRel ? "" : "cursor-pointer hover:text-slate-600";
     const hl = active ? "text-violet-600" : "text-slate-400";
-    return `<th data-col="${p}" class="scr-num px-2 py-2 text-right text-[11px] font-semibold uppercase tracking-wide ${hl} ${cls}">${periodShort(p)}${caret}</th>`;
+    return `<th data-col="${p}" class="scr-hd scr-num px-2 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide ${hl} ${cls}">${periodShort(p)}${caret}</th>`;
   }).join("");
 }
-
 function fundCell(f) {
   const color = managerColor(f.manager || f.id);
   return `<div class="flex items-center gap-2.5">
@@ -128,7 +113,6 @@ function fundCell(f) {
     ${compareButton(f.id, "icon")}
   </div>`;
 }
-
 function ladderCells(f) {
   return PERIODS.map(([p]) => {
     const v = ladderVal(f, p);
@@ -136,7 +120,6 @@ function ladderCells(f) {
     return `<td class="scr-num px-2 py-2.5 text-right font-mono text-sm ${pctColor(v)} ${active}">${fmtPct(v)}</td>`;
   }).join("");
 }
-
 function row(f, rankNum, tintRank) {
   const tint = tintRank ? `style="background:${TINT[tintRank]}"` : "";
   const medal = tintRank
@@ -150,15 +133,14 @@ function row(f, rankNum, tintRank) {
     <td class="hidden px-3 py-2.5 lg:table-cell">${categoryPill(f.category)}</td>
   </tr>`;
 }
-
 function tableShell(bodyHtml) {
-  const catHead = `<th class="hidden px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400 lg:table-cell">Category</th>`;
-  return `<div class="overflow-x-auto scroll-area">
+  const catHead = `<th class="scr-hd hidden px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400 lg:table-cell">Category</th>`;
+  return `<div class="scr-scroll scroll-area rounded-2xl ring-1 ring-slate-200/70">
     <table class="w-full min-w-[880px]">
       <thead><tr>
-        <th class="px-2 py-2 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">#</th>
-        <th class="scr-sticky bg-white px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Fund</th>
-        <th class="px-3 py-2 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">AUM</th>
+        <th class="scr-hd px-2 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">#</th>
+        <th class="scr-hd scr-sticky bg-white px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Fund</th>
+        <th class="scr-hd px-3 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">AUM</th>
         ${head()}${catHead}
       </tr></thead>
       <tbody>${bodyHtml}</tbody>
@@ -166,12 +148,46 @@ function tableShell(bodyHtml) {
   </div>`;
 }
 
-function renderResults() {
-  _view = computeView();
-  const meta = $("scr-meta");
-  const results = $("scr-results");
-  if (!results) return;
+// ── result states: ready · loading · table ────────────────────────────────────
+function readyState() {
+  return `<div class="fade-in flex flex-col items-center justify-center gap-3 rounded-2xl bg-white/60 py-16 text-center ring-1 ring-slate-200/60">
+    <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-violet-50 text-violet-500 ring-1 ring-violet-100"><i data-lucide="sliders-horizontal" class="h-8 w-8"></i></div>
+    <h3 class="font-display text-lg font-semibold text-slate-700">Ready to screen ${data.funds().length.toLocaleString("en-IN")} funds</h3>
+    <p class="max-w-md text-sm text-slate-500">Choose a vehicle, category, period and any thresholds above — then run the screener.</p>
+    <button id="scr-run2" class="mt-1 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md" style="${GRAD}"><i data-lucide="play" class="h-4 w-4"></i> Run Screener</button>
+  </div>`;
+}
+function loadingState() {
+  return `<div class="fade-in flex flex-col items-center justify-center gap-4 py-20 text-center">
+    <div class="h-12 w-12 animate-spin rounded-full border-[3px] border-violet-200 border-t-violet-500"></div>
+    <h3 class="font-display text-lg font-semibold text-slate-700">Screening ${data.funds().length.toLocaleString("en-IN")} funds…</h3>
+    <p class="text-sm text-slate-500">Crunching returns &amp; alpha across ${data.categories().length} categories</p>
+    <div class="h-1.5 w-64 overflow-hidden rounded-full bg-slate-100"><div id="scr-load-bar" class="h-full w-0 rounded-full" style="${GRAD} transition:width ${RUN_MS}ms ease-in-out;"></div></div>
+  </div>`;
+}
 
+function renderResults() {
+  const results = $("scr-results");
+  const meta = $("scr-meta");
+  if (!results) return;
+  renderChips();
+
+  if (_running) {
+    results.innerHTML = loadingState();
+    if (meta) meta.innerHTML = "";
+    requestAnimationFrame(() => { const b = $("scr-load-bar"); if (b) b.style.width = "100%"; });
+    refreshIcons();
+    return;
+  }
+  if (!_ran) {
+    results.innerHTML = readyState();
+    if (meta) meta.innerHTML = "";
+    $("scr-run2")?.addEventListener("click", runScreener);
+    refreshIcons();
+    return;
+  }
+
+  _view = computeView();
   const metricName = `${periodLong(F.period)}${F.mode === "alpha" ? " alpha" : ""}`;
   if (meta) {
     meta.innerHTML = F.catRel
@@ -183,8 +199,7 @@ function renderResults() {
     results.innerHTML = `<div class="fade-in flex flex-col items-center justify-center gap-3 py-16 text-center">
       <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"><i data-lucide="search-x" class="h-7 w-7"></i></div>
       <h3 class="font-display text-lg font-semibold text-slate-700">No funds match these filters</h3>
-      <p class="max-w-sm text-sm text-slate-500">Loosen a filter or reset to see the full universe.</p>
-    </div>`;
+      <p class="max-w-sm text-sm text-slate-500">Loosen a filter or reset to see the full universe.</p></div>`;
     refreshIcons();
     return;
   }
@@ -194,36 +209,41 @@ function renderResults() {
       .map((g) => `<div class="mb-6 fade-in">
         <div class="mb-2 flex items-center gap-2">${categoryPill(g.category)}<span class="text-xs text-slate-400">top ${Math.min(F.perCat, g.rows.length)} of ${g.total.toLocaleString("en-IN")}</span></div>
         ${tableShell(g.rows.map((f, i) => row(f, i + 1, i < 3 ? i + 1 : 0)).join(""))}
-      </div>`)
-      .join("");
+      </div>`).join("");
   } else {
     const shown = _view.rows.slice(0, F.page * PAGE);
     const body = shown.map((f, i) => row(f, i + 1, F.sortDir === "desc" && F.sortCol === F.period && i < 3 ? i + 1 : 0)).join("");
-    const more = _view.rows.length > shown.length
-      ? `<div class="mt-4 flex justify-center"><button id="scr-more" class="rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-200">Show ${Math.min(PAGE, _view.rows.length - shown.length)} more</button></div>`
+    const remaining = _view.rows.length - shown.length;
+    const more = remaining > 0
+      ? `<div class="mt-4 flex justify-center"><button id="scr-more" class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-200"><i data-lucide="plus" class="h-4 w-4"></i> Show ${Math.min(PAGE, remaining)} more <span class="text-slate-400">(${remaining.toLocaleString("en-IN")} left)</span></button></div>`
       : "";
     results.innerHTML = tableShell(body) + more;
     $("scr-more")?.addEventListener("click", () => { F.page += 1; renderResults(); });
   }
 
   results.querySelectorAll("tr[data-id]").forEach((tr) => tr.addEventListener("click", (e) => {
-    if (e.target.closest("[data-cmp-add]")) return; // +Compare handled separately
+    if (e.target.closest("[data-cmp-add]")) return;
     openFundDrill(tr.dataset.id);
   }));
   if (!F.catRel) {
-    results.querySelectorAll("th[data-col]").forEach((th) =>
-      th.addEventListener("click", () => {
-        const c = th.dataset.col;
-        if (F.sortCol === c) F.sortDir = F.sortDir === "desc" ? "asc" : "desc";
-        else { F.sortCol = c; F.sortDir = "desc"; }
-        F.page = 1;
-        renderResults();
-      })
-    );
+    results.querySelectorAll("th[data-col]").forEach((th) => th.addEventListener("click", () => {
+      const c = th.dataset.col;
+      if (F.sortCol === c) F.sortDir = F.sortDir === "desc" ? "asc" : "desc";
+      else { F.sortCol = c; F.sortDir = "desc"; }
+      F.page = 1; renderResults();
+    }));
   }
-  renderChips();
   refreshIcons();
 }
+
+function runScreener() {
+  if (_running) return;
+  _running = true; _ran = true; F.page = 1;
+  renderResults();
+  setTimeout(() => { _running = false; renderResults(); }, RUN_MS);
+}
+// After the first run, filter tweaks update live; before it, only the chips move.
+function change() { F.page = 1; if (_ran && !_running) renderResults(); else renderChips(); }
 
 // ── active-filter chips ───────────────────────────────────────────────────────
 function renderChips() {
@@ -233,32 +253,29 @@ function renderChips() {
   const add = (key, label) => chips.push({ key, label });
   if (F.vehicle) add("vehicle", `Vehicle: ${F.vehicle}`);
   if (F.category) add("category", categoryLabel(F.category));
-  if (F.search) add("search", `“${F.search}”`);
   if (F.aumMin != null) add("aumMin", `AUM ≥ ₹${F.aumMin.toLocaleString("en-IN")} Cr`);
   if (F.minThresh != null) add("minThresh", `Min ${periodLong(F.period)}${F.mode === "alpha" ? " α" : ""} ≥ ${F.minThresh}%`);
   if (F.mode === "alpha") add("mode", "Alpha view");
   if (F.catRel) add("catRel", `Top ${F.perCat} / category`);
   box.innerHTML = chips.length
     ? chips.map((c) => `<button class="inline-flex items-center gap-1 rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 transition hover:bg-violet-200" data-chip="${c.key}">${escapeHtml(c.label)} <i data-lucide="x" class="h-3 w-3"></i></button>`).join("")
-    : `<span class="text-xs text-slate-400">No active filters — showing the full universe.</span>`;
+    : `<span class="text-xs text-slate-400">No active filters — the full universe.</span>`;
   box.querySelectorAll("[data-chip]").forEach((b) => b.addEventListener("click", () => clearFilter(b.dataset.chip)));
+  refreshIcons();
 }
-
 function clearFilter(key) {
   if (key === "vehicle") { F.vehicle = ""; setSeg("scr-vehicle", ""); fillCategoryOptions(); }
   else if (key === "category") { F.category = ""; const s = $("scr-category"); if (s) s.value = ""; }
-  else if (key === "search") { F.search = ""; const s = $("scr-search"); if (s) s.value = ""; }
   else if (key === "aumMin") { F.aumMin = null; const s = $("scr-aum"); if (s) s.value = ""; }
   else if (key === "minThresh") { F.minThresh = null; const s = $("scr-thresh"); if (s) s.value = ""; }
-  else if (key === "mode") { F.mode = "returns"; setSeg("scr-mode", "returns"); }
+  else if (key === "mode") { F.mode = "returns"; setSeg("scr-mode", "returns"); updateThreshLabel(); }
   else if (key === "catRel") { F.catRel = false; setSeg("scr-catrel", "off"); syncCatRel(); }
-  F.page = 1;
-  renderResults();
+  change();
 }
 
-// ── segmented control helpers ─────────────────────────────────────────────────
+// ── small controls ────────────────────────────────────────────────────────────
 function seg(id, opts, active) {
-  return `<div id="${id}" class="inline-flex flex-wrap items-center gap-0.5 rounded-full bg-slate-100 p-1">
+  return `<div id="${id}" class="inline-flex items-center gap-0.5 rounded-full bg-slate-100 p-1">
     ${opts.map((o) => `<button data-val="${o.val}" class="seg-btn rounded-full px-3 py-1 text-xs font-semibold transition ${o.val === active ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}">${o.label}</button>`).join("")}
   </div>`;
 }
@@ -274,14 +291,9 @@ function setSeg(id, val) {
   });
 }
 function onSeg(id, cb) {
-  $(id)?.addEventListener("click", (e) => {
-    const btn = e.target.closest(".seg-btn");
-    if (!btn) return;
-    setSeg(id, btn.dataset.val);
-    cb(btn.dataset.val);
-  });
+  $(id)?.addEventListener("click", (e) => { const b = e.target.closest(".seg-btn"); if (!b) return; setSeg(id, b.dataset.val); cb(b.dataset.val); });
 }
-const debounce = (fn, ms = 200) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+const debounce = (fn, ms = 220) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 function fillCategoryOptions() {
   const sel = $("scr-category");
@@ -291,47 +303,39 @@ function fillCategoryOptions() {
   for (const f of xs) counts.set(f.category, (counts.get(f.category) || 0) + 1);
   const opts = [...counts.entries()].sort((a, b) => b[1] - a[1]);
   const cur = F.category;
-  sel.innerHTML =
-    `<option value="">All categories (${xs.length.toLocaleString("en-IN")})</option>` +
+  sel.innerHTML = `<option value="">All categories (${xs.length.toLocaleString("en-IN")})</option>` +
     opts.map(([c, n]) => `<option value="${escapeHtml(c)}">${escapeHtml(categoryLabel(c))} (${n.toLocaleString("en-IN")})</option>`).join("");
-  // keep selection if still valid; else reset
-  if (cur && counts.has(cur)) sel.value = cur;
-  else { F.category = ""; sel.value = ""; }
+  if (cur && counts.has(cur)) sel.value = cur; else { F.category = ""; sel.value = ""; }
 }
-
-function syncCatRel() {
-  const wrap = $("scr-percat-wrap");
-  if (wrap) wrap.style.display = F.catRel ? "" : "none";
-}
-
+function syncCatRel() { const w = $("scr-percat-wrap"); if (w) w.style.display = F.catRel ? "" : "none"; }
 const threshLabel = () => `Min ${periodLong(F.period)}${F.mode === "alpha" ? " α" : ""} ≥`;
-function updateThreshLabel() {
-  const el = $("scr-thresh-label");
-  if (el) el.textContent = threshLabel();
-}
+function updateThreshLabel() { const el = $("scr-thresh-label"); if (el) el.textContent = threshLabel(); }
 
-// ── filter bar (rendered once) ────────────────────────────────────────────────
+// ── filter panel ───────────────────────────────────────────────────────────--
+function periodSelect() {
+  return `<select id="scr-period" class="scr-input">${PERIODS.map(([v]) => `<option value="${v}"${v === F.period ? " selected" : ""}>${periodLong(v)}</option>`).join("")}</select>`;
+}
 function filterBar() {
-  const inputCls = "rounded-xl border-0 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 outline-none ring-1 ring-transparent transition focus:bg-white focus:ring-violet-300";
-  return `<div class="card sticky top-[5.25rem] z-20 mb-5 p-4 sm:p-5">
+  return `<div class="card mb-5 p-4 sm:p-5">
     <div class="flex flex-wrap items-center gap-3">
       ${seg("scr-vehicle", [{ val: "", label: "All" }, { val: "PMS", label: "PMS" }, { val: "AIF", label: "AIF" }], F.vehicle)}
-      <select id="scr-category" class="${inputCls} max-w-[220px]"></select>
-      <div class="relative min-w-[180px] flex-1">
-        <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"></i>
-        <input id="scr-search" type="search" placeholder="Search manager or approach…" class="${inputCls} w-full pl-9" />
+      <select id="scr-category" class="scr-input max-w-[230px]"></select>
+      <div class="ml-auto flex items-center gap-2">
+        <button id="scr-reset" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Reset</button>
+        <button id="scr-adv-toggle" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 lg:hidden"><i data-lucide="sliders-horizontal" class="h-4 w-4"></i> Filters</button>
+        <button id="scr-run" class="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md" style="${GRAD}"><i data-lucide="play" class="h-4 w-4"></i> Run Screener</button>
       </div>
-      <button id="scr-reset" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Reset</button>
-      <button id="scr-adv-toggle" class="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:hidden"><i data-lucide="sliders-horizontal" class="h-4 w-4"></i> Filters</button>
     </div>
 
-    <div id="scr-adv" class="mt-3 hidden flex-wrap items-center gap-x-4 gap-y-3 sm:flex">
-      <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Period</span>${seg("scr-period", PERIODS.map(([v]) => ({ val: v, label: periodLong(v) })), F.period)}</div>
-      <div class="flex items-center gap-2"><span class="text-xs font-medium text-slate-400">Metric</span>${seg("scr-mode", [{ val: "returns", label: "Returns" }, { val: "alpha", label: "Alpha" }], F.mode)}</div>
-      <label class="flex items-center gap-2 text-xs font-medium text-slate-400">AUM ≥ <input id="scr-aum" type="number" min="0" placeholder="₹ Cr" class="${inputCls} w-24" /></label>
-      <label class="flex items-center gap-2 text-xs font-medium text-slate-400"><span id="scr-thresh-label">${threshLabel()}</span> <input id="scr-thresh" type="number" placeholder="%" class="${inputCls} w-20" /></label>
-      <div class="flex items-center gap-2">${seg("scr-catrel", [{ val: "off", label: "Overall" }, { val: "on", label: "Per category" }], F.catRel ? "on" : "off")}
-        <span id="scr-percat-wrap" style="display:none">${seg("scr-percat", [{ val: "3", label: "3" }, { val: "5", label: "5" }, { val: "10", label: "10" }], String(F.perCat))}</span>
+    <div id="scr-adv" class="mt-3 hidden flex-wrap items-end gap-x-5 gap-y-3 lg:flex">
+      <label class="flex flex-col gap-1"><span class="text-[11px] font-medium uppercase tracking-wide text-slate-400">Period</span>${periodSelect()}</label>
+      <div class="flex flex-col gap-1"><span class="text-[11px] font-medium uppercase tracking-wide text-slate-400">Metric</span>${seg("scr-mode", [{ val: "returns", label: "Returns" }, { val: "alpha", label: "Alpha" }], F.mode)}</div>
+      <label class="flex flex-col gap-1"><span class="text-[11px] font-medium uppercase tracking-wide text-slate-400">AUM ≥</span><input id="scr-aum" type="number" min="0" placeholder="₹ Cr" class="scr-input w-28" /></label>
+      <label class="flex flex-col gap-1"><span id="scr-thresh-label" class="text-[11px] font-medium uppercase tracking-wide text-slate-400">${threshLabel()}</span><input id="scr-thresh" type="number" placeholder="%" class="scr-input w-24" /></label>
+      <div class="flex flex-col gap-1"><span class="text-[11px] font-medium uppercase tracking-wide text-slate-400">Ranking</span>
+        <div class="flex items-center gap-2">${seg("scr-catrel", [{ val: "off", label: "Overall" }, { val: "on", label: "Per category" }], F.catRel ? "on" : "off")}
+          <span id="scr-percat-wrap" style="display:none">${seg("scr-percat", [{ val: "3", label: "3" }, { val: "5", label: "5" }, { val: "10", label: "10" }], String(F.perCat))}</span>
+        </div>
       </div>
     </div>
 
@@ -347,7 +351,7 @@ export function renderScreener(sec) {
   sec.innerHTML = `<div class="card p-4 sm:p-6">
     <div class="mb-4">
       <h2 class="font-display text-lg font-bold text-slate-800">Screener</h2>
-      <p class="text-sm text-slate-500">Filter and rank ${data.funds().length.toLocaleString("en-IN")} PMS &amp; AIF funds on return or alpha — overall or relative to category.</p>
+      <p class="text-sm text-slate-500">Filter ${data.funds().length.toLocaleString("en-IN")} PMS &amp; AIF funds on return or alpha, then run the screener.</p>
     </div>
     ${filterBar()}
   </div>`;
@@ -355,17 +359,17 @@ export function renderScreener(sec) {
   fillCategoryOptions();
   syncCatRel();
 
-  onSeg("scr-vehicle", (v) => { F.vehicle = v; F.page = 1; fillCategoryOptions(); renderResults(); });
-  onSeg("scr-period", (v) => { F.period = v; F.sortCol = v; F.sortDir = "desc"; F.page = 1; updateThreshLabel(); renderResults(); });
-  onSeg("scr-mode", (v) => { F.mode = v; F.page = 1; updateThreshLabel(); renderResults(); });
-  onSeg("scr-catrel", (v) => { F.catRel = v === "on"; F.page = 1; syncCatRel(); renderResults(); });
-  onSeg("scr-percat", (v) => { F.perCat = Number(v); renderResults(); });
+  onSeg("scr-vehicle", (v) => { F.vehicle = v; fillCategoryOptions(); change(); });
+  onSeg("scr-mode", (v) => { F.mode = v; updateThreshLabel(); change(); });
+  onSeg("scr-catrel", (v) => { F.catRel = v === "on"; syncCatRel(); change(); });
+  onSeg("scr-percat", (v) => { F.perCat = Number(v); if (_ran && !_running) renderResults(); });
 
-  $("scr-category")?.addEventListener("change", (e) => { F.category = e.target.value; F.page = 1; renderResults(); });
-  $("scr-search")?.addEventListener("input", debounce((e) => { F.search = e.target.value.trim(); F.page = 1; renderResults(); }, 180));
-  $("scr-aum")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.aumMin = Number.isFinite(n) ? n : null; F.page = 1; renderResults(); }, 220));
-  $("scr-thresh")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.minThresh = Number.isFinite(n) ? n : null; F.page = 1; renderResults(); }, 220));
+  $("scr-period")?.addEventListener("change", (e) => { F.period = e.target.value; F.sortCol = e.target.value; F.sortDir = "desc"; updateThreshLabel(); change(); });
+  $("scr-category")?.addEventListener("change", (e) => { F.category = e.target.value; change(); });
+  $("scr-aum")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.aumMin = Number.isFinite(n) ? n : null; change(); }));
+  $("scr-thresh")?.addEventListener("input", debounce((e) => { const n = parseFloat(e.target.value); F.minThresh = Number.isFinite(n) ? n : null; change(); }));
   $("scr-reset")?.addEventListener("click", reset);
+  $("scr-run")?.addEventListener("click", runScreener);
   $("scr-adv-toggle")?.addEventListener("click", () => $("scr-adv")?.classList.toggle("hidden"));
 
   renderResults();
@@ -373,12 +377,11 @@ export function renderScreener(sec) {
 }
 
 function reset() {
-  Object.assign(F, { vehicle: "", category: "", search: "", aumMin: null, minThresh: null, period: "y1", mode: "returns", catRel: false, perCat: 5, sortCol: "y1", sortDir: "desc", page: 1 });
-  setSeg("scr-vehicle", ""); setSeg("scr-period", "y1"); setSeg("scr-mode", "returns");
-  setSeg("scr-catrel", "off"); setSeg("scr-percat", "5");
-  const s = $("scr-search"); if (s) s.value = "";
+  Object.assign(F, { vehicle: "", category: "", aumMin: null, minThresh: null, period: "y1", mode: "returns", catRel: false, perCat: 5, sortCol: "y1", sortDir: "desc", page: 1 });
+  setSeg("scr-vehicle", ""); setSeg("scr-mode", "returns"); setSeg("scr-catrel", "off"); setSeg("scr-percat", "5");
+  const p = $("scr-period"); if (p) p.value = "y1";
   const a = $("scr-aum"); if (a) a.value = "";
   const t = $("scr-thresh"); if (t) t.value = "";
   syncCatRel(); updateThreshLabel(); fillCategoryOptions();
-  renderResults();
+  if (_ran && !_running) renderResults(); else renderChips();
 }

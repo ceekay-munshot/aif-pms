@@ -129,12 +129,13 @@ function drillHtml(f) {
   };
   const growCards = [growCard("y1", "1 year"), growCard("y3", "3 years"), growCard("y5", "5 years")].filter(Boolean).join("");
   const growSection = growCards
-    ? `<div class="mt-5">
+    ? `<div>
         <h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="piggy-bank" class="h-4 w-4 text-slate-400"></i> What ₹1 would've become</h4>
         <div class="grid grid-cols-3 gap-2">${growCards}</div>
-        <p class="mt-1 text-[11px] text-slate-400">If you'd invested and stayed in — from reported returns; past performance isn't a promise.</p>
+        <p class="mt-1.5 text-[11px] text-slate-400">If you'd invested and stayed in — from reported returns; past performance isn't a promise.</p>
       </div>`
     : "";
+  const h4 = (icon, text) => `<h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="${icon}" class="h-4 w-4 text-slate-400"></i> ${text}</h4>`;
 
   return `
     <div class="flex items-start justify-between gap-4">
@@ -142,7 +143,7 @@ function drillHtml(f) {
         <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-sm font-bold text-white shadow-sm"
              style="background:${color};">${escapeHtml(initials(f.manager))}</div>
         <div class="min-w-0">
-          <h3 class="font-display text-lg font-bold leading-tight text-slate-800">${escapeHtml(f.approach || "—")}</h3>
+          <h3 class="font-display text-xl font-bold leading-tight text-slate-800">${escapeHtml(f.approach || "—")}</h3>
           <p class="truncate text-sm text-slate-500">${escapeHtml(f.manager || "—")}</p>
         </div>
       </div>
@@ -153,31 +154,26 @@ function drillHtml(f) {
 
     <div class="mt-4 flex flex-wrap items-center gap-2">
       ${vehiclePill(f.vehicle)} ${categoryPill(f.category)} ${stratChips}
+      ${rankBadge} ${starsBadge} ${compareButton(f.id, "full")}
     </div>
 
-    <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
-      ${stat("Benchmark", escapeHtml(f.benchmark || "—"))}
-      ${stat("AUM", fmtAum(f.aum_cr))}
-      ${stat("Inception", fmtDate(f.inception))}
-    </div>
-
-    <div class="mt-4 flex flex-wrap items-center gap-2">${rankBadge}${starsBadge}${compareButton(f.id, "full")}</div>
-
-    ${growSection}
-
-    <div class="mt-5">
-      <h4 class="mb-1 flex items-center gap-2 font-display text-sm font-semibold text-slate-700">
-        <i data-lucide="table" class="h-4 w-4 text-slate-400"></i> Returns vs benchmark</h4>
-      ${renderReturnLadder(f)}
-    </div>
-
-    <div class="mt-5">
-      <h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700">
-        <i data-lucide="activity" class="h-4 w-4 text-slate-400"></i> 1-Year return history</h4>
-      <div id="drill-spark" class="chart-box" style="height:200px;"></div>
-      ${fundHistory(f.id).length < 2
-        ? `<p class="mt-1 text-center text-xs text-slate-400">History builds monthly — one snapshot so far.</p>`
-        : ""}
+    <div class="mt-5 grid gap-6 lg:grid-cols-2">
+      <div class="space-y-5">
+        <div class="grid grid-cols-3 gap-2">
+          ${stat("Benchmark", escapeHtml(f.benchmark || "—"))}
+          ${stat("AUM", fmtAum(f.aum_cr))}
+          ${stat("Inception", fmtDate(f.inception))}
+        </div>
+        ${growSection}
+      </div>
+      <div class="space-y-5">
+        <div>${h4("table", "Returns vs benchmark")}${renderReturnLadder(f)}</div>
+        <div>
+          ${h4("activity", "1-Year return history")}
+          <div id="drill-spark" class="chart-box" style="height:180px;"></div>
+          ${fundHistory(f.id).length < 2 ? `<p class="mt-1 text-center text-xs text-slate-400">History builds monthly — one snapshot so far.</p>` : ""}
+        </div>
+      </div>
     </div>`;
 }
 

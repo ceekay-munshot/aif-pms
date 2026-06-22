@@ -69,9 +69,15 @@
       .chart-box { width:100%; height:340px; }
       .chart-tall { width:100%; height:560px; }
       @media (max-width:640px){ .chart-tall { height:420px; } }
-      /* Screener table: freeze the Fund column on horizontal scroll; numbers never wrap (fixes α-column clipping). */
+      /* Screener table: freeze the Fund column (left) AND the header row (top). */
       .scr-sticky { position: sticky; left: 0; z-index: 2; }
       .scr-num { white-space: nowrap; }
+      .scr-scroll { max-height: 68vh; overflow: auto; }
+      .scr-scroll thead th { position: sticky; top: 0; z-index: 4; background: #fff; box-shadow: 0 1px 0 #e2e8f0; }
+      .scr-scroll thead th.scr-sticky { left: 0; z-index: 5; }
+      /* Filter inputs / selects */
+      .scr-input { border: 0; background: #f1f5f9; border-radius: .75rem; padding: .5rem .75rem; font-size: .875rem; font-weight: 500; color: #334155; outline: none; box-shadow: inset 0 0 0 1px transparent; transition: background .15s, box-shadow .15s; }
+      .scr-input:focus { background: #fff; box-shadow: inset 0 0 0 1px #c4b5fd; }
       #drill-overlay, #drill-panel { transition: opacity .25s ease; }
       #drill-card { transition: transform .26s cubic-bezier(.34,1.4,.5,1), opacity .22s ease; }
     </style>
@@ -99,6 +105,14 @@
           </p>
         </div>
         <div class="flex items-center gap-3">
+          <button
+            id="search-btn"
+            class="inline-flex min-w-[200px] items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-400 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:text-slate-600 hover:shadow-md"
+            title="Search any fund (press /)"
+          >
+            <i data-lucide="search" class="h-4 w-4"></i> Search funds…
+            <kbd class="ml-auto hidden rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 sm:inline">/</kbd>
+          </button>
           <button
             id="insight-btn"
             class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5 hover:shadow-md"
@@ -163,11 +177,24 @@
       </footer>
     </main>
 
-    <!-- Fund-drill modal (wired in prompt 11) -->
+    <!-- Fund-drill modal -->
     <div id="drill-overlay" class="fixed inset-0 z-40 hidden bg-slate-900/40 opacity-0 backdrop-blur-sm"></div>
     <div id="drill-panel" class="fixed inset-0 z-50 hidden items-center justify-center p-4 opacity-0">
-      <div id="drill-card" class="card w-full max-w-2xl translate-y-4 opacity-0">
-        <div id="drill-content" class="scroll-area max-h-[85vh] overflow-y-auto p-6"></div>
+      <div id="drill-card" class="card w-full max-w-5xl translate-y-4 opacity-0">
+        <div id="drill-content" class="scroll-area max-h-[88vh] overflow-y-auto p-6 sm:p-7"></div>
+      </div>
+    </div>
+
+    <!-- Global fund search modal -->
+    <div id="search-overlay" class="fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm"></div>
+    <div id="search-panel" class="fixed inset-0 z-50 hidden items-start justify-center p-4 pt-[10vh]">
+      <div class="card w-full max-w-xl overflow-hidden">
+        <div class="flex items-center gap-3 border-b border-slate-100 px-4 py-3">
+          <i data-lucide="search" class="h-5 w-5 text-slate-400"></i>
+          <input id="search-input" type="search" autocomplete="off" placeholder="Search any fund — manager or approach…" class="w-full bg-transparent text-base text-slate-700 outline-none placeholder:text-slate-400" />
+          <kbd class="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400">ESC</kbd>
+        </div>
+        <div id="search-results" class="scroll-area max-h-[60vh] overflow-y-auto p-2"></div>
       </div>
     </div>
 

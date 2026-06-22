@@ -104,13 +104,16 @@ function head() {
 }
 function fundCell(f) {
   const color = managerColor(f.manager || f.id);
-  return `<div class="flex items-center gap-2.5">
+  return `<div class="flex items-center gap-2.5 overflow-hidden">
     <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-bold text-white" style="background:${color};">${escapeHtml(initials(f.manager))}</div>
     <div class="min-w-0 flex-1">
       <p class="truncate text-sm font-semibold text-slate-700">${escapeHtml(f.approach || "—")}</p>
-      <div class="mt-0.5 flex items-center gap-1.5">${vehiclePill(f.vehicle)}<span class="truncate text-xs text-slate-400">${escapeHtml(f.manager || "—")}</span></div>
+      <div class="mt-0.5 flex min-w-0 items-center gap-1.5">
+        <span class="shrink-0">${vehiclePill(f.vehicle)}</span>
+        <span class="truncate text-xs text-slate-400">${escapeHtml(f.manager || "—")}</span>
+      </div>
     </div>
-    ${compareButton(f.id, "icon")}
+    <span class="shrink-0">${compareButton(f.id, "icon")}</span>
   </div>`;
 }
 function ladderCells(f) {
@@ -135,13 +138,13 @@ function row(f, rankNum, tintRank) {
     <td class="scr-froz scr-c2 bg-inherit px-3 py-2.5">${fundCell(f)}</td>
     <td class="scr-froz scr-c3 bg-inherit px-3 py-2.5 text-right font-mono text-xs text-slate-500 whitespace-nowrap">${fmtAum(f.aum_cr)}</td>
     ${ladderCells(f)}
-    <td class="hidden px-3 py-2.5 lg:table-cell">${catChip(f.category)}</td>
+    <td class="scr-cat hidden px-3 py-2.5 lg:table-cell">${catChip(f.category)}</td>
   </tr>`;
 }
 function tableShell(bodyHtml) {
-  const catHead = `<th class="scr-hd hidden px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400 lg:table-cell">Category</th>`;
+  const catHead = `<th class="scr-hd scr-cat hidden px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400 lg:table-cell">Category</th>`;
   return `<div class="scr-scroll scroll-area rounded-2xl ring-1 ring-slate-200/70">
-    <table class="w-full min-w-[880px]">
+    <table class="scr-tbl">
       <thead><tr>
         <th class="scr-hd scr-froz scr-c1 px-2 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">#</th>
         <th class="scr-hd scr-froz scr-c2 px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Fund</th>

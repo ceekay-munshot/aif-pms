@@ -35,23 +35,31 @@ const softChip = (text, icon) =>
 
 // ── reusable: returns-vs-benchmark ladder table ──────────────────────────────
 export function renderReturnLadder(f) {
-  const head = PERIODS.map(
-    ([p]) => `<th class="px-2 py-1.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">${periodShort(p)}</th>`
+  // Only show periods that actually carry a value somewhere — a Dec-2024 fund
+  // has no 2Y/3Y/5Y, so those empty "—" columns are dropped (no dead space).
+  const has = (p) =>
+    (f.returns?.[p] ?? null) !== null ||
+    (f.benchmark_returns?.[p] ?? null) !== null ||
+    (f.alpha?.[p] ?? null) !== null;
+  const cols = PERIODS.filter(([p]) => has(p));
+  const periods = cols.length ? cols : PERIODS;
+  const head = periods.map(
+    ([p]) => `<th class="px-2 py-2 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">${periodShort(p)}</th>`
   ).join("");
   const cells = (obj, colored) =>
-    PERIODS.map(([p]) => {
+    periods.map(([p]) => {
       const v = obj?.[p];
       const cls = colored ? pctColor(v) : "text-slate-500";
-      return `<td class="px-2 py-1.5 text-right ${cls}">${fmtPct(v)}</td>`;
+      return `<td class="px-2 py-2 text-right ${cls}">${fmtPct(v)}</td>`;
     }).join("");
-  const label = (t, cls) => `<td class="whitespace-nowrap py-1.5 pr-3 text-left text-xs font-semibold ${cls}">${t}</td>`;
-  return `<div class="overflow-x-auto scroll-area">
-    <table class="w-full min-w-[480px] text-sm">
-      <thead><tr><th class="py-1.5 pr-3 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Period</th>${head}</tr></thead>
+  const label = (t, cls) => `<td class="whitespace-nowrap py-2 pr-3 text-left text-xs font-semibold ${cls}">${t}</td>`;
+  return `<div class="overflow-x-auto scroll-area rounded-2xl ring-1 ring-slate-200/70">
+    <table class="w-full text-sm">
+      <thead><tr class="bg-slate-50/70"><th class="rounded-tl-2xl py-2 pl-3 pr-3 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Period</th>${head}</tr></thead>
       <tbody class="font-mono">
-        <tr class="border-t border-slate-100">${label("Fund", "text-slate-700")}${cells(f.returns, true)}</tr>
-        <tr class="border-t border-slate-100">${label("Benchmark", "text-slate-400")}${cells(f.benchmark_returns, false)}</tr>
-        <tr class="border-t border-slate-100">${label("Alpha", "text-slate-700")}${cells(f.alpha, true)}</tr>
+        <tr class="border-t border-slate-100">${label("Fund", "text-slate-700 pl-3")}${cells(f.returns, true)}</tr>
+        <tr class="border-t border-slate-100">${label("Benchmark", "text-slate-400 pl-3")}${cells(f.benchmark_returns, false)}</tr>
+        <tr class="border-t border-slate-100">${label("Alpha", "text-slate-700 pl-3")}${cells(f.alpha, true)}</tr>
       </tbody>
     </table>
   </div>`;
@@ -118,24 +126,35 @@ function drillHtml(f) {
     ? `<span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">${starsHtml(sr.stars)}<span class="text-amber-600/80">better than ${Math.round(sr.pct * 100)}% of funds</span></span>`
     : "";
 
-  // "What ₹1 would've become" (#6)
+  const h4 = (icon, text) => `<h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="${icon}" class="h-4 w-4 text-slate-400"></i> ${text}</h4>`;
+
+  // "What ₹1 would've become" (#6) — columns track the number of cards so a
+  // young fund with only a 1-year figure doesn't leave two empty cells.
   const growCard = (p, lbl) => {
     const m = growthMultiple(p, f.returns?.[p]);
     if (m == null) return "";
-    return `<div class="rounded-xl bg-slate-50 px-3 py-2 text-center">
+    return `<div class="rounded-xl bg-slate-50 px-3 py-3 text-center ring-1 ring-slate-100">
       <p class="text-[11px] font-medium uppercase tracking-wide text-slate-400">${lbl}</p>
-      <p class="mt-0.5 text-sm font-bold text-slate-800">₹1 → ₹${m.toFixed(2)}</p>
+      <p class="mt-0.5 text-base font-bold text-slate-800">₹1 → ₹${m.toFixed(2)}</p>
       <p class="text-[11px] text-slate-400">${m.toFixed(1)}× your money</p></div>`;
   };
-  const growCards = [growCard("y1", "1 year"), growCard("y3", "3 years"), growCard("y5", "5 years")].filter(Boolean).join("");
-  const growSection = growCards
-    ? `<div>
-        <h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="piggy-bank" class="h-4 w-4 text-slate-400"></i> What ₹1 would've become</h4>
-        <div class="grid grid-cols-3 gap-2">${growCards}</div>
-        <p class="mt-1.5 text-[11px] text-slate-400">If you'd invested and stayed in — from reported returns; past performance isn't a promise.</p>
-      </div>`
-    : "";
-  const h4 = (icon, text) => `<h4 class="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-slate-700"><i data-lucide="${icon}" class="h-4 w-4 text-slate-400"></i> ${text}</h4>`;
+  const growList = [growCard("y1", "1 year"), growCard("y3", "3 years"), growCard("y5", "5 years")].filter(Boolean);
+  const growBody = growList.length
+    ? `<div class="grid gap-2" style="grid-template-columns:repeat(${growList.length},minmax(0,1fr))">${growList.join("")}</div>
+       <p class="mt-2 text-[11px] text-slate-400">If you'd invested and stayed in — from reported returns; past performance isn't a promise.</p>`
+    : `<p class="text-sm text-slate-400">Not enough return history to project growth yet.</p>`;
+  const growSection = `${h4("piggy-bank", "What ₹1 would've become")}${growBody}`;
+
+  // 1-Year return history: a real trend line once ≥2 snapshots exist, else a
+  // clean "latest 1Y" highlight — no lonely dot floating in an empty chart.
+  const hist = fundHistory(f.id);
+  const historySection = hist.length >= 2
+    ? `${h4("activity", "1-Year return history")}<div id="drill-spark" class="chart-box" style="height:210px;"></div>`
+    : `${h4("activity", "Latest 1-year return")}
+       <div class="flex flex-1 flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-50 to-fuchsia-50 px-5 py-8 text-center ring-1 ring-violet-100">
+         <p class="font-display text-4xl font-extrabold ${pctColor(f.returns?.y1)}">${fmtPct(f.returns?.y1)}</p>
+         <p class="mt-2 max-w-[16rem] text-xs text-slate-500">History builds monthly — a trend line appears once there's a second snapshot.</p>
+       </div>`;
 
   return `
     <div class="flex items-start justify-between gap-4">
@@ -157,22 +176,16 @@ function drillHtml(f) {
       ${rankBadge} ${starsBadge} ${compareButton(f.id, "full")}
     </div>
 
-    <div class="mt-5 grid gap-6 lg:grid-cols-2">
-      <div class="space-y-5">
-        <div class="grid grid-cols-3 gap-2">
-          ${stat("Benchmark", escapeHtml(f.benchmark || "—"))}
-          ${stat("AUM", fmtAum(f.aum_cr))}
-          ${stat("Inception", fmtDate(f.inception))}
-        </div>
-        ${growSection}
+    <div class="mt-5 space-y-4">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        ${stat("Benchmark", escapeHtml(f.benchmark || "—"))}
+        ${stat("AUM", fmtAum(f.aum_cr))}
+        ${stat("Inception", fmtDate(f.inception))}
       </div>
-      <div class="space-y-5">
-        <div>${h4("table", "Returns vs benchmark")}${renderReturnLadder(f)}</div>
-        <div>
-          ${h4("activity", "1-Year return history")}
-          <div id="drill-spark" class="chart-box" style="height:180px;"></div>
-          ${fundHistory(f.id).length < 2 ? `<p class="mt-1 text-center text-xs text-slate-400">History builds monthly — one snapshot so far.</p>` : ""}
-        </div>
+      <div>${h4("table", "Returns vs benchmark")}${renderReturnLadder(f)}</div>
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="rounded-2xl bg-white p-4 ring-1 ring-slate-200/70">${growSection}</div>
+        <div class="flex flex-col rounded-2xl bg-white p-4 ring-1 ring-slate-200/70">${historySection}</div>
       </div>
     </div>`;
 }

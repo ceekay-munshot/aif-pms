@@ -1,8 +1,8 @@
 // app.js — Fund Screener — MGA · boot + shell behaviour (step 11: full build).
 //
 // Loads the committed data via the shared data layer, renders the performance KPI
-// strip, and wires the four tabs (Screener / Leaderboard / Categories / Movers)
-// plus the header Export button. Every tab opens the shared fund-drill on click.
+// strip, and wires the five tabs (Screener / Leaderboard / Categories / Movers /
+// Compare) plus the header Export button. Every tab opens the shared fund-drill.
 
 import {
   countUp, fmtPct, pctColor, fmtMonth, emptyState, refreshIcons, resizeCharts,
@@ -13,12 +13,12 @@ import { renderLeaderboard } from "./leaderboard.js";
 import { renderCategories } from "./categories.js";
 import { renderMovers } from "./movers.js";
 import { exportData } from "./export.js";
-import { mountCompare } from "./compare.js";
+import { mountCompare, renderCompare } from "./compare.js";
 import { getInsight } from "./newspaper.js";
 import { mountSearch } from "./search.js";
 
 const $ = (id) => document.getElementById(id);
-const TABS = ["screener", "leaderboard", "categories", "movers"];
+const TABS = ["screener", "leaderboard", "categories", "movers", "compare"];
 
 // --- KPI strip (performance-forward) ----------------------------------------
 function kpiCard({ label, icon, valueHtml, subHtml }) {
@@ -69,6 +69,7 @@ const RENDERERS = {
   leaderboard: renderLeaderboard,
   categories: renderCategories,
   movers: renderMovers,
+  compare: renderCompare,
 };
 
 const _rendered = new Set();
@@ -116,7 +117,7 @@ async function boot() {
     btn.addEventListener("click", () => showTab(btn.dataset.tab))
   );
   showTab("screener");
-  mountCompare(); // floating compare tray + side-by-side modal
+  mountCompare(); // Compare tab wiring + floating "jump to Compare" pill
   mountSearch();  // header global fund search → drill
 
   // Header Export → current Screener view (if filtered) else the full set.

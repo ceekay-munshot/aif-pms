@@ -155,7 +155,7 @@
 
       <!-- Tab nav -->
       <nav
-        class="sticky top-4 z-30 mx-auto mt-8 flex w-full max-w-xl items-center gap-1 rounded-2xl bg-white/80 p-1.5 shadow-sm ring-1 ring-slate-200/70 backdrop-blur"
+        class="sticky top-4 z-30 mx-auto mt-8 flex w-full max-w-2xl items-center gap-1 rounded-2xl bg-white/80 p-1.5 shadow-sm ring-1 ring-slate-200/70 backdrop-blur"
         role="tablist"
         aria-label="Views"
       >
@@ -171,6 +171,9 @@
         <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="movers" aria-selected="false" aria-controls="tab-movers">
           <i data-lucide="trending-up" class="h-4 w-4"></i><span class="hidden sm:inline">Movers</span>
         </button>
+        <button class="tab-btn flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold" role="tab" data-tab="compare" aria-selected="false" aria-controls="tab-compare">
+          <i data-lucide="scale" class="h-4 w-4"></i><span class="hidden sm:inline">Compare</span>
+        </button>
       </nav>
 
       <!-- Tab panels -->
@@ -179,6 +182,7 @@
         <section id="tab-leaderboard" role="tabpanel" class="fade-in" hidden></section>
         <section id="tab-categories" role="tabpanel" class="fade-in" hidden></section>
         <section id="tab-movers" role="tabpanel" class="fade-in" hidden></section>
+        <section id="tab-compare" role="tabpanel" class="fade-in" hidden></section>
       </div>
 
       <!-- Footer -->
@@ -208,14 +212,8 @@
       </div>
     </div>
 
-    <!-- Compare tray (floating) + side-by-side modal -->
+    <!-- Compare: floating pill that jumps to the Compare tab (the tab does the rest) -->
     <div id="cmp-tray" class="fixed bottom-5 left-1/2 z-40 hidden -translate-x-1/2 px-3"></div>
-    <div id="cmp-overlay" class="fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm"></div>
-    <div id="cmp-panel" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-      <div id="cmp-card" class="card w-full max-w-3xl">
-        <div id="cmp-content" class="scroll-area max-h-[85vh] overflow-y-auto p-6"></div>
-      </div>
-    </div>
 
     <script type="module" src="js/app.js"></script>
   </body>

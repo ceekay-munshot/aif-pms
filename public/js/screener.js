@@ -8,7 +8,7 @@
 // getScreenerView() feeds Export; focusCategory() is the Categories deep-link.
 
 import {
-  escapeHtml, initials, managerColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum,
+  escapeHtml, initials, managerColor, categoryColor, categoryPill, categoryLabel, fmtPct, pctColor, fmtAum,
   refreshIcons, periodLong, periodShort,
 } from "./ui.js";
 import * as data from "./data.js";
@@ -120,17 +120,22 @@ function ladderCells(f) {
     return `<td class="scr-num px-2 py-2.5 text-right font-mono text-sm ${pctColor(v)} ${active}">${fmtPct(v)}</td>`;
   }).join("");
 }
+// Compact category chip (small font + small box + colour dot) for the table.
+function catChip(cat) {
+  return `<span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-50 px-2 py-0.5 text-[11px] font-medium text-slate-500 ring-1 ring-slate-200/70">
+    <span class="h-1.5 w-1.5 shrink-0 rounded-full" style="background:${categoryColor(cat)}"></span>${escapeHtml(categoryLabel(cat))}</span>`;
+}
 function row(f, rankNum, tintRank) {
   const tint = tintRank ? `style="background:${TINT[tintRank]}"` : "";
   const medal = tintRank
     ? `<span class="inline-flex h-4 w-4 items-center justify-center rounded-full text-white" style="background:${MEDAL[tintRank]}"><i data-lucide="medal" class="h-3 w-3"></i></span>`
     : `<span class="font-mono text-xs text-slate-400">${rankNum}</span>`;
   return `<tr class="scr-row cursor-pointer border-t border-slate-100 bg-white hover:bg-violet-50" data-id="${escapeHtml(f.id)}" ${tint}>
-    <td class="px-2 py-2.5 text-right">${medal}</td>
-    <td class="scr-sticky bg-inherit px-3 py-2.5">${fundCell(f)}</td>
-    <td class="px-3 py-2.5 text-right font-mono text-xs text-slate-500 whitespace-nowrap">${fmtAum(f.aum_cr)}</td>
+    <td class="scr-froz scr-c1 bg-inherit px-2 py-2.5 text-right">${medal}</td>
+    <td class="scr-froz scr-c2 bg-inherit px-3 py-2.5">${fundCell(f)}</td>
+    <td class="scr-froz scr-c3 bg-inherit px-3 py-2.5 text-right font-mono text-xs text-slate-500 whitespace-nowrap">${fmtAum(f.aum_cr)}</td>
     ${ladderCells(f)}
-    <td class="hidden px-3 py-2.5 lg:table-cell">${categoryPill(f.category)}</td>
+    <td class="hidden px-3 py-2.5 lg:table-cell">${catChip(f.category)}</td>
   </tr>`;
 }
 function tableShell(bodyHtml) {
@@ -138,9 +143,9 @@ function tableShell(bodyHtml) {
   return `<div class="scr-scroll scroll-area rounded-2xl ring-1 ring-slate-200/70">
     <table class="w-full min-w-[880px]">
       <thead><tr>
-        <th class="scr-hd px-2 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">#</th>
-        <th class="scr-hd scr-sticky bg-white px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Fund</th>
-        <th class="scr-hd px-3 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">AUM</th>
+        <th class="scr-hd scr-froz scr-c1 px-2 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">#</th>
+        <th class="scr-hd scr-froz scr-c2 px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-slate-400">Fund</th>
+        <th class="scr-hd scr-froz scr-c3 px-3 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-slate-400">AUM</th>
         ${head()}${catHead}
       </tr></thead>
       <tbody>${bodyHtml}</tbody>

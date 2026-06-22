@@ -69,12 +69,16 @@
       .chart-box { width:100%; height:340px; }
       .chart-tall { width:100%; height:560px; }
       @media (max-width:640px){ .chart-tall { height:420px; } }
-      /* Screener table: freeze the Fund column (left) AND the header row (top). */
-      .scr-sticky { position: sticky; left: 0; z-index: 2; }
+      /* Screener table: freeze the header row (top) + the #·Fund·AUM block (left). */
       .scr-num { white-space: nowrap; }
       .scr-scroll { max-height: 68vh; overflow: auto; }
       .scr-scroll thead th { position: sticky; top: 0; z-index: 4; background: #fff; box-shadow: 0 1px 0 #e2e8f0; }
-      .scr-scroll thead th.scr-sticky { left: 0; z-index: 5; }
+      .scr-froz { position: sticky; z-index: 2; }
+      .scr-scroll thead th.scr-froz { z-index: 5; }
+      .scr-c1 { left: 0; width: 40px; min-width: 40px; }
+      .scr-c2 { left: 40px; width: 250px; min-width: 250px; }
+      .scr-c3 { left: 290px; width: 90px; min-width: 90px; box-shadow: 1px 0 0 #e2e8f0; }
+      @media (max-width: 640px) { .scr-c2 { width: 166px; min-width: 166px; } .scr-c3 { left: 206px; } }
       /* Filter inputs / selects */
       .scr-input { border: 0; background: #f1f5f9; border-radius: .75rem; padding: .5rem .75rem; font-size: .875rem; font-weight: 500; color: #334155; outline: none; box-shadow: inset 0 0 0 1px transparent; transition: background .15s, box-shadow .15s; }
       .scr-input:focus { background: #fff; box-shadow: inset 0 0 0 1px #c4b5fd; }
